@@ -1,0 +1,96 @@
+{
+  "meta": { "name": "English", "code": "en" },
+  "keys": {
+    "nav.translate": "Translate",
+
+    "tabs.basic": "Basic Info",
+    "tabs.availability": "Availability",
+    "tabs.skills": "Skills",
+    "tabs.experience": "Experience",
+    "tabs.education": "Education",
+    "tabs.docs": "Documents",
+
+    "btn.save": "Save Profile",
+    "btn.cancel": "Cancel",
+    "btn.proceed": "Proceed",
+    "btn.skip": "Skip",
+    "btn.weekdays": "Weekdays Only",
+    "btn.alldays": "All Days",
+    "btn.clear": "Clear",
+
+    "guide.beacon": "Guided steps",
+    "guide.complete": "Guide complete",
+    "guide.restart": "Restart",
+
+    "page.edit_title": "Edit Professional Profile",
+    "page.edit_subtitle": "Build your professional presence",
+
+    "section.professional_info": "Professional Information",
+    "section.work_schedule": "Work Schedule",
+
+    "field.first_name": "First Name",
+    "field.last_name": "Last Name",
+    "field.province": "Province",
+    "field.city": "City / Municipality",
+    "field.brgy": "Barangay",
+    "field.years_exp": "Years of Experience",
+    "field.phone": "Phone Number",
+
+    "edit.headline": "Professional Headline",
+    "edit.summary": "Professional Summary",
+    "edit.photo": "Upload new photo",
+    "edit.avail_days": "Available Days",
+
+    "hint.headline": "A brief, compelling summary of your expertise (max 160 characters)",
+    "hint.bio": "Mention tools, standards, and notable credentials",
+    "hint.phone": "Shown to clients after you accept a job",
+
+    "ph.first_name": "Enter your first name",
+    "ph.last_name": "Enter your last name",
+    "ph.headline": "e.g. TESDA NC II Electrician • Industrial wiring specialist • 6+ years",
+    "ph.bio": "Describe your experience, specializations, certifications, and standout projects...",
+    "ph.select_province": "- Select Province -",
+    "ph.select_city": "- Select City -",
+    "ph.select_brgy": "- Select Barangay -",
+
+    "day.Mon": "Mon",
+    "day.Tue": "Tue",
+    "day.Wed": "Wed",
+    "day.Thu": "Thu",
+    "day.Fri": "Fri",
+    "day.Sat": "Sat",
+    "day.Sun": "Sun",
+
+    "footer.secure": "Your data is securely encrypted",
+
+    "toast.upload_ok": "Photo uploaded",
+    "toast.upload_fail": "Upload failed. Please try again.",
+    "toast.delete_ok": "Document deleted",
+    "toast.delete_fail": "Delete failed"
+  },
+  "phrases": {
+    "Dashboard": "Dashboard",
+    "Profile": "Profile",
+    "Projects": "Projects",
+    "Logout": "Logout",
+    "Worker Dashboard": "Worker Dashboard",
+    "Edit Profile": "Edit Profile",
+    "Times Hired": "Times Hired",
+    "Last 12 months": "Last 12 months",
+    "Average Rating": "Average Rating",
+    "Based on latest jobs": "Based on latest jobs",
+    "Profile Completion": "Profile Completion",
+    "All set — nice work! 🎉": "All set — nice work! 🎉",
+    "About": "About",
+    "Skills": "Skills",
+    "Availability": "Availability",
+    "Education & Links": "Education & Links",
+    "Education:": "Education:",
+    "TESDA:": "TESDA:",
+    "Documents & Certificates": "Documents & Certificates",
+    "View": "View",
+    "Experience": "Experience",
+    "Latest Reviews": "Latest Reviews",
+    "No reviews yet.": "No reviews yet."
+  }
+}

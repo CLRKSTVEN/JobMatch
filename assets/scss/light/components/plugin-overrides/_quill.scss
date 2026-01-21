@@ -1,0 +1,98 @@
+/* Quill Editor */
+
+.quill-container {
+  height: 300px;
+}
+
+.ql-toolbar,
+.quill-container {
+  &.ql-snow {
+    border-color: $border-color;
+  }
+}
+
+.dark-theme {
+  /* Quill Editor */
+
+  .quill-container {
+    height: 300px;
+  }
+
+  .ql-toolbar,
+  .quill-container {
+    &.ql-snow {
+      border-color: $border-color;
+    }
+  }
+
+  .ql-editor.ql-blank::before {
+    color: #ccc !important; /// override default text color for quill editor
+  }
+
+
+  .ql-toolbar button svg path,
+  .ql-toolbar button svg line,
+  .ql-toolbar button svg rect,
+  .ql-toolbar button svg polygon {
+    stroke: white !important;
+  }
+
+  .ql-toolbar {
+    .ql-formats {
+      .ql-header {
+        .ql-picker-label {
+          color: white !important;
+
+          svg {
+            .ql-stroke {
+              stroke: white !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .ql-toolbar button svg path.ql-fill,
+  .ql-toolbar .ql-picker-label svg path.ql-fill {
+    fill: white !important;
+  }
+
+  .ql-toolbar button svg .ql-stroke {
+    stroke: white !important;
+  }
+
+  .ql-toolbar button.ql-active svg .ql-stroke,
+  .ql-toolbar button.ql-active svg path,
+  .ql-toolbar button.ql-active svg line,
+  .ql-toolbar button.ql-active svg rect,
+  .ql-toolbar button.ql-active svg polygon {
+    stroke: #2196F3 !important;
+  }
+
+  .ql-toolbar button.ql-active svg path.ql-fill {
+    fill: #2196F3 !important;
+  }
+
+  .ql-toolbar .ql-picker-label.ql-active {
+    color: #2196F3 !important;
+  }
+
+  .ql-toolbar .ql-picker-label.ql-active svg .ql-stroke {
+    stroke: #2196F3 !important;
+  }
+
+
+  .editor-toolbar a {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none !important;
+    color: #bbbbbb !important;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,19 @@
+/* CodeMirror */
+
+.CodeMirror {
+  font-family: inherit;
+  font-size: $default-font-size;
+  height: auto;
+  text-align: left;
+  min-height: auto;
+  background: transparent;
+  color: $white;
+}
+
+.CodeMirror-scroll {
+  min-height: auto;
+}
+
+.CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {
+  background: transparent !important;
+}

@@ -1,0 +1,271 @@
+/* Forms */
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-group-append,
+.input-group-prepend {
+  color: $input-placeholder-color;
+  width: auto;
+  border: none;
+
+  button {
+    height: 100%;
+  }
+
+  .input-group-text {
+    border-radius: 0;
+    border-color: $border-color;
+    padding: $input-padding-y 0.75rem;
+    color: $input-placeholder-color;
+    height: 100%;
+  }
+}
+
+.form-control {
+  border-top-left-radius: $input-border-radius;
+  border-bottom-left-radius: $input-border-radius;
+  border: 1px solid $border-color;
+  font-family: $type1;
+  font-weight: 400;
+  // font-size: $input-font-size;
+  height: auto;
+  padding: 9px 11px;
+  border-radius: 0px;
+
+  &:focus {
+    background: inherit;
+  }
+}
+
+.form-control-sm {
+  font-size: 0.775rem !important;
+}
+
+.form-control-lg {
+  padding: 0.94rem 0.9rem;
+}
+
+select {
+  &.form-control {
+    padding: 0.4375rem 0.75rem;
+    border: 0;
+    outline: 1px solid $border-color;
+    color: $input-placeholder-color;
+
+    &:focus {
+      outline: 1px solid $border-color;
+    }
+
+    @each $color, $value in $theme-colors {
+      &.border-#{$color} {
+        outline: 1px solid $value;
+
+        &:focus {
+          outline: 1px solid $value;
+        }
+      }
+    }
+  }
+
+  &.form-select {
+    padding: .4375rem .75rem;
+    border: 0;
+    outline: 1px solid $border-color;
+    color: $dark;
+
+    &:focus {
+      outline: 1px solid $border-color;
+    }
+
+    @each $color, $value in $theme-colors {
+      &.border-#{$color} {
+        outline: 1px solid $value;
+
+        &:focus {
+          outline: 1px solid $value;
+        }
+      }
+    }
+  }
+}
+
+.form-group {
+  label {
+    font-size: $default-font-size;
+    line-height: 1;
+    vertical-align: top;
+    margin-bottom: 0.5rem;
+  }
+
+  &.has-danger {
+    .form-control {
+      border-color: map-get($theme-colors, 'danger');
+    }
+  }
+
+  .file-upload-default {
+    visibility: hidden;
+    position: absolute;
+  }
+
+  .file-upload-info {
+    background: transparent;
+  }
+}
+
+.select2-selection-multiple {
+  background: red;
+}
+
+.dark-theme {
+
+  .input-group-append,
+  .input-group-prepend {
+    color: $input-placeholder-color-dark;
+
+    .input-group-text {
+      border-color: $border-color-dark;
+      color: $input-placeholder-color-dark;
+      background: $input-group-addon-bg-dark;
+    }
+  }
+
+  .form-control {
+    border: 1px solid $gray-light;
+    background: transparent;
+    color: $light;
+  }
+
+  .form-control-sm {
+    font-size: 0.775rem !important;
+  }
+
+  .form-control-lg {
+    padding: 0.94rem 0.9rem;
+  }
+
+  select {
+    &.form-control {
+      outline: 1px solid $border-color-dark;
+      color: $input-placeholder-color-dark;
+
+      &:focus {
+        outline: 1px solid $border-color-dark;
+      }
+    }
+
+    option {
+      background-color: $dark;
+    }
+
+    &.form-select {
+      // padding: .875rem .75rem;
+      border: 0;
+      outline: 1px solid $border-color;
+      color: $light;
+      background-color: transparent;
+      // appearance: none;
+      // background: $input-bg url("../../images/arrow-down-dark.svg");
+      // background-repeat: no-repeat;
+      // background-position: 99% center;
+
+      &:focus {
+        outline: 1px solid $border-color;
+      }
+
+
+      @each $color, $value in $theme-colors {
+        &.border-#{$color} {
+          outline: 1px solid $value;
+
+          &:focus {
+            outline: 1px solid $value;
+          }
+        }
+      }
+    }
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .form-check-#{$color} {
+    &.form-check {
+      label {
+
+        input[type="checkbox"],
+        input[type="radio"] {
+          +.input-helper {
+            &:before {
+              border-color: map-get($theme-colors, $color);
+            }
+          }
+
+          &:checked {
+            +.input-helper {
+              &:before {
+                background: $value;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.dark-theme {
+  select {
+    option {
+      background: $dark;
+    }
+
+    &.form-control {
+      padding: .4375rem .75rem;
+      border: 0;
+      outline: 0;
+      color: $light;
+
+      &:focus {
+        outline: 1px solid $border-color;
+      }
+
+      @each $color, $value in $theme-colors {
+        &.border-#{$color} {
+          outline: 1px solid $value;
+
+          &:focus {
+            outline: 1px solid $value;
+          }
+        }
+      }
+    }
+
+    &.form-select {
+      // padding: .875rem .75rem;
+      border: 0;
+      outline: 1px solid $gray-light;
+      color: $light;
+      // background-color: transparent;
+      appearance: none;
+      background: transparent url("../../images/arrow-down-dark.svg");
+      background-repeat: no-repeat;
+      background-position: 99% center;
+
+      &:focus {
+        outline: 1px solid $border-color;
+      }
+
+      @each $color, $value in $theme-colors {
+        &.border-#{$color} {
+          outline: 1px solid $value;
+
+          &:focus {
+            outline: 1px solid $value;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "meta": { "name": "Bisaya (Cebuano)", "code": "ceb" },
+  "keys": {
+    "nav.translate": "Hubad",
+
+    "tabs.basic": "Basik nga Info",
+    "tabs.availability": "Oras sa Trabaho",
+    "tabs.skills": "Kahanas",
+    "tabs.experience": "Kasinatian",
+    "tabs.education": "Edukasyon",
+    "tabs.docs": "Mga Dokumento",
+
+    "btn.save": "I-save ang Profile",
+    "btn.cancel": "Cancel",
+    "btn.proceed": "Padayon",
+    "btn.skip": "Laktawan",
+    "btn.weekdays": "Mga adlaw sa semana ra",
+    "btn.alldays": "Tanan nga mga adlaw",
+    "btn.clear": "Hawaa",
+
+    "guide.beacon": "Gi-giya nga lakang",
+    "guide.complete": "Human na ang giya",
+    "guide.restart": "Sugdan pag-usab",
+
+    "page.edit_title": "Usba ang Propesyonal nga Profile",
+    "page.edit_subtitle": "Paghimo sa imong propesyonal nga presensya",
+
+    "section.professional_info": "Propesyonal nga Impormasyon",
+    "section.work_schedule": "Oras sa Trabaho",
+
+    "field.first_name": "Unang Ngalan",
+    "field.last_name": "Apelyido",
+    "field.province": "Probinsya",
+    "field.city": "Dakbayan / Munisipyo",
+    "field.brgy": "Barangay",
+    "field.years_exp": "Tuig sa Kasinatian",
+    "field.phone": "Numero sa Telepono",
+
+    "edit.headline": "Propesyonal nga Headline",
+    "edit.summary": "Propesyonal nga Summary",
+    "edit.photo": "I-upload ang bag-ong hulagway",
+    "edit.avail_days": "Adlaw nga available",
+
+    "hint.headline": "Mubo ug makadani nga buod sa imong kahanas (max 160 ka karakter)",
+    "hint.bio": "Ihisgot ang mga himan, pamantayan, ug mga kredensyal",
+    "hint.phone": "Ipakita sa kliyente human nimo dawaton ang trabaho",
+
+    "ph.first_name": "Isulod ang imong unang ngalan",
+    "ph.last_name": "Isulod ang imong apelyido",
+    "ph.headline": "pananglitan: TESDA NC II Electrician • Industrial wiring specialist • 6+ ka tuig",
+    "ph.bio": "Ihulagway ang imong kasinatian, espesyalisasyon, sertipikasyon, ug labing maayong mga proyekto...",
+    "ph.select_province": "- Pilia ang Probinsya -",
+    "ph.select_city": "- Pilia ang Dakbayan -",
+    "ph.select_brgy": "- Pilia ang Barangay -",
+
+    "day.Mon": "Lunes",
+    "day.Tue": "Martes",
+    "day.Wed": "Miyerkules",
+    "day.Thu": "Huwebes",
+    "day.Fri": "Biyernes",
+    "day.Sat": "Sabado",
+    "day.Sun": "Domingo",
+
+    "footer.secure": "Luwas ug naka-encrypt ang imong datos",
+
+    "toast.upload_ok": "Na-upload ang hulagway",
+    "toast.upload_fail": "Napakyas ang upload. Sulayi usab.",
+    "toast.delete_ok": "Natangtang ang dokumento",
+    "toast.delete_fail": "Napakyas ang pagtangtang"
+  },
+  "phrases": {
+    "Dashboard": "Dashboard",
+    "Profile": "Profile",
+    "Projects": "Mga Proyekto",
+    "Logout": "Gawas",
+    "Worker Dashboard": "Dashboard sa Trabahante",
+    "Edit Profile": "Usba ang Profile",
+    "Times Hired": "Pila ka beses nga na-hire",
+    "Last 12 months": "Miaging 12 ka bulan",
+    "Average Rating": "Abereyds nga Rating",
+    "Based on latest jobs": "Pinauyon sa pinakabag-ong mga trabaho",
+    "Profile Completion": "Kumpleto sa Profile",
+    "All set — nice work! 🎉": "Human na — maayo kaayo! 🎉",
+    "About": "Mahitungod",
+    "Skills": "Kahanas",
+    "Availability": "Oras sa Trabaho",
+    "Education & Links": "Edukasyon & mga Link",
+    "Education:": "Edukasyon:",
+    "TESDA:": "TESDA:",
+    "Documents & Certificates": "Mga Dokumento & Sertipiko",
+    "View": "Tan-awa",
+    "Experience": "Kasinatian",
+    "Latest Reviews": "Pinakabag-ong mga Review",
+    "No reviews yet.": "Walay review pa."
+  }
+}

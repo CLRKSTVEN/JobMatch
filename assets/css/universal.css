@@ -1,0 +1,333 @@
+
+/*!
+ * universal.css — One-file responsive stylesheet for TrabaWHO
+ * Scope: Lightweight element defaults + namespaced `.tw-*` utilities to co-exist with Bootstrap/other vendor CSS.
+ * Author: ChatGPT (GPT-5 Thinking)
+ * Date: 2025-10-04
+ */
+
+/* ------------------------------
+   0) Root tokens & base scaling
+---------------------------------*/
+:root{
+  /* Brand palette (adjust as needed) */
+  --tw-brand: #1f6feb;
+  --tw-brand-600:#1a5dcc;
+  --tw-brand-700:#164ea8;
+  --tw-text:#111827;       /* gray-900 */
+  --tw-text-2:#374151;     /* gray-700 */
+  --tw-muted:#6b7280;      /* gray-500 */
+  --tw-bg:#ffffff;         /* white */
+  --tw-bg-soft:#f8fafc;    /* slate-50 */
+  --tw-card:#ffffff;
+  --tw-border:#e5e7eb;     /* gray-200 */
+  --tw-success:#16a34a;
+  --tw-danger:#dc2626;
+  --tw-warning:#d97706;
+  --tw-info:#0ea5e9;
+  --tw-radius: 1rem;       /* 16px */
+  --tw-shadow: 0 10px 25px rgba(0,0,0,.06);
+  --tw-shadow-soft: 0 4px 14px rgba(0,0,0,.08);
+  /* Fluid type scale */
+  --tw-fs-sm: clamp(12px, .85vw, 14px);
+  --tw-fs-md: clamp(14px, 1vw, 16px);
+  --tw-fs-lg: clamp(16px, 1.15vw, 18px);
+  --tw-fs-xl: clamp(18px, 1.5vw, 22px);
+  --tw-fs-2xl: clamp(22px, 2.2vw, 28px);
+  --tw-line: 1.55;
+}
+
+/* Respect dark mode if your app toggles body.dark */
+@media (prefers-color-scheme: dark){
+  :root{
+    --tw-text:#e5e7eb;
+    --tw-text-2:#cbd5e1;
+    --tw-muted:#94a3b8;
+    --tw-bg:#0b1220;
+    --tw-bg-soft:#0f172a;
+    --tw-card:#0b1220;
+    --tw-border:#1f2937;
+    --tw-shadow: 0 10px 25px rgba(0,0,0,.35);
+    --tw-shadow-soft: 0 4px 14px rgba(0,0,0,.25);
+  }
+}
+
+/* ------------------------------
+   1) Modern baseline (non-destructive)
+---------------------------------*/
+html{box-sizing:border-box; font-size: 100%;}
+*,*::before,*::after{box-sizing:inherit}
+body{
+  margin:0;
+  color:var(--tw-text);
+  background:var(--tw-bg);
+  font-size:var(--tw-fs-md);
+  line-height:var(--tw-line);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+img,svg,video,canvas,iframe{max-width:100%; height:auto; display:block}
+img{image-rendering: -webkit-optimize-contrast;}
+table{border-collapse:collapse; width:100%;}
+th,td{border-top:1px solid var(--tw-border); padding:.75rem; vertical-align:top;}
+th{font-weight:600; text-align:left;}
+a{color:var(--tw-brand); text-decoration:none}
+a:hover{text-decoration:underline}
+button,input,select,textarea{font:inherit; color:inherit}
+:focus-visible{outline:2px solid var(--tw-brand); outline-offset:2px}
+/* Motion safety */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+}
+
+/* ------------------------------
+   2) Containers & responsive layout
+---------------------------------*/
+.tw-container{
+  width:100%;
+  margin-inline:auto;
+  padding-inline:clamp(12px, 2vw, 24px);
+  max-width:1400px; /* cap on very large screens */
+}
+/* Narrow container option */
+.tw-container--narrow{max-width:1000px}
+
+/* Auto grid: responsive cards without media queries */
+.tw-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--tw-col-min, 260px)), 1fr));
+  gap:clamp(12px,1.6vw,24px);
+}
+/* Simple columns for fixed splits */
+.tw-cols-2{display:grid; grid-template-columns: 1fr 1fr; gap:clamp(12px,1.6vw,24px);}
+.tw-cols-3{display:grid; grid-template-columns: repeat(3, 1fr); gap:clamp(12px,1.6vw,24px);}
+@media (max-width: 992px){
+  .tw-cols-2,.tw-cols-3{grid-template-columns: 1fr;}
+}
+
+/* Flex helpers */
+.tw-flex{display:flex; align-items:center}
+.tw-flex-col{display:flex; flex-direction:column}
+.tw-wrap{flex-wrap:wrap}
+.tw-center{justify-content:center; align-items:center}
+.tw-between{justify-content:space-between}
+.tw-gap{gap:clamp(8px,1.2vw,16px)}
+
+/* Sticky responsive header/footer helpers */
+.tw-sticky-top{position:sticky; top:0; z-index: 1020; background:var(--tw-bg);}
+
+/* Sidebar pattern (collapsible) */
+.tw-layout{
+  display:grid;
+  grid-template-columns: 280px 1fr;
+  min-height:100vh;
+}
+.tw-sidebar{
+  background:var(--tw-bg-soft);
+  border-right:1px solid var(--tw-border);
+  padding:16px;
+  position:sticky; top:0; height:100dvh; overflow:auto;
+}
+.tw-main{padding:clamp(12px, 2vw, 28px)}
+@media (max-width: 992px){
+  .tw-layout{grid-template-columns: 1fr;}
+  .tw-sidebar{position:fixed; inset:0 30% 0 0; transform:translateX(-100%); transition:transform .28s ease; max-width: 320px;}
+  .tw-sidebar.is-open{transform:none}
+  .tw-main{padding:clamp(12px, 4vw, 28px)}
+}
+
+/* ------------------------------
+   3) Cards, panels, and sections
+---------------------------------*/
+.tw-card{
+  background:var(--tw-card);
+  border:1px solid var(--tw-border);
+  border-radius: var(--tw-radius);
+  box-shadow: var(--tw-shadow-soft);
+  overflow:hidden;
+}
+.tw-card__body{padding:clamp(14px, 2.2vw, 24px)}
+.tw-card__header,.tw-card__footer{
+  padding:clamp(12px, 1.8vw, 20px);
+  background: var(--tw-bg-soft);
+  border-bottom:1px solid var(--tw-border);
+}
+.tw-card__footer{border-top:1px solid var(--tw-border); border-bottom:none}
+
+/* ------------------------------
+   4) Typographic utilities
+---------------------------------*/
+.tw-h1{font-size:var(--tw-fs-2xl); font-weight:700; line-height:1.2; margin:0 0 .75rem}
+.tw-h2{font-size:var(--tw-fs-xl); font-weight:700; line-height:1.25; margin:0 0 .75rem}
+.tw-h3{font-size:var(--tw-fs-lg); font-weight:600; line-height:1.3; margin:0 0 .5rem}
+.tw-muted{color:var(--tw-muted)}
+.tw-lead{font-size:var(--tw-fs-lg); color:var(--tw-text-2)}
+
+/* ------------------------------
+   5) Buttons
+---------------------------------*/
+.tw-btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  padding:.6rem .95rem;
+  border-radius: calc(var(--tw-radius) - .5rem);
+  border:1px solid var(--tw-border);
+  background:var(--tw-bg);
+  color:var(--tw-text);
+  text-decoration:none; cursor:pointer;
+  transition: transform .08s ease, background .2s ease, border-color .2s ease;
+}
+.tw-btn:hover{transform: translateY(-1px)}
+.tw-btn:active{transform: translateY(0)}
+.tw-btn--primary{background:var(--tw-brand); border-color:var(--tw-brand); color:#fff}
+.tw-btn--success{background:var(--tw-success); border-color:var(--tw-success); color:#fff}
+.tw-btn--danger{background:var(--tw-danger); border-color:var(--tw-danger); color:#fff}
+.tw-btn--soft{background:var(--tw-bg-soft)}
+.tw-btn--sm{padding:.45rem .7rem; font-size:var(--tw-fs-sm)}
+.tw-btn--lg{padding:.8rem 1.2rem; font-size:var(--tw-fs-lg)}
+
+/* ------------------------------
+   6) Forms
+---------------------------------*/
+.tw-field{display:flex; flex-direction:column; gap:.35rem; margin-bottom: .9rem;}
+.tw-label{font-weight:600; font-size:.95em}
+.tw-input, .tw-select, .tw-textarea{
+  width:100%; padding:.65rem .8rem; border-radius: .75rem;
+  border:1px solid var(--tw-border); background:var(--tw-bg); color:var(--tw-text);
+}
+.tw-input:focus, .tw-select:focus, .tw-textarea:focus{outline:2px solid var(--tw-brand); outline-offset:2px}
+.tw-input--sm{padding:.45rem .6rem; border-radius:.6rem}
+.tw-input--invalid{border-color: var(--tw-danger)}
+
+/* Inline form grid */
+.tw-form-grid{display:grid; gap:clamp(10px,1.6vw,18px); grid-template-columns: repeat(12, 1fr)}
+.tw-col-12{grid-column:span 12}
+.tw-col-6{grid-column:span 6}
+.tw-col-4{grid-column:span 4}
+.tw-col-3{grid-column:span 3}
+@media (max-width: 992px){
+  .tw-col-3,.tw-col-4,.tw-col-6{grid-column:span 12}
+}
+
+/* ------------------------------
+   7) Tables (responsive wrapper)
+---------------------------------*/
+.tw-table{width:100%; border:1px solid var(--tw-border); border-radius: .75rem; overflow:hidden}
+.tw-table table{width:100%}
+.tw-table thead th{background:var(--tw-bg-soft); position:sticky; top:0; z-index:1}
+.tw-table .tw-table__inner{overflow:auto; max-width:100%;}
+/* Stack table cells on very small screens */
+@media (max-width: 576px){
+  .tw-stack-table table thead{display:none}
+  .tw-stack-table table, .tw-stack-table tbody, .tw-stack-table tr, .tw-stack-table td{display:block; width:100%}
+  .tw-stack-table tr{margin-bottom:.75rem; border:1px solid var(--tw-border); border-radius:.5rem; overflow:hidden}
+  .tw-stack-table td{border:none; padding:.6rem .75rem; border-top:1px solid var(--tw-border)}
+  .tw-stack-table td::before{content:attr(data-label); display:block; font-weight:600; color:var(--tw-muted); margin-bottom:.2rem}
+}
+
+/* ------------------------------
+   8) Media helpers
+---------------------------------*/
+.tw-img-cover{width:100%; height:100%; object-fit:cover; object-position:center}
+.tw-ratio{position:relative; width:100%;}
+.tw-ratio::before{content:""; display:block; padding-bottom: var(--tw-ratio, 56.25%);} /* 16:9 */
+.tw-ratio > *{position:absolute; inset:0}
+
+/* ------------------------------
+   9) Utilities (spacing, display, colors)
+---------------------------------*/
+.tw-hidden{display:none !important}
+.tw-block{display:block}
+.tw-inline{display:inline}
+.tw-inline-block{display:inline-block}
+
+.tw-w-full{width:100%}
+.tw-max-w-sm{max-width: 480px}
+.tw-max-w-md{max-width: 720px}
+.tw-max-w-lg{max-width: 1024px}
+.tw-max-w-xl{max-width: 1280px}
+
+.tw-p-0{padding:0}.tw-p-1{padding:.25rem}.tw-p-2{padding:.5rem}.tw-p-3{padding:.75rem}.tw-p-4{padding:1rem}
+.tw-pt-2{padding-top:.5rem}.tw-pb-2{padding-bottom:.5rem}.tw-pl-2{padding-left:.5rem}.tw-pr-2{padding-right:.5rem}
+.tw-m-0{margin:0}.tw-mt-1{margin-top:.25rem}.tw-mt-2{margin-top:.5rem}.tw-mt-3{margin-top:.75rem}.tw-mt-4{margin-top:1rem}
+.tw-my-2{margin-block:.5rem}.tw-my-4{margin-block:1rem}
+.tw-rounded{border-radius:.75rem}
+.tw-border{border:1px solid var(--tw-border)}
+
+.tw-bg-soft{background:var(--tw-bg-soft)}
+.tw-text-muted{color:var(--tw-muted)}
+.tw-text-center{text-align:center}
+.tw-shadow{box-shadow: var(--tw-shadow)}
+
+/* Visibility by breakpoint */
+@media (max-width: 576px){ .tw-hide-sm{display:none !important} }
+@media (min-width: 768px){ .tw-show-md{display:block !important} }
+@media (min-width: 992px){ .tw-show-lg{display:block !important} }
+
+/* ------------------------------
+   10) Alerts, badges, pills
+---------------------------------*/
+.tw-alert{
+  border-radius:.75rem; padding:.75rem 1rem; border:1px solid var(--tw-border);
+  background:var(--tw-bg-soft);
+}
+.tw-alert--success{border-color:color-mix(in oklab, var(--tw-success) 45%, var(--tw-border)); background:color-mix(in oklab, var(--tw-success) 12%, var(--tw-bg));}
+.tw-alert--danger{border-color:color-mix(in oklab, var(--tw-danger) 45%, var(--tw-border)); background:color-mix(in oklab, var(--tw-danger) 12%, var(--tw-bg));}
+.tw-alert--info{border-color:color-mix(in oklab, var(--tw-info) 45%, var(--tw-border)); background:color-mix(in oklab, var(--tw-info) 12%, var(--tw-bg));}
+
+.tw-badge{
+  display:inline-block; padding:.25rem .5rem; border-radius: 999px;
+  background: var(--tw-bg-soft); border:1px solid var(--tw-border); font-size:.85em;
+}
+.tw-badge--success{background:color-mix(in oklab, var(--tw-success) 12%, var(--tw-bg)); border-color: color-mix(in oklab, var(--tw-success) 35%, var(--tw-border)); color:var(--tw-success)}
+.tw-badge--danger{background:color-mix(in oklab, var(--tw-danger) 12%, var(--tw-bg)); border-color: color-mix(in oklab, var(--tw-danger) 35%, var(--tw-border)); color:var(--tw-danger)}
+.tw-badge--warning{background:color-mix(in oklab, var(--tw-warning) 12%, var(--tw-bg)); border-color: color-mix(in oklab, var(--tw-warning) 35%, var(--tw-border)); color:var(--tw-warning)}
+.tw-badge--info{background:color-mix(in oklab, var(--tw-info) 12%, var(--tw-bg)); border-color: color-mix(in oklab, var(--tw-info) 35%, var(--tw-border)); color:var(--tw-info)}
+
+/* ------------------------------
+   11) Navbar patterns
+---------------------------------*/
+.tw-navbar{
+  display:flex; align-items:center; gap:1rem;
+  padding:.6rem 1rem; background:var(--tw-card); border-bottom:1px solid var(--tw-border);
+  position:sticky; top:0; z-index:1000;
+}
+.tw-nav-spacer{flex:1}
+.tw-nav-brand{font-weight:700; font-size:1.05em}
+.tw-nav-toggle{display:none}
+@media (max-width: 992px){
+  .tw-nav-toggle{display:inline-flex}
+  .tw-nav-menu{position:fixed; inset:56px 0 0 0; background:var(--tw-card); border-top:1px solid var(--tw-border); transform:translateY(-100%); transition:transform .2s ease; padding:1rem; overflow:auto}
+  .tw-nav-menu.is-open{transform:none}
+}
+
+/* ------------------------------
+   12) Modal shell (responsive)
+---------------------------------*/
+.tw-modal{
+  position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.45); z-index:1300;
+}
+.tw-modal.is-open{display:grid}
+.tw-modal__dialog{
+  width:min(720px, 92vw); max-height: 90dvh; display:flex; flex-direction:column;
+  background:var(--tw-card); border:1px solid var(--tw-border); border-radius:var(--tw-radius); box-shadow:var(--tw-shadow);
+}
+.tw-modal__header,.tw-modal__footer{padding:.9rem 1rem; border-bottom:1px solid var(--tw-border); background:var(--tw-bg-soft)}
+.tw-modal__body{padding:1rem; overflow:auto}
+.tw-modal__footer{border-top:1px solid var(--tw-border); border-bottom:none}
+
+/* ------------------------------
+   13) Helpers for print
+---------------------------------*/
+@media print{
+  .tw-no-print{display:none !important}
+  .tw-card,.tw-table,.tw-alert{box-shadow:none}
+  body{background:#fff}
+}
+
+/* ------------------------------
+   14) DataTables / vendor guard rails (optional)
+---------------------------------*/
+.table-responsive, .dataTables_wrapper{max-width:100%; overflow:auto}
+/* Ensure long strings break nicely */
+.tw-break{word-break:break-word; overflow-wrap:anywhere}

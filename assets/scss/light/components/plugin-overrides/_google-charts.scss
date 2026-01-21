@@ -1,0 +1,79 @@
+/* Google Charts */
+
+.google-chart-container {
+  overflow: hidden;
+
+  .google-charts {
+    width: 100%;
+    height: 280px;
+    min-height: 280px;
+    min-width: 100%;
+
+  }
+}
+
+#morris-line-example {
+  overflow: hidden;
+}
+
+#morris-bar-example {
+  overflow: hidden;
+}
+
+#morris-area-example {
+  overflow: hidden;
+}
+
+#c3-line-chart {
+  overflow: hidden;
+}
+
+#c3-spline-chart {
+  overflow: hidden;
+}
+
+#sparkline-line-chart {
+  overflow: hidden;
+}
+
+#sparkline-composite-chart {
+  overflow: hidden;
+}
+
+#sparkline-bullet-chart {
+  overflow: hidden;
+}
+
+#c3-step-chart {
+  overflow: hidden;
+}
+
+#c3-bar-chart {
+  overflow: hidden;
+}
+
+.dark-theme {
+  .c3-legend-item {
+    fill: $body-color;
+  }
+
+  .c3 line,
+  .c3 path {
+    stroke: $border-color;
+  }
+
+  .c3 {
+    text {
+      fill: $white-smoke;
+      font-weight: bold;
+    }
+  }
+
+  .c3-tooltip td {
+    font-size: 13px;
+    padding: 3px 6px;
+    background-color: #fff;
+    border-left: 1px dotted #999;
+    color: #000;
+  }
+}

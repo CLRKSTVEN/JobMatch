@@ -1,0 +1,83 @@
+/* Jquery File Upload */
+
+.ajax-upload-dragdrop {
+  border-color: $border-color;
+  border-style: dotted;
+  max-width: 100%;
+
+  span {
+    b {
+      font-size: .8125rem;
+      color: $body-color;
+      font-weight: initial;
+    }
+  }
+
+  .ajax-file-upload {
+    background: map-get($theme-colors, 'info');
+    color: white;
+    box-shadow: none;
+    height: auto;
+    @extend .btn;
+  }
+
+  .ajax-file-upload:hover {
+    background: map-get($theme-colors, 'info');
+    box-shadow: none;
+    height: auto;
+    @extend .btn;
+  }
+}
+
+.ajax-upload-dragdrop .ajax-file-upload:active {
+  background: map-get($theme-colors, 'info') !important;
+  box-shadow: none;
+  height: auto;
+}
+
+.ajax-file-upload-container {
+  min-height: 100px;
+
+  .ajax-file-upload-statusbar {
+    max-width: 100%;
+  }
+
+  .ajax-file-upload-filename {
+    max-width: 100%;
+  }
+
+  .ajax-file-upload-error {
+    color: map-get($theme-colors, 'danger');
+  }
+}
+
+.dark-theme {
+  .ajax-upload-dragdrop {
+
+    span {
+      b {
+        font-size: .8125rem;
+        color: $white;
+        font-weight: initial;
+      }
+    }
+
+  }
+
+  .ajax-file-upload-container {
+    min-height: 100px;
+
+    .ajax-file-upload-statusbar {
+      max-width: 100%;
+    }
+
+    .ajax-file-upload-filename {
+      max-width: 100%;
+      color: $white;
+    }
+
+    .ajax-file-upload-error {
+      color: map-get($theme-colors, 'danger');
+    }
+  }
+}

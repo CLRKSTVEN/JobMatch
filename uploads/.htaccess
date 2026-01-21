@@ -1,0 +1,28 @@
+# Secure uploads but allow same-origin PDF embedding
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phps .phar
+RemoveType    .php .phtml .php3 .php4 .php5 .php7 .php8 .phps .phar
+php_flag engine off
+Options -ExecCGI -Indexes
+
+AddType image/jpeg  .jpg .jpeg
+AddType image/png   .png
+AddType image/webp  .webp
+AddType application/pdf .pdf
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+
+  # Allow same-origin embedding instead of DENY
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Tight CSP for images is fine…
+  <FilesMatch "\.(?:jpe?g|png|gif|webp)$">
+    Header set Content-Security-Policy "default-src 'none'; img-src 'self' data: blob:;"
+  </FilesMatch>
+
+  # …but DO NOT sandbox PDFs. Allow them to be framed by this site.
+  <FilesMatch "\.pdf$">
+    Header always unset Content-Security-Policy
+    Header always set   Content-Security-Policy "frame-ancestors 'self'"
+  </FilesMatch>
+</IfModule>
