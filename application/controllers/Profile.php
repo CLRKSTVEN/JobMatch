@@ -260,6 +260,13 @@ $this->_fix_image_orientation($path);
 
             $avatarPath = 'uploads/avatars/' . $u['file_name'];
             $ok = $this->wp->update_fields($uid, ['avatar' => $avatarPath]);
+            
+            // Log the update attempt for debugging
+            if (!$ok) {
+                log_message('error', 'Avatar update failed for user '.$uid.' - path: '.$avatarPath);
+            } else {
+                log_message('info', 'Avatar updated for user '.$uid.' - path: '.$avatarPath);
+            }
 
             if (!$ok) {
                 if ($is_ajax) {

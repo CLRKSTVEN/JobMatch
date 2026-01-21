@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class WorkerProfile_model extends CI_Model
 {
@@ -35,7 +35,7 @@ class WorkerProfile_model extends CI_Model
 
         $this->db->select($select, false);
         $this->db->from('users u');
-        $this->db->join($this->table.' w', 'w.workerID = u.id', 'left');
+        $this->db->join($this->table . ' w', 'w.workerID = u.id', 'left');
         $this->db->where('u.id', (int)$user_id);
 
         return $this->db->get()->row();
@@ -61,76 +61,79 @@ class WorkerProfile_model extends CI_Model
     {
         return count($this->extract_doc_paths($p)) > 0;
     }
-private function has_documents($p): bool
-{
-    // 0) If the controller already knows how many docs there are, trust it.
-    if (isset($p->docs_count) && (int)$p->docs_count > 0) {
-        return true;
-    }
-    if (isset($p->documents) && is_array($p->documents) && count($p->documents) > 0) {
-        return true;
-    }
+    private function has_documents($p): bool
+    {
+        // 0) If the controller already knows how many docs there are, trust it.
+        if (isset($p->docs_count) && (int)$p->docs_count > 0) {
+            return true;
+        }
+        if (isset($p->documents) && is_array($p->documents) && count($p->documents) > 0) {
+            return true;
+        }
 
-    // 1) Try checking common "Saved Documents" tables
-    $uid = (int)($p->userID ?? $p->user_id ?? $this->session->userdata('user_id') ?? 0);
-    if ($uid > 0) {
-        $candidateTables = ['documents', 'saved_documents', 'worker_documents'];
-        $userCols        = ['user_id', 'userID', 'worker_id', 'workerID'];
+        // 1) Try checking common "Saved Documents" tables
+        $uid = (int)($p->userID ?? $p->user_id ?? $this->session->userdata('user_id') ?? 0);
+        if ($uid > 0) {
+            $candidateTables = ['documents', 'saved_documents', 'worker_documents'];
+            $userCols        = ['user_id', 'userID', 'worker_id', 'workerID'];
 
-        foreach ($candidateTables as $tbl) {
-            try {
-                if (!$this->db->table_exists($tbl)) continue;
+            foreach ($candidateTables as $tbl) {
+                try {
+                    if (!$this->db->table_exists($tbl)) continue;
 
-                // choose the first user id column that exists
-                $userCol = null;
-                foreach ($userCols as $uc) {
-                    if ($this->db->field_exists($uc, $tbl)) { $userCol = $uc; break; }
+                    // choose the first user id column that exists
+                    $userCol = null;
+                    foreach ($userCols as $uc) {
+                        if ($this->db->field_exists($uc, $tbl)) {
+                            $userCol = $uc;
+                            break;
+                        }
+                    }
+                    if (!$userCol) continue;
+
+                    $qb = $this->db->from($tbl)->where($userCol, $uid);
+
+                    // ignore soft-deleted and empty files when columns exist
+                    if ($this->db->field_exists('is_deleted', $tbl)) {
+                        $qb->where('is_deleted', 0);
+                    }
+                    if ($this->db->field_exists('file_path', $tbl)) {
+                        $qb->where("COALESCE(NULLIF(TRIM(file_path), ''), '') !=", '');
+                    }
+
+                    if ((int)$qb->count_all_results() > 0) {
+                        return true; // ✅ at least one saved doc
+                    }
+                } catch (\Throwable $e) {
+                    log_message('error', "has_documents(): $tbl check failed: " . $e->getMessage());
+                    // continue to next table/fallback
                 }
-                if (!$userCol) continue;
-
-                $qb = $this->db->from($tbl)->where($userCol, $uid);
-
-                // ignore soft-deleted and empty files when columns exist
-                if ($this->db->field_exists('is_deleted', $tbl)) {
-                    $qb->where('is_deleted', 0);
-                }
-                if ($this->db->field_exists('file_path', $tbl)) {
-                    $qb->where("COALESCE(NULLIF(TRIM(file_path), ''), '') !=", '');
-                }
-
-                if ((int)$qb->count_all_results() > 0) {
-                    return true; // ✅ at least one saved doc
-                }
-            } catch (\Throwable $e) {
-                log_message('error', "has_documents(): $tbl check failed: ".$e->getMessage());
-                // continue to next table/fallback
             }
         }
-    }
 
-    // 2) Fallback (legacy JSON in profile: cert_files / certificates)
-    $fields = ['cert_files', 'certificates'];
-    foreach ($fields as $f) {
-        if (!isset($p->$f) || $p->$f === null) continue;
+        // 2) Fallback (legacy JSON in profile: cert_files / certificates)
+        $fields = ['cert_files', 'certificates'];
+        foreach ($fields as $f) {
+            if (!isset($p->$f) || $p->$f === null) continue;
 
-        $val = $p->$f;
-        if (is_string($val)) {
-            $trim = trim($val);
-            if ($trim === '' || $trim === '[]' || $trim === '{}') continue;
-            $decoded = json_decode($val, true);
-            if (json_last_error() === JSON_ERROR_NONE) $val = $decoded;
-        }
+            $val = $p->$f;
+            if (is_string($val)) {
+                $trim = trim($val);
+                if ($trim === '' || $trim === '[]' || $trim === '{}') continue;
+                $decoded = json_decode($val, true);
+                if (json_last_error() === JSON_ERROR_NONE) $val = $decoded;
+            }
 
-        if (is_array($val)) {
-            foreach ($val as $item) {
-                if (is_string($item) && trim($item) !== '') return true;
-                if (is_array($item) && !empty($item['path'])) return true;
+            if (is_array($val)) {
+                foreach ($val as $item) {
+                    if (is_string($item) && trim($item) !== '') return true;
+                    if (is_array($item) && !empty($item['path'])) return true;
+                }
             }
         }
-    }
 
-    return false;
-}
+        return false;
+    }
 
     public function completion($row): array
     {
@@ -150,13 +153,17 @@ private function has_documents($p): bool
         ];
 
         $done = 0;
-        foreach ($checks as $v) { $done += $v ? 1 : 0; }
+        foreach ($checks as $v) {
+            $done += $v ? 1 : 0;
+        }
 
         $total   = count($checks);
         $percent = (int)round(($done / max(1, $total)) * 100);
-        $missing = array_keys(array_filter($checks, static function($v){ return !$v; }));
+        $missing = array_keys(array_filter($checks, static function ($v) {
+            return !$v;
+        }));
 
-        return compact('percent','missing','checks');
+        return compact('percent', 'missing', 'checks');
     }
 
     public function is_complete($row): bool
@@ -184,7 +191,7 @@ private function has_documents($p): bool
         $item['title']       = trim((string)($item['title'] ?? 'Untitled'));
         $item['description'] = trim((string)($item['description'] ?? ''));
         $item['files']       = array_values(array_filter((array)($item['files'] ?? [])));
-        $item['visibility']  = in_array(($item['visibility'] ?? 'public'), ['public','private'], true) ? $item['visibility'] : 'public';
+        $item['visibility']  = in_array(($item['visibility'] ?? 'public'), ['public', 'private'], true) ? $item['visibility'] : 'public';
         $item['created_at']  = date('Y-m-d H:i:s');
 
         $existing[] = $item;
@@ -216,7 +223,7 @@ private function has_documents($p): bool
                 'created_at'  => $it['created_at'] ?? null,
             ];
         }
-        usort($out, function($a,$b){
+        usort($out, function ($a, $b) {
             return strcmp($b['created_at'] ?? '', $a['created_at'] ?? '');
         });
         return $out;
@@ -226,15 +233,15 @@ private function has_documents($p): bool
     {
         $this->db->from('transactions');
         $this->db->where('workerID', $user_id);
-        $this->db->where_in('status', ['ongoing','completed','hired','paid']);
+        $this->db->where_in('status', ['ongoing', 'completed', 'hired', 'paid']);
         return (int) $this->db->count_all_results();
     }
 
     public function reviews_summary(int $user_id): array
     {
         $row = $this->db->select('COUNT(*) AS cnt, AVG(rating) AS avg_rating')
-                        ->get_where('reviews', ['workerID' => $user_id])
-                        ->row();
+            ->get_where('reviews', ['workerID' => $user_id])
+            ->row();
         return [
             'count' => (int)($row->cnt ?? 0),
             'avg'   => $row && $row->cnt ? round((float)$row->avg_rating, 2) : 0.0,
@@ -269,10 +276,10 @@ private function has_documents($p): bool
         foreach ($rows as $row) {
             $ts   = strtotime($row->created_at);
             $diff = time() - ($ts ?: time());
-            if ($diff < 60)        $row->time_ago = $diff.' secs ago';
-            elseif ($diff < 3600)  $row->time_ago = floor($diff/60).' mins ago';
-            elseif ($diff < 86400) $row->time_ago = floor($diff/3600).' hrs ago';
-            else                   $row->time_ago = floor($diff/86400).' days ago';
+            if ($diff < 60)        $row->time_ago = $diff . ' secs ago';
+            elseif ($diff < 3600)  $row->time_ago = floor($diff / 60) . ' mins ago';
+            elseif ($diff < 86400) $row->time_ago = floor($diff / 3600) . ' hrs ago';
+            else                   $row->time_ago = floor($diff / 86400) . ' days ago';
         }
 
         return $rows;
@@ -290,17 +297,22 @@ private function has_documents($p): bool
         $user_id = (int)$user_id;
 
         $exists = $this->db->where('workerID', $user_id)
-                           ->count_all_results($this->table) > 0;
+            ->count_all_results($this->table) > 0;
 
         $data['updated_at'] = date('Y-m-d H:i:s');
 
         if ($exists) {
             $this->db->where('workerID', $user_id);
-            return $this->db->update($this->table, $data);
+            $result = $this->db->update($this->table, $data);
+            // In CodeIgniter, update() returns affected_rows (could be 0 even on success)
+            // Return true if no database error occurred
+            return $result !== false;
         } else {
             $data['workerID']   = $user_id;
             $data['created_at'] = date('Y-m-d H:i:s');
-            return $this->db->insert($this->table, $data);
+            $result = $this->db->insert($this->table, $data);
+            // insert() returns true on success, false on failure
+            return $result;
         }
     }
 
@@ -324,21 +336,22 @@ private function has_documents($p): bool
         }
         return $out;
     }
-    public function get_experiences($userId){
-    $row = $this->db->from('worker_profiles')->where('user_id',$userId)->get()->row();
-    $arr = [];
-    if ($row && !empty($row->exp)) {
-        $tmp = json_decode($row->exp, true);
-        if (is_array($tmp)) $arr = $tmp;
+    public function get_experiences($userId)
+    {
+        $row = $this->db->from('worker_profiles')->where('user_id', $userId)->get()->row();
+        $arr = [];
+        if ($row && !empty($row->exp)) {
+            $tmp = json_decode($row->exp, true);
+            if (is_array($tmp)) $arr = $tmp;
+        }
+        return $arr;
     }
-    return $arr;
-}
 
-public function put_experiences($userId, array $items){
-    $this->db->where('user_id',$userId)->update('worker_profiles', [
-        'exp' => json_encode(array_values($items), JSON_UNESCAPED_UNICODE)
-    ]);
-    return $this->db->affected_rows() >= 0;
-}
-
+    public function put_experiences($userId, array $items)
+    {
+        $this->db->where('user_id', $userId)->update('worker_profiles', [
+            'exp' => json_encode(array_values($items), JSON_UNESCAPED_UNICODE)
+        ]);
+        return $this->db->affected_rows() >= 0;
+    }
 }
