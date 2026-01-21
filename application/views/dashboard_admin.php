@@ -1,5 +1,6 @@
 ﻿<!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -21,96 +22,219 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
-  #sidebar .collapse { visibility: visible !important; }
-  #sidebar .collapse:not(.show) { display: none; }
-  #sidebar .collapsing { height: 0; overflow: hidden; transition: height .35s ease; }
-    body{font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial}
-    .bg-theme{background:var(--brand-blue)}
-    .badge-chip{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .55rem;border-radius:9999px;font-weight:700;border:1px solid var(--brand-silver-light);background:#fff}
-    .badge-chip.gold{background:var(--brand-gold-soft);border-color:var(--brand-gold);color:var(--brand-gold-dark)}
-    .badge-chip.silver{background:var(--brand-silver-light);border-color:var(--brand-silver);color:#4b5563}
-    .card{
-      background:#fff;
-      border:1px solid var(--brand-silver-light);
-      border-radius:14px;
-      box-shadow:0 4px 8px rgba(0,0,0,.05), 0 8px 20px rgba(0,0,0,.08);
-      transition:transform .15s ease, box-shadow .15s ease;
-    }
-    .card:hover{
-      transform:translateY(-3px);
-      box-shadow:0 8px 24px rgba(0,0,0,.12);
-    }
-    .kpi{display:flex;align-items:center;justify-content:space-between;padding:14px}
-    .kpi .ico{
-      display:flex;align-items:center;justify-content:center;
-      width:46px;height:46px;
-      border-radius:12px;font-size:1.4rem;
-      box-shadow:inset 0 2px 4px rgba(0,0,0,.05);
-    }
-    .btn-blue{background:var(--brand-blue);border:1px solid var(--brand-blue);color:#fff;border-radius:10px;padding:.6rem 1rem;font-weight:700;transition:background .2s ease,border-color .2s ease}
-    .btn-blue:hover{background:var(--brand-blue-dark);border-color:var(--brand-blue-dark)}
-    .btn-silver{background:#fff;border:1px solid var(--brand-silver);color:var(--brand-ink);border-radius:10px;padding:.6rem 1rem;font-weight:700}
-    .stat-label{font-size:.75rem;color:var(--brand-muted)}
-    .divider{height:1px;background:var(--brand-line)}
-      @media (max-width: 768px) {
-    .admin-header{
-      position: sticky; top: 0; z-index: 40;
-      background:#fff; padding-top:.35rem; padding-bottom:.5rem;
-      border-bottom:1px solid var(--line);
-    }
-    .admin-actions{
-      display:grid; grid-template-columns:1fr; gap:.5rem;
-      width:100%; max-width: min(520px, 100%);
-    }
-    .admin-actions .btn-blue,
-    .admin-actions .btn-silver{
-      width:100%; justify-content:center;
-      padding:.65rem .9rem;
-    }
-    .card{ border-radius:16px; }
-    .kpi{ padding:12px; }
-    .kpi .ico{ width:40px; height:40px; border-radius:10px; font-size:1.25rem; }
-    .card.p-5{ padding:14px !important; }
-    .h-64{ height:220px !important; }
-    .space-y-3 > :where(*){ margin-top:.5rem !important; margin-bottom:0 !important; }
-    .text-sm{ font-size:.9rem; }
-    body{ padding-bottom: max(12px, env(safe-area-inset-bottom)); }
-  }
-   @media (max-width: 768px) {
-    .admin-header {
-      flex-direction: column;
-      align-items: stretch;
-      gap: .5rem;
-      text-align: center;
+    html {
+      scrollbar-gutter: stable;
     }
 
-    .admin-header h1 {
-      margin-bottom: 0.25rem;
+    #sidebar .collapse {
+      visibility: visible !important;
     }
 
-    .admin-actions {
-      display: grid;
-      grid-template-columns: 1fr; 
-      gap: .5rem;
-      width: 100%;
+    #sidebar .collapse:not(.show) {
+      display: none;
     }
 
-    .admin-actions .btn-blue,
-    .admin-actions .btn-silver {
-      width: 100%;
+    #sidebar .collapsing {
+      height: 0;
+      overflow: hidden;
+      transition: height .35s ease;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial
+    }
+
+    .bg-theme {
+      background: var(--brand-blue)
+    }
+
+    .badge-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .25rem .55rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      border: 1px solid var(--brand-silver-light);
+      background: #fff
+    }
+
+    .badge-chip.gold {
+      background: var(--brand-gold-soft);
+      border-color: var(--brand-gold);
+      color: var(--brand-gold-dark)
+    }
+
+    .badge-chip.silver {
+      background: var(--brand-silver-light);
+      border-color: var(--brand-silver);
+      color: #4b5563
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--brand-silver-light);
+      border-radius: 14px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, .05), 0 8px 20px rgba(0, 0, 0, .08);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+    }
+
+    .kpi {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px
+    }
+
+    .kpi .ico {
+      display: flex;
+      align-items: center;
       justify-content: center;
-      font-size: 14px;
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      font-size: 1.4rem;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, .05);
+    }
+
+    .btn-blue {
+      background: var(--brand-blue);
+      border: 1px solid var(--brand-blue);
+      color: #fff;
       border-radius: 10px;
-      padding: .65rem .9rem;
+      padding: .6rem 1rem;
+      font-weight: 700;
+      transition: background .2s ease, border-color .2s ease
     }
-  }
-  @media (min-width: 769px) and (max-width: 992px) {
-    .admin-actions {
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: .5rem;
+
+    .btn-blue:hover {
+      background: var(--brand-blue-dark);
+      border-color: var(--brand-blue-dark)
     }
-  }
+
+    .btn-silver {
+      background: #fff;
+      border: 1px solid var(--brand-silver);
+      color: var(--brand-ink);
+      border-radius: 10px;
+      padding: .6rem 1rem;
+      font-weight: 700
+    }
+
+    .stat-label {
+      font-size: .75rem;
+      color: var(--brand-muted)
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--brand-line)
+    }
+
+    @media (max-width: 768px) {
+      .admin-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: #fff;
+        padding-top: .35rem;
+        padding-bottom: .5rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .admin-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: .5rem;
+        width: 100%;
+        max-width: min(520px, 100%);
+      }
+
+      .admin-actions .btn-blue,
+      .admin-actions .btn-silver {
+        width: 100%;
+        justify-content: center;
+        padding: .65rem .9rem;
+      }
+
+      .card {
+        border-radius: 16px;
+      }
+
+      .kpi {
+        padding: 12px;
+      }
+
+      .kpi .ico {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        font-size: 1.25rem;
+      }
+
+      .card.p-5 {
+        padding: 14px !important;
+      }
+
+      .h-64 {
+        height: 220px !important;
+      }
+
+      .space-y-3> :where(*) {
+        margin-top: .5rem !important;
+        margin-bottom: 0 !important;
+      }
+
+      .text-sm {
+        font-size: .9rem;
+      }
+
+      body {
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .admin-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: .5rem;
+        text-align: center;
+      }
+
+      .admin-header h1 {
+        margin-bottom: 0.25rem;
+      }
+
+      .admin-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: .5rem;
+        width: 100%;
+      }
+
+      .admin-actions .btn-blue,
+      .admin-actions .btn-silver {
+        width: 100%;
+        justify-content: center;
+        font-size: 14px;
+        border-radius: 10px;
+        padding: .65rem .9rem;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 992px) {
+      .admin-actions {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: .5rem;
+      }
+    }
   </style>
 </head>
 
@@ -126,30 +250,30 @@
 
             <!-- Header -->
             <div class="flex items-center justify-between mb-3 admin-header">
-    <div>
-      <h1 class="text-xl md:text-2xl font-bold"><?= htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8') ?></h1>
-    </div>
-             <div class="flex items-center gap-2 admin-actions">
-      <a class="btn-silver" href="<?= site_url('admin/workers/upload') ?>">
-        <i class="mdi mdi-database-import-outline"></i> Bulk Upload Workers
-      </a>
-      <a class="btn-blue" href="<?= site_url('admin/skills') ?>">
-        <i class="mdi mdi-hammer-wrench"></i> Manage Skills
-      </a>
-    </div>
-  </div>
+              <div>
+                <h1 class="text-xl md:text-2xl font-bold"><?= htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8') ?></h1>
+              </div>
+              <div class="flex items-center gap-2 admin-actions">
+                <a class="btn-silver" href="<?= site_url('admin/workers/upload') ?>">
+                  <i class="mdi mdi-database-import-outline"></i> Bulk Upload Workers
+                </a>
+                <a class="btn-blue" href="<?= site_url('admin/skills') ?>">
+                  <i class="mdi mdi-hammer-wrench"></i> Manage Skills
+                </a>
+              </div>
+            </div>
 
             <!-- KPIs -->
             <?php
-              $stats = $stats ?? [];
-              
-              $total_workers   = (int)($stats['total_workers'] ?? 0);
-              $total_clients   = (int)($stats['total_clients'] ?? 0);
-              $active_projects = (int)($stats['active_projects'] ?? 0);
-              $pending_verify  = (int)($stats['pending_verifications'] ?? 0);
-              $completed       = (int)($stats['completed'] ?? 0);
-              $ongoing         = (int)($stats['ongoing'] ?? 0);
-              $cancelled       = (int)($stats['cancelled'] ?? 0);
+            $stats = $stats ?? [];
+
+            $total_workers   = (int)($stats['total_workers'] ?? 0);
+            $total_clients   = (int)($stats['total_clients'] ?? 0);
+            $active_projects = (int)($stats['active_projects'] ?? 0);
+            $pending_verify  = (int)($stats['pending_verifications'] ?? 0);
+            $completed       = (int)($stats['completed'] ?? 0);
+            $ongoing         = (int)($stats['ongoing'] ?? 0);
+            $cancelled       = (int)($stats['cancelled'] ?? 0);
             ?>
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <div class="card kpi">
@@ -177,7 +301,7 @@
                   <div class="stat-label">Active Projects</div>
                   <div class="text-2xl font-bold"><?= $active_projects ?></div>
                   <div class="flex items-center gap-2 mt-2 text-xs font-semibold text-gray-500">
-                 
+
                   </div>
                 </div>
                 <div class="ico" style="background:linear-gradient(135deg,var(--brand-gold-soft),var(--brand-silver-light));color:var(--brand-gold-dark);border:1px solid rgba(212,160,23,.4)">
@@ -241,27 +365,27 @@
 
               <!-- Recent Activity -->
               <div class="card p-5">
-              <h3 class="text-lg font-semibold mb-3">Recent Activity</h3>
-<ul class="space-y-3 text-sm">
-  <?php $activity = $activity ?? []; ?>
-  <?php foreach ($activity as $a): ?>
-    <li class="flex items-start gap-3">
-      <span class="w-2 h-2 mt-2 rounded-full" style="background:var(--brand-blue)"></span>
-      <div>
-        <div class="font-medium">
-          <i class="mdi <?= htmlspecialchars($a['icon']) ?>"></i>
-          <?= htmlspecialchars($a['title']) ?>
-        </div>
-        <div class="text-gray-500"><?= htmlspecialchars($a['meta']) ?></div>
-      </div>
-    </li>
-  <?php endforeach; ?>
-</ul>
+                <h3 class="text-lg font-semibold mb-3">Recent Activity</h3>
+                <ul class="space-y-3 text-sm">
+                  <?php $activity = $activity ?? []; ?>
+                  <?php foreach ($activity as $a): ?>
+                    <li class="flex items-start gap-3">
+                      <span class="w-2 h-2 mt-2 rounded-full" style="background:var(--brand-blue)"></span>
+                      <div>
+                        <div class="font-medium">
+                          <i class="mdi <?= htmlspecialchars($a['icon']) ?>"></i>
+                          <?= htmlspecialchars($a['title']) ?>
+                        </div>
+                        <div class="text-gray-500"><?= htmlspecialchars($a['meta']) ?></div>
+                      </div>
+                    </li>
+                  <?php endforeach; ?>
+                </ul>
 
               </div>
             </section>
 
-      
+
 
             <div class="my-6 divider"></div>
 
@@ -280,8 +404,8 @@
   <script src="<?= base_url('assets/js/misc.js') ?>"></script>
 
   <script>
-    const labels = <?= json_encode($chart_labels ?? ['Day 1','Day 5','Day 10','Day 15','Day 20','Day 25','Day 30']) ?>;
-    const values = <?= json_encode($chart_values ?? [4,8,6,12,9,14,17]) ?>;
+    const labels = <?= json_encode($chart_labels ?? ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30']) ?>;
+    const values = <?= json_encode($chart_values ?? [4, 8, 6, 12, 9, 14, 17]) ?>;
 
     const brandBlueRGB = '37,99,235';
     const ctx = document.getElementById('hiresChart');
@@ -297,8 +421,8 @@
             tension: .35,
             borderWidth: 2,
             borderColor: `rgba(${brandBlueRGB},1)`,
-            backgroundColor: function(c){
-              const g = c.chart.ctx.createLinearGradient(0,0,0,240);
+            backgroundColor: function(c) {
+              const g = c.chart.ctx.createLinearGradient(0, 0, 0, 240);
               g.addColorStop(0, `rgba(${brandBlueRGB},0.20)`);
               g.addColorStop(1, `rgba(${brandBlueRGB},0.05)`);
               return g;
@@ -306,17 +430,37 @@
           }]
         },
         options: {
-          responsive:true, maintainAspectRatio:false,
-          plugins:{ legend:{ display:false } },
-          scales:{
-            x:{ grid:{ display:false }, ticks:{ color:'#6B7280' } },
-            y:{ grid:{ color:'#F3F4F6' }, ticks:{ color:'#6B7280', precision:0 } }
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                color: '#6B7280'
+              }
+            },
+            y: {
+              grid: {
+                color: '#F3F4F6'
+              },
+              ticks: {
+                color: '#6B7280',
+                precision: 0
+              }
+            }
           }
         }
       });
     }
   </script>
-  
-</body>
-</html>
 
+</body>
+
+</html>
