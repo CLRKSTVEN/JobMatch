@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="<?= base_url('assets/vendors/font-awesome/css/font-awesome.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/vertical-light/style.css') ?>">
-  <link rel="stylesheet" href="<?= base_url('assets/css/custom.css?v=1.0.9') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/custom.css?v=1.0.5') ?>">
   <link rel="shortcut icon" href="<?= base_url('assets/images/logo.png') ?>" />
 
   <style>
@@ -94,8 +94,12 @@
     }
 
     .profile-cover {
-      height: 120px;
-      background: #fff url('<?= base_url("assets/images/trabawhotext1.jpg") ?>') center top/contain no-repeat
+      height: 160px;
+      background: linear-gradient(135deg, #c1272d 0%, #d63031 50%, #e74c3c 100%);
+      background-image: url('<?= base_url("assets/images/banner.png") ?>');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .profile-brandbar {
@@ -141,6 +145,7 @@
       color: #6b7280;
       font-size: var(--fs-sub)
     }
+
 
     .meta {
       color: #64748b;

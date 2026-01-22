@@ -297,7 +297,7 @@
                   </div>
                 </div>
 
-                <!-- Address cascade (Province â†’ City â†’ Barangay) -->
+                <!-- Address cascade (Province → City → Barangay) -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div class="input-group">
                     <label class="form-label block text-sm font-medium text-gray-700 mb-1" for="province">Province</label>

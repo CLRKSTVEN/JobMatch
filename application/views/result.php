@@ -277,7 +277,7 @@
       pointer-events: none
     }
 
-    /* -------------------- NEW: Modal â†’ Card UI -------------------- */
+    /* -------------------- NEW: Modal Card UI -------------------- */
     .tw-modal .modal-dialog {
       max-width: 920px
     }

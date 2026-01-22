@@ -228,7 +228,7 @@
         <?= form_close(); ?>
 
         <div class="text-center">
-          <a class="back" href="<?= site_url('auth/login'); ?>">â† Back to login</a>
+          <a class="back" href="<?= site_url('auth/login'); ?>">Back to login</a>
         </div>
       </div>
     </div>

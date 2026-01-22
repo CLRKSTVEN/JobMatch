@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="<?= base_url('assets/vendors/css/vendor.bundle.base.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/vertical-light/style.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/universal.css') ?>">
-  <link rel="shortcut icon" href="<?= base_url('assets/images/logo-small.png'); ?>" />
+  <link rel="shortcut icon" href="<?= base_url('assets/images/logo-white2.png'); ?>" />
 
   <style>
     :root {
@@ -1382,7 +1382,7 @@
   <header class="landing-header" id="home">
     <div class="landing-container nav-container">
       <a href="<?= site_url(); ?>" class="brand">
-        <img src="<?= base_url('assets/images/logo.png'); ?>" alt="JobMatch logo">
+        <img src="<?= base_url('assets/images/logo-white2.png'); ?>" alt="JobMatch logo">
         <div class="brand-copy">
           <span>JobMatch</span>
           <small>City of Mati</small>

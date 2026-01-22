@@ -401,7 +401,7 @@
         }
       });
 
-      // Province â†’ cities
+      // Province  cities
       provSel?.addEventListener('change', async () => {
         reset(citySel, 'Select city');
         reset(brgySel, 'Select barangay');
@@ -421,9 +421,9 @@
         }
       });
 
-      // City â†’ barangays
+      // City →  barangays
       citySel?.addEventListener('change', async () => {
-        reset(brgySel, 'Select barangayâ');
+        reset(brgySel, 'Select barangay');
         const p = provSel.value,
           c = citySel.value;
         if (!p || !c) return;

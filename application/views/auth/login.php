@@ -13,15 +13,30 @@
   <link rel="stylesheet" href="<?= base_url('assets/css/vertical-light/style.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/universal.css') ?>">
   <link rel="shortcut icon" href="<?= base_url('assets/images/logo-small.png'); ?>" />
-
   <style>
+    html {
+      scrollbar-gutter: stable;
+    }
+
     :root {
-      --blue: #0a22ff;
-      --blue2: #0b2ea8;
-      --yellow: #f7c600;
+      /* ===== PESO / PH GOV VIBE (RED PRIMARY, BLUE ACCENT) ===== */
+      --red-900: #c1272d;
+      --red-700: #d63031;
+      --red-600: #e74c3c;
+
+      --blue-700: #1b5e9f;
+      --blue-600: #2980b9;
+
+      --silver-600: #a7afba;
+      --silver-500: #c0c6d0;
+      --silver-300: #d9dee7;
+      --silver-200: #e7ebf2;
+      --silver-100: #f6f8fc;
+
       --ink: #0f172a;
       --muted: #64748b;
-      --ring: rgba(10, 34, 255, .20);
+
+      --ring: rgba(41, 128, 185, .22);
       --shadow: 0 18px 45px rgba(2, 8, 23, .18);
       --r: 18px;
     }
@@ -35,7 +50,8 @@
     body {
       font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       overflow-y: auto !important;
-      background: #f6f8ff;
+      background: linear-gradient(180deg, var(--silver-100), #eef2f7 60%, #e9edf3 100%);
+      color: var(--ink);
     }
 
     .container-scroller,
@@ -46,7 +62,7 @@
       padding: 0 !important;
     }
 
-    /* ===== Background container with IMAGE + BLUE EFFECT + GLOW ===== */
+    /* ===== Background container with IMAGE + RED/BLUE EFFECT + GLOW ===== */
     .auth-center {
       position: relative;
       width: 100%;
@@ -65,59 +81,62 @@
       inset: 0;
       background: url("<?= base_url('assets/images/bg.jpg'); ?>") center/cover no-repeat;
       opacity: .18;
-      /* bg image opacity */
       z-index: 0;
     }
 
-    /* 2) BLUE low-opacity effect overlay (requested) */
+    /* 2) Theme overlay (RED primary + BLUE accent) */
     .auth-center .bg-blue-overlay {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(900px 520px at 20% 20%, rgba(10, 34, 255, .35), transparent 60%),
-        radial-gradient(900px 520px at 80% 10%, rgba(10, 34, 255, .22), transparent 62%),
-        linear-gradient(135deg, rgba(10, 34, 255, .18), rgba(10, 34, 255, .10));
-      opacity: .55;
-      /* 👈 controls blue effect strength */
+        radial-gradient(900px 520px at 20% 20%, rgba(193, 39, 45, .28), transparent 60%),
+        radial-gradient(900px 520px at 80% 10%, rgba(41, 128, 185, .18), transparent 62%),
+        linear-gradient(135deg, rgba(193, 39, 45, .12), rgba(41, 128, 185, .10));
+      opacity: .70;
       z-index: 1;
       pointer-events: none;
     }
 
-    /* 3) Glow + soft white veil so the card stays readable */
+    /* 3) Soft white veil for readability */
     .auth-center::after {
       content: "";
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(900px 550px at 15% 10%, rgba(247, 198, 0, .22), transparent 60%),
-        radial-gradient(900px 550px at 85% 25%, rgba(10, 34, 255, .14), transparent 60%),
-        linear-gradient(135deg, rgba(255, 255, 255, .78), rgba(255, 255, 255, .78));
+        radial-gradient(900px 550px at 15% 10%, rgba(193, 39, 45, .12), transparent 60%),
+        radial-gradient(900px 550px at 85% 25%, rgba(41, 128, 185, .10), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, .82), rgba(255, 255, 255, .82));
       z-index: 2;
       pointer-events: none;
     }
 
-    /* Card always on top */
+    /* ===== Card ===== */
     .login-card {
       position: relative;
       z-index: 3;
       width: min(520px, 100%);
-      background: rgba(255, 255, 255, .94);
+      background: rgba(255, 255, 255, .97);
       border: 1px solid rgba(15, 23, 42, .10);
       border-radius: calc(var(--r) + 6px);
       box-shadow: var(--shadow);
       overflow: hidden;
-      backdrop-filter: blur(10px);
+
+      /* IMPORTANT: remove blur = crisp logo + crisp text */
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
 
-    /* ===== Header ===== */
+    /* ===== Header (SOLID, NO GRADIENT) ===== */
     .card-topbar {
       padding: 18px 18px 14px;
-      background: linear-gradient(135deg, var(--blue) 0%, var(--blue2) 80%);
+      background: var(--red-900);
+      /* solid red */
       color: #fff;
       text-align: center;
       position: relative;
     }
 
+    /* blue accent strip */
     .card-topbar::after {
       content: "";
       position: absolute;
@@ -125,43 +144,46 @@
       right: 0;
       bottom: 0;
       height: 4px;
-      background: linear-gradient(90deg, var(--yellow), rgba(247, 198, 0, .18));
+      background: var(--blue-600);
+      /* solid blue */
     }
 
-    /* App Logo (NO SHAPE) */
+    /* ===== Logo highlight so it never gets “covered” ===== */
     .app-logo {
       display: flex;
       justify-content: center;
       margin-bottom: 10px;
     }
 
+    /* This capsule protects the logo from the header color */
     .app-logo img {
       width: min(260px, 85%);
       height: auto;
       object-fit: contain;
-      filter: drop-shadow(0 10px 18px rgba(2, 6, 23, .20));
       display: block;
-    }
 
-    .headline h2 {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
+      /* IMPORTANT: crisp */
+      image-rendering: -webkit-optimize-contrast;
+      backface-visibility: hidden;
+      transform: translateZ(0);
 
-    .headline p {
-      margin: 6px 0 0;
-      color: rgba(255, 255, 255, .88);
-      font-size: 13px;
-      font-weight: 500;
+      /* REMOVE heavy filter that makes it look soft */
+      filter: none !important;
+
+      /* highlight “capsule” effect */
+      background: rgba(255, 255, 255, .92);
+      padding: 10px 14px;
+      border-radius: 14px;
+      box-shadow:
+        0 10px 22px rgba(2, 6, 23, .18),
+        0 0 0 1px rgba(255, 255, 255, .35) inset;
     }
 
     .card-body {
       padding: 18px;
     }
 
-    /* Inputs */
+    /* Labels */
     .form-group label {
       font-weight: 700;
       color: var(--ink);
@@ -194,7 +216,7 @@
     }
 
     .form-field .form-control:focus {
-      border-color: rgba(10, 34, 255, .55) !important;
+      border-color: rgba(41, 128, 185, .65) !important;
       box-shadow: 0 0 0 4px var(--ring) !important;
     }
 
@@ -227,31 +249,39 @@
 
     .toggle-eye:focus {
       outline: 0;
-      box-shadow: 0 0 0 4px rgba(10, 34, 255, .20);
+      box-shadow: 0 0 0 4px var(--ring);
     }
 
+    /* ===== Button (SOLID, NO GRADIENT) ===== */
     .btn-login {
       border: 0 !important;
       border-radius: 14px !important;
       padding: 12px 14px !important;
       font-weight: 800 !important;
       letter-spacing: .2px;
-      background: linear-gradient(135deg, var(--blue), var(--blue2)) !important;
-      box-shadow: 0 12px 24px rgba(10, 34, 255, .18);
+
+      background: var(--red-900) !important;
+      /* solid red */
+      box-shadow: 0 12px 24px rgba(193, 39, 45, .18);
+    }
+
+    .btn-login:hover {
+      background: var(--red-700) !important;
     }
 
     .btn-login i {
-      color: var(--yellow);
+      color: #fff;
       font-size: 18px;
     }
 
     .link {
-      color: var(--blue2);
+      color: var(--blue-700);
       font-weight: 700;
       text-decoration: none;
     }
 
     .link:hover {
+      color: var(--red-900);
       text-decoration: underline;
     }
 
@@ -265,7 +295,7 @@
       font-weight: 600;
     }
 
-    /* Bottom logos (NO SHAPE) */
+    /* Bottom logos (keep crisp) */
     .bottom-logos {
       margin-top: 14px;
       padding-top: 14px;
@@ -281,7 +311,7 @@
       width: 140px;
       object-fit: contain;
       display: block;
-      filter: drop-shadow(0 8px 14px rgba(2, 6, 23, .10));
+      filter: none !important;
     }
 
     .bottom-logos .circle {
@@ -290,7 +320,7 @@
       border-radius: 50%;
       object-fit: cover;
       display: block;
-      filter: drop-shadow(0 8px 14px rgba(2, 6, 23, .10));
+      filter: none !important;
     }
 
     @media (max-width: 420px) {
@@ -307,8 +337,14 @@
         width: 42px;
         height: 42px;
       }
+
+      .app-logo img {
+        padding: 8px 12px;
+        border-radius: 12px;
+      }
     }
   </style>
+
 </head>
 
 <body>
@@ -324,7 +360,7 @@
             <div class="card-topbar">
               <!-- APP LOGO (1 rectangular) - NO SHAPE -->
               <div class="app-logo">
-                <img src="<?= base_url('assets/images/logo-white.png'); ?>" alt="TrabaWHO? Logo">
+                <img src="<?= base_url('assets/images/logo-white2.png'); ?>" alt="TrabaWHO? Logo">
               </div>
 
               <div class="headline">
