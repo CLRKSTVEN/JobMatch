@@ -7,7 +7,7 @@
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?= html_escape($page_title ?? 'Edit Worker Profile') ?> - Trabawho</title>
-    <meta name="theme-color" content="#1d4ed8" />
+    <meta name="theme-color" content="#c1272d" />
     <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('assets/images/logo.png') ?>">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -38,6 +38,12 @@
 
       .select2-container .select2-dropdown {
         z-index: 99999;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: #c1272d !important;
+        box-shadow: 0 0 0 3px rgba(193, 39, 45, 0.1) !important;
       }
 
       body {
@@ -110,8 +116,8 @@
       }
 
       .wk-guide-highlight {
-        outline: 3px solid #2563eb !important;
-        box-shadow: 0 0 0 6px rgba(37, 99, 235, .12), 0 8px 30px rgba(37, 99, 235, .22) !important;
+        outline: 3px solid #c1272d !important;
+        box-shadow: 0 0 0 6px rgba(193, 39, 45, .12), 0 8px 30px rgba(193, 39, 45, .22) !important;
         border-radius: .6rem !important;
         transition: box-shadow .18s ease;
         position: relative;
@@ -121,7 +127,7 @@
         content: "";
         position: absolute;
         inset: -6px;
-        border: 2px dashed rgba(37, 99, 235, .5);
+        border: 2px dashed rgba(193, 39, 45, .5);
         border-radius: .8rem;
         animation: wkPulse 1.4s ease-in-out infinite;
         pointer-events: none;
@@ -175,8 +181,8 @@
         height: 80px;
         margin: 0 auto 12px;
         border-radius: 16px;
-        background: radial-gradient(circle at 30% 30%, #dbeafe 0 40%, transparent 41%), #eff6ff;
-        box-shadow: inset 0 0 0 1px #bfdbfe, 0 10px 24px rgba(43, 77, 165, .12);
+        background: radial-gradient(circle at 30% 30%, #ffd9d9 0 40%, transparent 41%), #ffe5e5;
+        box-shadow: inset 0 0 0 1px #ffc9c9, 0 10px 24px rgba(193, 39, 45, .12);
       }
 
       #documentsTable {
@@ -215,9 +221,9 @@
       }
 
       .chip--type {
-        color: #1e3a8a;
-        background: #eff6ff;
-        border-color: #bfdbfe;
+        color: #c1272d;
+        background: #ffe5e5;
+        border-color: #ffc9c9;
       }
 
       .chip--skill {
@@ -242,8 +248,8 @@
       }
 
       .badge--warn {
-        color: #92400e;
-        background: #fef3c7;
+        color: #b45309;
+        background: #fffbeb;
       }
 
       .badge--danger {
@@ -406,8 +412,8 @@
         border-radius: 8px;
         font-size: .72rem;
         font-weight: 600;
-        color: #1e3a8a;
-        background: #eff6ff;
+        color: #c1272d;
+        background: #ffe5e5;
       }
 
       .desc-cell {
@@ -423,7 +429,7 @@
         display: inline-block;
         margin-left: .5rem;
         font-size: .75rem;
-        color: #2563eb;
+        color: #2980b9;
       }
     </style>
 
@@ -544,7 +550,7 @@
       <div class="max-w-5xl mx-auto">
         <div class="main-container bg-white rounded-2xl shadow border border-gray-200 overflow-hidden">
 
-          <div class="header-gradient px-8 py-6 bg-gradient-to-r from-blue-700 to-blue-500">
+          <div class="header-gradient px-8 py-6 bg-gradient-to-r from-red-700 to-red-500">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div class="flex items-center gap-4 sm:gap-6">
                 <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center shrink-0">
@@ -608,14 +614,14 @@
                 </div>
 
                 <div class="flex items-center gap-3 mt-4">
-                  <button class="primary-button inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg" type="submit">
+                  <button class="primary-button inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg" type="submit">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                     Upload Photo
                   </button>
                   <?php if (!empty($p->avatar) && !empty($avatarViewerUrl)): ?>
-                    <a class="text-sm font-medium text-blue-600 hover:text-blue-700" href="<?= htmlspecialchars($avatarViewerUrl, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener">View current</a>
+                    <a class="text-sm font-medium text-red-600 hover:text-red-700" href="<?= htmlspecialchars($avatarViewerUrl, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener">View current</a>
                   <?php endif; ?>
                 </div>
                 <div id="preview-avatar" class="upload-previews mt-3"></div>
@@ -773,8 +779,8 @@
                     <label class="form-label block text-sm font-medium text-gray-700">Selected skills</label>
                     <div id="skillsSelected" class="flex flex-wrap gap-2 mt-2">
                       <?php foreach ($currentSkills as $s): if (!$s) continue; ?>
-                        <span class="skill-chip inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200" data-skill-chip="<?= html_escape($s) ?>">
-                          <svg class="w-3.5 h-3.5 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
+                        <span class="skill-chip inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-200" data-skill-chip="<?= html_escape($s) ?>">
+                          <svg class="w-3.5 h-3.5 text-red-600" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 12l2 2 4-4 1.5 1.5L11 17l-3.5-3.5L9 12z" />
                           </svg>
                           <span class="text-xs font-medium"><?= html_escape($s) ?></span>
@@ -802,7 +808,7 @@
                     List your relevant roles and projects. Most recent at the top is recommended.
                   </p>
                   <button type="button" id="btnAddExp"
-                    class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold">
+                    class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm font-semibold">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
@@ -893,7 +899,7 @@
                     Keep your certifications and IDs organized. Expiring items are highlighted.
                   </p>
                   <button type="button" id="btnAddDoc"
-                    class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold">
+                    class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm font-semibold">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
@@ -945,7 +951,7 @@
               <div class="px-8 py-6 bg-gray-50 border-t border-gray-100">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                   <div class="flex flex-wrap items-center gap-3">
-                    <button type="submit" class="primary-button inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                    <button type="submit" class="primary-button inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
                       <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20 6L9 17l-5-5" />
                       </svg>
@@ -975,7 +981,7 @@
 
     <!-- Guided Steps Widget -->
     <div id="wkGuide" class="fixed bottom-4 right-4 z-[9998] hidden">
-      <button id="wkGuideBeacon" class="shadow-lg rounded-full px-4 py-2 bg-blue-600 text-white text-sm font-semibold flex items-center gap-2">
+      <button id="wkGuideBeacon" class="shadow-lg rounded-full px-4 py-2 bg-red-600 text-white text-sm font-semibold flex items-center gap-2">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
         </svg>
@@ -1000,7 +1006,7 @@
           <div id="wkGuideDots" class="flex gap-1.5"></div>
           <div class="flex gap-2">
             <button id="wkGuideSkip" class="px-2 py-1.5 text-sm rounded-lg bg-gray-100">Skip</button>
-            <button id="wkGuideGo" class="px-3 py-1.5 text-sm rounded-lg bg-blue-600 text-white font-semibold">Proceed</button>
+            <button id="wkGuideGo" class="px-3 py-1.5 text-sm rounded-lg bg-red-600 text-white font-semibold">Proceed</button>
           </div>
         </div>
       </div>
@@ -1073,7 +1079,7 @@
 
             <div class="px-0 py-4 border-t border-gray-200 mt-4 flex items-center justify-end gap-2">
               <button type="button" class="px-4 py-2 rounded-lg bg-gray-100 text-gray-700" id="docModalCancel">Cancel</button>
-              <button type="submit" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold">Save</button>
+              <button type="submit" class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold">Save</button>
             </div>
           </form>
         </div>
@@ -1137,7 +1143,7 @@
 
             <div class="px-0 py-4 border-t border-gray-200 mt-4 flex items-center justify-end gap-2">
               <button type="button" class="px-4 py-2 rounded-lg bg-gray-100 text-gray-700" id="expModalCancel">Cancel</button>
-              <button type="submit" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold">Save</button>
+              <button type="submit" class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold">Save</button>
             </div>
           </form>
         </div>
@@ -2216,7 +2222,7 @@
             msgEl.textContent = 'You can reopen this guide anytime. Click “Restart” to review the steps again.';
             for (let i = 0; i < steps.length; i++) {
               const d = document.createElement('span');
-              d.className = 'w-2 h-2 rounded-full bg-blue-600';
+              d.className = 'w-2 h-2 rounded-full bg-red-600';
               dotsEl.appendChild(d);
             }
             goBtn.textContent = 'Restart';
@@ -2228,7 +2234,7 @@
           msgEl.textContent = s.msg;
           for (let i = 0; i < steps.length; i++) {
             const d = document.createElement('span');
-            d.className = 'w-2 h-2 rounded-full ' + (i <= idx ? 'bg-blue-600' : 'bg-gray-300');
+            d.className = 'w-2 h-2 rounded-full ' + (i <= idx ? 'bg-red-600' : 'bg-gray-300');
             dotsEl.appendChild(d);
           }
           goBtn.textContent = 'Proceed';

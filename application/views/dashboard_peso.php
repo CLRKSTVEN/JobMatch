@@ -31,9 +31,9 @@
       --muted: #6b7280;
       --line: #e5e7eb;
       --ring: #dbeafe;
-      --primary: #2563eb;
-      --primary-600: #2563eb;
-      --primary-700: #2563eb;
+      --primary: #c1272d;
+      --primary-600: #c1272d;
+      --primary-700: #c1272d;
       --card: #fff;
       --card-br: #e5e7eb;
       --hover: rgba(2, 6, 23, .03);
@@ -121,8 +121,8 @@
     }
 
     .badge-public {
-      background: rgba(37, 99, 235, .12);
-      color: #2563eb;
+      background: rgba(193, 39, 45, .12);
+      color: #c1272d;
     }
 
     .badge-followers {
@@ -813,7 +813,7 @@
     }
 
     .stat-card--public .stat-card__icon {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      background: linear-gradient(135deg, #c1272d, #d63031);
     }
 
     .chip.-followers {
@@ -833,11 +833,11 @@
 
     .chip.-attachment {
       background: #dbeafe;
-      color: #1e3a8a;
+      color: #c1272d;
     }
 
     .text-link {
-      color: #2563eb;
+      color: #c1272d;
       font-weight: 600;
       font-size: .85rem;
     }
@@ -884,7 +884,7 @@
 
     .file-pill .mdi {
       font-size: 1.1rem;
-      color: #2563eb;
+      color: #c1272d;
     }
 
     .attachment-actions {

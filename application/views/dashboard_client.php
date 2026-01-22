@@ -25,12 +25,12 @@
     }
 
     :root {
-      --blue-900: #1e3a8a;
-      --blue-700: #1d4ed8;
-      --blue-600: #2563eb;
-      --blue-500: #2563eb;
-      --gold-700: #c89113;
-      --gold-600: #f0b429;
+      --blue-900: #c1272d;
+      --blue-700: #d63031;
+      --blue-600: #e74c3c;
+      --blue-500: #e74c3c;
+      --gold-700: #1b5e9f;
+      --gold-600: #2980b9;
       --silver-600: #a7afba;
       --silver-500: #c0c6d0;
       --silver-300: #d9dee7;
@@ -690,7 +690,7 @@
             <div class="kpi-grid" style="margin:10px 0 6px">
               <div class="panel kpi">
                 <div style="display:flex;align-items:center;gap:10px">
-                  <div class="icon" style="background:rgba(37,99,235,.10)"><i class="mdi mdi-briefcase-outline" style="font-size:18px;color:#2563eb"></i></div>
+                  <div class="icon" style="background:rgba(193,39,45,.15)"><i class="mdi mdi-briefcase-outline" style="font-size:18px;color:#c1272d"></i></div>
                   <div>
                     <div class="label">Jobs Posted</div>
                     <div class="value"><?= $jobs_posted ?></div>
@@ -700,7 +700,7 @@
               </div>
               <div class="panel kpi">
                 <div style="display:flex;align-items:center;gap:10px">
-                  <div class="icon" style="background:rgba(37,99,235,.12)"><i class="mdi mdi-briefcase-check" style="font-size:18px;color:#2563eb"></i></div>
+                  <div class="icon" style="background:rgba(193,39,45,.12)"><i class="mdi mdi-briefcase-check" style="font-size:18px;color:#c1272d"></i></div>
                   <div>
                     <div class="label">Active Jobs</div>
                     <div class="value"><?= $jobs_active ?></div>

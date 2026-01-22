@@ -21,12 +21,12 @@
   <link rel="shortcut icon" href="<?= base_url('assets/images/logo.png') ?>" />
   <style>
     :root {
-      --blue-900: #1e3a8a;
-      --blue-700: #1d4ed8;
-      --blue-600: #2563eb;
-      --blue-500: #2563eb;
-      --gold-700: #c89113;
-      --gold-600: #f0b429;
+      --blue-900: #c1272d;
+      --blue-700: #d63031;
+      --blue-600: #e74c3c;
+      --blue-500: #e74c3c;
+      --gold-700: #1b5e9f;
+      --gold-600: #2980b9;
       --silver-600: #a7afba;
       --silver-500: #c0c6d0;
       --silver-300: #d9dee7;
@@ -86,7 +86,7 @@
 
     .profile-cover {
       height: 160px;
-      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #2563eb 100%);
+      background: linear-gradient(135deg, #c1272d 0%, #d63031 50%, #e74c3c 100%);
       background-image: url('<?= base_url("assets/images/banner.png") ?>');
       background-size: cover;
       background-position: center;
@@ -383,7 +383,7 @@
     }
 
     .progress-ring {
-      --accent: #2563eb;
+      --accent: #e74c3c;
       --val: 0;
       width: 56px;
       height: 56px;
@@ -402,7 +402,7 @@
       place-items: center;
       font-weight: 800;
       font-size: 12px;
-      color: #1e3a8a;
+      color: #c1272d;
     }
 
     .list-missing {
@@ -883,7 +883,7 @@
             <div class="kpi-grid" style="margin:10px 0 6px">
               <div class="panel kpi">
                 <div style="display:flex;align-items:center;gap:10px">
-                  <div class="icon" style="background:rgba(251,191,36,.18)"><i class="mdi mdi-briefcase-check" style="font-size:18px;color:#b45309"></i></div>
+                  <div class="icon" style="background:rgba(193,39,45,.15)"><i class="mdi mdi-briefcase-check" style="font-size:18px;color:#c1272d"></i></div>
                   <div>
                     <div class="label">Times Hired</div>
                     <div class="value"><?= (int)($times_hired ?? 0) ?></div>
@@ -894,7 +894,7 @@
               </div>
               <div class="panel kpi">
                 <div style="display:flex;align-items:center;gap:10px">
-                  <div class="icon" style="background:rgba(245,158,11,.12)"><i class="mdi mdi-star" style="font-size:18px;color:#f59e0b"></i></div>
+                  <div class="icon" style="background:rgba(230,48,49,.12)"><i class="mdi mdi-star" style="font-size:18px;color:#e63031"></i></div>
                   <div>
                     <div class="label">Average Rating</div>
                     <div class="value"><?= number_format((float)($p->avgRating ?? 0), 2) ?></div>
@@ -910,7 +910,7 @@
                 <div class="progress-wrap">
                   <div
                     class="progress-ring"
-                    style="--val: <?= $pc ?>; --accent: <?= $pc >= 100 ? '#fbbf24' : '#2563eb' ?>;">
+                    style="--val: <?= $pc ?>; --accent: <?= $pc >= 100 ? '#34495e' : '#e74c3c' ?>;">
                     <span><?= $pc ?>%</span>
                   </div>
                   <div>

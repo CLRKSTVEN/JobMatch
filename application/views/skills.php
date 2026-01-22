@@ -1,12 +1,13 @@
-﻿<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+﻿<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <?php
-  $page_title = 'Skills';
-  $openAdd = ($this->input->get('add') === '1');
-  $skills = $skills ?? [];
-  $count = is_array($skills) ? count($skills) : 0;
+$page_title = 'Skills';
+$openAdd = ($this->input->get('add') === '1');
+$skills = $skills ?? [];
+$count = is_array($skills) ? count($skills) : 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,43 +25,130 @@
   <link rel="shortcut icon" href="<?= base_url('assets/images/logo.png') ?>" />
 
   <style>
-    :root{
-      --blue-700:#2563eb; --blue-900:#1e3a8a;
-      --silver-200:#e5e7eb; --silver-100:#f9fafb;
+    :root {
+      --blue-700: #d63031;
+      --blue-900: #c1272d;
+      --silver-200: #e5e7eb;
+      --silver-100: #f9fafb;
     }
-    body{ font-family:"Poppins",ui-sans-serif; background:#f9fafb; }
-    .app{max-width:900px;margin:0 auto;padding:0 12px}
 
-    .panel{background:#fff;border:1px solid var(--silver-200);border-radius:12px;box-shadow:0 6px 16px rgba(2,6,23,.08);padding:16px}
+    body {
+      font-family: "Poppins", ui-sans-serif;
+      background: #f9fafb;
+    }
 
-    .chip{display:inline-flex;align-items:center;gap:6px;padding:.3rem .6rem;border-radius:9999px;border:1px solid var(--silver-200);background:#fff;font-weight:700;font-size:12px;color:#334155}
+    .app {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 12px
+    }
+
+    .panel {
+      background: #fff;
+      border: 1px solid var(--silver-200);
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(2, 6, 23, .08);
+      padding: 16px
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: .3rem .6rem;
+      border-radius: 9999px;
+      border: 1px solid var(--silver-200);
+      background: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      color: #334155
+    }
 
     /* List style */
-    .skill-list{list-style:none;margin:0;padding:0;}
-    .skill-list li{
-      padding:10px 12px;
-      border-bottom:1px solid var(--silver-200);
-      display:flex;align-items:center;justify-content:space-between;
-      font-weight:600; color:#1e3a8a;
-      transition:background .15s ease;
+    .skill-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
-    .skill-list li:last-child{border-bottom:none;}
-    .skill-list li:hover{background:var(--silver-100);}
-    .skill-actions{display:flex;gap:8px;}
-    .btn-danger-soft{background:#fff5f5;color:#dc2626;border:1px solid #fecaca;border-radius:8px;font-size:.85rem;padding:.25rem .6rem}
-    .btn-danger-soft:hover{background:#fee2e2}
+
+    .skill-list li {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--silver-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      color: #1e3a8a;
+      transition: background .15s ease;
+    }
+
+    .skill-list li:last-child {
+      border-bottom: none;
+    }
+
+    .skill-list li:hover {
+      background: var(--silver-100);
+    }
+
+    .skill-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-danger-soft {
+      background: #fff5f5;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      font-size: .85rem;
+      padding: .25rem .6rem
+    }
+
+    .btn-danger-soft:hover {
+      background: #fee2e2
+    }
 
     /* Search box */
-    .toolbar .input-group{border-radius:12px; overflow:hidden; max-width:360px;}
-    .toolbar .input-group .input-group-text{background:#fff;border:1px solid var(--silver-200);border-right:0}
-    .toolbar .input-group .form-control{border:1px solid var(--silver-200);border-left:0}
+    .toolbar .input-group {
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 360px;
+    }
 
-    .btn-primary{background:var(--blue-700);border-color:var(--blue-700);border-radius:10px;font-weight:700}
-    .btn-primary:hover{filter:brightness(.95)}
+    .toolbar .input-group .input-group-text {
+      background: #fff;
+      border: 1px solid var(--silver-200);
+      border-right: 0
+    }
+
+    .toolbar .input-group .form-control {
+      border: 1px solid var(--silver-200);
+      border-left: 0
+    }
+
+    .btn-primary {
+      background: var(--blue-700);
+      border-color: var(--blue-700);
+      border-radius: 10px;
+      font-weight: 700
+    }
+
+    .btn-primary:hover {
+      filter: brightness(.95)
+    }
 
     /* Modal polish */
-    .modal .form-control{ border:2px solid var(--blue-700) !important; border-radius:10px; box-shadow:none !important; }
-    .modal .form-control:focus{ border-color:#f0b429 !important; box-shadow:0 0 0 .25rem rgba(240,180,41,.30) !important; outline:0; }
+    .modal .form-control {
+      border: 2px solid var(--blue-700) !important;
+      border-radius: 10px;
+      box-shadow: none !important;
+    }
+
+    .modal .form-control:focus {
+      border-color: #2980b9 !important;
+      box-shadow: 0 0 0 .25rem rgba(41, 128, 185, .30) !important;
+      outline: 0;
+    }
   </style>
 </head>
 
@@ -109,26 +197,26 @@
 
               <?php if (!empty($skills)): ?>
                 <ul id="skillsList" class="skill-list">
-                  <?php foreach ($skills as $s): 
+                  <?php foreach ($skills as $s):
                     $id   = isset($s->skillID) ? (int)$s->skillID : 0;
                     $t    = trim($s->Title ?? '');
                   ?>
-                  <li data-title="<?= htmlspecialchars(mb_strtolower($t, 'UTF-8'), ENT_QUOTES, 'UTF-8') ?>">
-                    <?= htmlspecialchars($t, ENT_QUOTES, 'UTF-8') ?>
-                    <div class="skill-actions">
-                    <form method="post"
-      action="<?= site_url('admin/deleteSkill/'.$id) ?>"
-      onsubmit="return confirm('Delete this skill?');"
-      class="m-0 p-0">
-  <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>"
-         value="<?= $this->security->get_csrf_hash(); ?>">
-  <button type="submit" class="btn-danger-soft" title="Delete">
-    <i class="mdi mdi-delete-outline"></i>
-  </button>
-</form>
+                    <li data-title="<?= htmlspecialchars(mb_strtolower($t, 'UTF-8'), ENT_QUOTES, 'UTF-8') ?>">
+                      <?= htmlspecialchars($t, ENT_QUOTES, 'UTF-8') ?>
+                      <div class="skill-actions">
+                        <form method="post"
+                          action="<?= site_url('admin/deleteSkill/' . $id) ?>"
+                          onsubmit="return confirm('Delete this skill?');"
+                          class="m-0 p-0">
+                          <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>"
+                            value="<?= $this->security->get_csrf_hash(); ?>">
+                          <button type="submit" class="btn-danger-soft" title="Delete">
+                            <i class="mdi mdi-delete-outline"></i>
+                          </button>
+                        </form>
 
-                    </div>
-                  </li>
+                      </div>
+                    </li>
                   <?php endforeach; ?>
                 </ul>
               <?php else: ?>
@@ -182,113 +270,139 @@
   <script src="<?= base_url('assets/js/misc.js') ?>"></script>
 
   <script>
-  (function(){
-    // Focus search with "/"
-    document.addEventListener('keydown', function(e){
-      if (e.key === '/' && !/input|textarea|select/i.test((e.target || {}).tagName || '')) {
-        e.preventDefault();
-        var s = document.getElementById('skillSearch');
-        if (s) s.focus();
-      }
-    });
-
-    // Filter list by title (keeps your search)
-    function filterList(q){
-      var list = document.getElementById('skillsList');
-      if (!list) return;
-      var term = (q || '').trim().toLowerCase();
-      var rows = list.querySelectorAll('li');
-      rows.forEach(function(li){
-        var t = li.getAttribute('data-title') || '';
-        li.style.display = (!term || t.indexOf(term) > -1) ? '' : 'none';
-      });
-    }
-    document.addEventListener('input', function(e){
-      if (e.target && e.target.id === 'skillSearch'){
-        filterList(e.target.value);
-      }
-    });
-
-    // Robust modal open (fixes "can't add" when overlays conflict)
-    function moveModalToBody(modal){
-      if (modal && modal.parentNode !== document.body) document.body.appendChild(modal);
-    }
-    function removeStaleOverlays(){
-      if (!window.jQuery) return;
-      jQuery('.modal-backdrop, .overlay, .sidebar-overlay, .fullscreen-overlay').remove();
-      jQuery('body').removeClass('modal-open').css('padding-right','');
-    }
-    function hardOpen(){
-      var bd = document.querySelector('.modal-backdrop');
-      if (!bd){
-        bd = document.createElement('div');
-        bd.className = 'modal-backdrop show';
-        document.body.appendChild(bd);
-      }
-      document.body.classList.add('modal-open');
-      var m = document.getElementById('addSkillModal');
-      m.setAttribute('aria-hidden','false');
-      m.style.display = 'block';
-      m.classList.add('show');
-      var inp = m.querySelector('input, textarea, button');
-      if (inp) setTimeout(function(){ try{ inp.focus(); }catch(e){} }, 0);
-    }
-    function hardClose(){
-      var m = document.getElementById('addSkillModal');
-      m.classList.remove('show');
-      m.style.display = 'none';
-      m.setAttribute('aria-hidden','true');
-      var bd = document.querySelector('.modal-backdrop');
-      if (bd) bd.parentNode.removeChild(bd);
-      document.body.classList.remove('modal-open');
-    }
-
-    document.addEventListener('DOMContentLoaded', function(){
-      // ensure single modal instance
-      var dups = document.querySelectorAll('#addSkillModal');
-      if (dups.length > 1){ for (var i=0;i<dups.length-1;i++){ dups[i].remove(); } }
-      var modal = document.getElementById('addSkillModal');
-      moveModalToBody(modal);
-
-      var canBS = !!(window.jQuery && jQuery.fn && jQuery.fn.modal);
-      if (canBS){ jQuery(modal).on('hidden.bs.modal', function(){ removeStaleOverlays(); }); }
-
-      // button open
-      var btn = document.getElementById('btnAddSkill');
-      if (btn){
-        btn.addEventListener('click', function(e){
+    (function() {
+      // Focus search with "/"
+      document.addEventListener('keydown', function(e) {
+        if (e.key === '/' && !/input|textarea|select/i.test((e.target || {}).tagName || '')) {
           e.preventDefault();
-          removeStaleOverlays();
-          if (canBS){
-            jQuery('#addSkillModal').modal({backdrop:true, keyboard:true, show:true});
-            setTimeout(function(){
-              if (!modal.classList.contains('show') || modal.style.display === 'none'){ hardOpen(); }
-            }, 50);
-          } else {
-            hardOpen();
-          }
-        });
-      }
-
-      // close buttons fallback
-      document.addEventListener('click', function(ev){
-        var t = ev.target;
-        if (t.matches('[data-dismiss="modal"], .modal .close, .modal [type="button"].btn-light')){
-          ev.preventDefault();
-          if (canBS){ jQuery('#addSkillModal').modal('hide'); }
-          hardClose();
+          var s = document.getElementById('skillSearch');
+          if (s) s.focus();
         }
       });
 
-      // auto-open via ?add=1
-      <?php if ($openAdd): ?>
-        if (canBS){ jQuery('#addSkillModal').modal('show'); }
-        setTimeout(function(){ hardOpen(); }, 60);
-      <?php endif; ?>
-    });
-  })();
+      // Filter list by title (keeps your search)
+      function filterList(q) {
+        var list = document.getElementById('skillsList');
+        if (!list) return;
+        var term = (q || '').trim().toLowerCase();
+        var rows = list.querySelectorAll('li');
+        rows.forEach(function(li) {
+          var t = li.getAttribute('data-title') || '';
+          li.style.display = (!term || t.indexOf(term) > -1) ? '' : 'none';
+        });
+      }
+      document.addEventListener('input', function(e) {
+        if (e.target && e.target.id === 'skillSearch') {
+          filterList(e.target.value);
+        }
+      });
+
+      // Robust modal open (fixes "can't add" when overlays conflict)
+      function moveModalToBody(modal) {
+        if (modal && modal.parentNode !== document.body) document.body.appendChild(modal);
+      }
+
+      function removeStaleOverlays() {
+        if (!window.jQuery) return;
+        jQuery('.modal-backdrop, .overlay, .sidebar-overlay, .fullscreen-overlay').remove();
+        jQuery('body').removeClass('modal-open').css('padding-right', '');
+      }
+
+      function hardOpen() {
+        var bd = document.querySelector('.modal-backdrop');
+        if (!bd) {
+          bd = document.createElement('div');
+          bd.className = 'modal-backdrop show';
+          document.body.appendChild(bd);
+        }
+        document.body.classList.add('modal-open');
+        var m = document.getElementById('addSkillModal');
+        m.setAttribute('aria-hidden', 'false');
+        m.style.display = 'block';
+        m.classList.add('show');
+        var inp = m.querySelector('input, textarea, button');
+        if (inp) setTimeout(function() {
+          try {
+            inp.focus();
+          } catch (e) {}
+        }, 0);
+      }
+
+      function hardClose() {
+        var m = document.getElementById('addSkillModal');
+        m.classList.remove('show');
+        m.style.display = 'none';
+        m.setAttribute('aria-hidden', 'true');
+        var bd = document.querySelector('.modal-backdrop');
+        if (bd) bd.parentNode.removeChild(bd);
+        document.body.classList.remove('modal-open');
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        // ensure single modal instance
+        var dups = document.querySelectorAll('#addSkillModal');
+        if (dups.length > 1) {
+          for (var i = 0; i < dups.length - 1; i++) {
+            dups[i].remove();
+          }
+        }
+        var modal = document.getElementById('addSkillModal');
+        moveModalToBody(modal);
+
+        var canBS = !!(window.jQuery && jQuery.fn && jQuery.fn.modal);
+        if (canBS) {
+          jQuery(modal).on('hidden.bs.modal', function() {
+            removeStaleOverlays();
+          });
+        }
+
+        // button open
+        var btn = document.getElementById('btnAddSkill');
+        if (btn) {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            removeStaleOverlays();
+            if (canBS) {
+              jQuery('#addSkillModal').modal({
+                backdrop: true,
+                keyboard: true,
+                show: true
+              });
+              setTimeout(function() {
+                if (!modal.classList.contains('show') || modal.style.display === 'none') {
+                  hardOpen();
+                }
+              }, 50);
+            } else {
+              hardOpen();
+            }
+          });
+        }
+
+        // close buttons fallback
+        document.addEventListener('click', function(ev) {
+          var t = ev.target;
+          if (t.matches('[data-dismiss="modal"], .modal .close, .modal [type="button"].btn-light')) {
+            ev.preventDefault();
+            if (canBS) {
+              jQuery('#addSkillModal').modal('hide');
+            }
+            hardClose();
+          }
+        });
+
+        // auto-open via ?add=1
+        <?php if ($openAdd): ?>
+          if (canBS) {
+            jQuery('#addSkillModal').modal('show');
+          }
+          setTimeout(function() {
+            hardOpen();
+          }, 60);
+        <?php endif; ?>
+      });
+    })();
   </script>
 </body>
+
 </html>
-
-

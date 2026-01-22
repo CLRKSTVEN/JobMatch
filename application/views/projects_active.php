@@ -36,7 +36,7 @@
       --indigo-300: #a5b4fc;
       --indigo-400: #818cf8;
       --indigo-500: #6366f1;
-      --blue-focus: #1e3a8a;
+      --blue-focus: #c1272d;
       --shadow-1: 0 6px 18px rgba(2, 6, 23, .06), 0 1px 0 rgba(2, 6, 23, .04);
       --shadow-2: 0 16px 36px rgba(2, 6, 23, .12), 0 3px 10px rgba(2, 6, 23, .08)
     }
