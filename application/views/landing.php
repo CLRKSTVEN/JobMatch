@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="<?= base_url('assets/vendors/css/vendor.bundle.base.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/vertical-light/style.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/universal.css') ?>">
-  <link rel="shortcut icon" href="<?= base_url('assets/images/logo-white2.png'); ?>" />
+  <link rel="shortcut icon" href="<?= base_url('assets/images/logo.png'); ?>" />
 
   <style>
     :root {

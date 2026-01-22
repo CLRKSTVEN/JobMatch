@@ -457,31 +457,30 @@
     <script src="<?= base_url('assets/js/hoverable-collapse.js') ?>"></script>
     <script src="<?= base_url('assets/js/misc.js') ?>"></script>
     <script>
-      < script >
-        (function() {
-          var tbl = document.querySelector('.complaints-table');
-          if (!tbl) return;
+      (function() {
+        var tbl = document.querySelector('.complaints-table');
+        if (!tbl) return;
 
-          function labelize(table) {
-            var heads = Array.from(table.querySelectorAll('thead th')).map(function(th) {
-              return th.textContent.trim();
+        function labelize(table) {
+          var heads = Array.from(table.querySelectorAll('thead th')).map(function(th) {
+            return th.textContent.trim();
+          });
+          table.querySelectorAll('tbody tr').forEach(function(tr) {
+            Array.from(tr.children).forEach(function(td, i) {
+              if (!td.hasAttribute('data-th') && heads[i]) td.setAttribute('data-th', heads[i]);
             });
-            table.querySelectorAll('tbody tr').forEach(function(tr) {
-              Array.from(tr.children).forEach(function(td, i) {
-                if (!td.hasAttribute('data-th') && heads[i]) td.setAttribute('data-th', heads[i]);
-              });
-            });
-          }
+          });
+        }
 
+        labelize(tbl);
+        var obs = new MutationObserver(function() {
           labelize(tbl);
-          var obs = new MutationObserver(function() {
-            labelize(tbl);
-          });
-          if (tbl.tBodies && tbl.tBodies[0]) obs.observe(tbl.tBodies[0], {
-            childList: true,
-            subtree: true
-          });
-        })();
+        });
+        if (tbl.tBodies && tbl.tBodies[0]) obs.observe(tbl.tBodies[0], {
+          childList: true,
+          subtree: true
+        });
+      })();
     </script>
 
 

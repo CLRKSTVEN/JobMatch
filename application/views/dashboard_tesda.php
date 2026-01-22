@@ -15,13 +15,24 @@
   <link rel="stylesheet" href="<?= base_url('assets/css/vertical-light/style.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/custom.css?v=1.0.9') ?>">
   <link rel="shortcut icon" href="<?= base_url('assets/images/logo.png') ?>" />
-
   <style>
     html {
       scrollbar-gutter: stable;
     }
 
     :root {
+      --brand-blue: #c1272d;
+      --brand-blue-dark: #d63031;
+      --brand-blue-soft: rgba(193, 39, 45, .14);
+
+      --brand-gold: #1b5e9f;
+      --brand-gold-soft: rgba(27, 94, 159, .14);
+
+      --brand-ink: #0f172a;
+      --brand-muted: #64748b;
+      --brand-line: #d9dee7;
+      --brand-silver: #c0c6d0;
+
       --blue: var(--brand-blue);
       --blue2: var(--brand-blue-dark);
       --gold: var(--brand-gold);
@@ -29,10 +40,10 @@
       --muted: var(--brand-muted);
       --line: var(--brand-line);
       --silver: var(--brand-silver);
-      --bg: #f6f7fb;
+      --bg: linear-gradient(180deg, #f6f8fc, #eef2f7 60%, #e9edf3 100%);
       --card: #fff;
-      --shadow: 0 10px 30px rgba(2, 6, 23, .10), 0 2px 8px rgba(2, 6, 23, .06);
-      --radius: 14px;
+      --shadow: 0 6px 16px rgba(2, 6, 23, .08);
+      --radius: 12px;
     }
 
     body {
@@ -100,7 +111,7 @@
 
     .kpi {
       background: var(--card);
-      border: 1px solid #e7ebf2;
+      border: 1px solid var(--brand-line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 14px;
@@ -131,7 +142,7 @@
 
     .panel {
       background: #fff;
-      border: 1px solid #e7ebf2;
+      border: 1px solid var(--brand-line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 16px
@@ -185,6 +196,7 @@
       margin: .35rem 0
     }
   </style>
+
 </head>
 
 <body>

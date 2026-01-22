@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<link rel="shortcut icon" href="<?= base_url('assets/images/logo-small.png'); ?>" />
+<link rel="shortcut icon" href="<?= base_url('assets/images/logo.png') ?>" />
 
 <head>
   <meta charset="utf-8">
