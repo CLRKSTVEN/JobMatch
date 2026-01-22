@@ -223,7 +223,7 @@
 
 
               <label class="block mb-2 font-medium text-gray-800">Upload new photo</label>
-              <div class="border-2 border-dashed border-gray-300 rounded-xl p-5 text-center bg-gray-50 hover:bg-gray-100 transition">
+              <div id="avatarDrop" class="border-2 border-dashed border-gray-300 rounded-xl p-5 text-center bg-gray-50 hover:bg-gray-100 transition cursor-pointer">
                 <svg class="mx-auto h-9 w-9 text-gray-400 mb-2" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                   <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
@@ -536,6 +536,116 @@
       </div>
     </div>
   </div>
+  <script>
+    (function() {
+      const form = document.getElementById('avatarForm');
+      const drop = document.getElementById('avatarDrop');
+      const inp = document.getElementById('avatar');
+      const img = document.getElementById('avatarPreview');
+      const status = document.getElementById('avatarStatus');
+      const live = document.getElementById('liveFlash');
+
+      if (!form || !drop || !inp) return;
+
+      // Make the drop area open file picker
+      drop.addEventListener('click', () => inp.click());
+
+      function showFlash(type, text) {
+        if (!live) return;
+        const cls = type === 'success' ?
+          'bg-emerald-50 text-emerald-800 border border-emerald-200' :
+          'bg-red-50 text-red-800 border border-red-200';
+        live.innerHTML = `<div class="px-3 py-2 rounded ${cls}">${text}</div>`;
+        setTimeout(() => {
+          live.innerHTML = '';
+        }, 3500);
+      }
+
+      async function uploadAvatar(file) {
+        const fd = new FormData(form);
+        fd.set('avatar', file);
+
+        if (status) {
+          status.classList.remove('hidden');
+          status.textContent = 'Uploading…';
+        }
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: fd,
+            credentials: 'same-origin',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest'
+            }
+          });
+
+          const data = await res.json().catch(() => ({}));
+
+          if (!res.ok || !data.ok) {
+            throw new Error(data.message || 'Upload failed.');
+          }
+
+          // Update CSRF token in BOTH forms (avatar form + main form)
+          if (data.csrf_name && data.csrf_hash) {
+            document.querySelectorAll(`input[name="${data.csrf_name}"]`)
+              .forEach(el => el.value = data.csrf_hash);
+          }
+
+          // Update avatar preview with cache-buster
+          if (data.avatar_url && img) {
+            img.src = data.avatar_url + (data.avatar_url.includes('?') ? '&' : '?') + 't=' + Date.now();
+          }
+
+          if (status) status.textContent = 'Uploaded ✅';
+          showFlash('success', (data.flash && data.flash.text) ? data.flash.text : 'Profile photo updated.');
+
+          setTimeout(() => {
+            if (status) status.classList.add('hidden');
+          }, 1200);
+
+        } catch (err) {
+          if (status) {
+            status.textContent = 'Upload failed';
+            setTimeout(() => status.classList.add('hidden'), 1200);
+          }
+          showFlash('error', err.message || 'Upload failed.');
+        }
+      }
+
+      inp.addEventListener('change', (e) => {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+
+        // quick local preview
+        if (f.type && f.type.startsWith('image/') && img) {
+          const r = new FileReader();
+          r.onload = (ev) => {
+            img.src = ev.target.result;
+          };
+          r.readAsDataURL(f);
+        }
+
+        uploadAvatar(f);
+      });
+
+      // Optional: drag & drop
+      drop.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        drop.classList.add('ring-2', 'ring-blue-300');
+      });
+      drop.addEventListener('dragleave', () => {
+        drop.classList.remove('ring-2', 'ring-blue-300');
+      });
+      drop.addEventListener('drop', (e) => {
+        e.preventDefault();
+        drop.classList.remove('ring-2', 'ring-blue-300');
+        const f = e.dataTransfer.files && e.dataTransfer.files[0];
+        if (f) uploadAvatar(f);
+      });
+
+    })();
+  </script>
 
   <script>
     (function() {

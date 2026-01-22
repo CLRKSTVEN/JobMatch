@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -566,48 +568,62 @@
             $seed_name    = trim(($first_name ?: '') . ' ' . ($last_name ?: ''));
             $seed         = $seed_name !== '' ? $seed_name : ($this->session->userdata('first_name') ?: 'Client');
 
-            $rawAvatar = trim((string)($p->avatar ?? ''));
+            $rawAvatar = trim((string)($this->session->userdata('avatar') ?: ($p->avatar ?? '')));
 
-            // Build absolute URL
+            // Normalize local path once
+            $rawAvatarClean = ltrim(str_replace(['\\', './'], ['/', ''], $rawAvatar), '/');
+
+            // Build absolute avatar URL
             if ($rawAvatar !== '' && preg_match('#^https?://#i', $rawAvatar)) {
               $avatarAbs = $rawAvatar;
-            } elseif ($rawAvatar !== '') {
-              $avatarAbs = base_url(str_replace('\\', '/', $rawAvatar));
+            } elseif ($rawAvatarClean !== '') {
+              $avatarAbs = base_url($rawAvatarClean);
             } else {
               $avatarAbs = base_url('uploads/avatars/avatar.png');
             }
 
-            // If local file path, confirm it exists; else fallback
-            if ($rawAvatar !== '' && !preg_match('#^https?://#i', $rawAvatar)) {
-              $absFile = FCPATH . ltrim(str_replace('\\', '/', $rawAvatar), '/');
+            // If local path, confirm it exists; else fallback
+            if ($rawAvatarClean !== '' && !preg_match('#^https?://#i', $rawAvatar)) {
+              $absFile = FCPATH . $rawAvatarClean;
               if (!is_file($absFile)) {
                 $avatarAbs = base_url('uploads/avatars/avatar.png');
               }
             }
 
-            // Cache-bust using updated_at (or time)
-            $ver = !empty($p->updated_at) ? strtotime($p->updated_at) : time();
+            // Cache-bust: prefer updated_at; else filemtime if local; else 1
+            $ver = 1;
+
+            if ($rawAvatarClean !== '' && !preg_match('#^https?://#i', $rawAvatar) && is_file(FCPATH . $rawAvatarClean)) {
+              $ver = filemtime(FCPATH . $rawAvatarClean) ?: 1;
+            } elseif (!empty($p->updated_at)) {
+              $ver = strtotime($p->updated_at) ?: 1;
+            }
+
+
             $avatarUrl = $avatarAbs . (strpos($avatarAbs, '?') === false ? '?' : '&') . 'v=' . $ver;
 
-
-            $phoneNo    = $p->phoneNo ?? '';
-            $loc        = trim(($p->brgy ?? '') . (($p->brgy ?? '') && ($p->city ?? '') ? ', ' : '') . ($p->city ?? '') . ((($p->brgy ?? '') || ($p->city ?? '')) && ($p->province ?? '') ? ', ' : '') . ($p->province ?? ''));
-            $address    = $p->address ?? '';
+            $phoneNo = $p->phoneNo ?? '';
+            $loc     = trim(
+              ($p->brgy ?? '') .
+                (($p->brgy ?? '') && ($p->city ?? '') ? ', ' : '') . ($p->city ?? '') .
+                ((($p->brgy ?? '') || ($p->city ?? '')) && ($p->province ?? '') ? ', ' : '') . ($p->province ?? '')
+            );
+            $address = $p->address ?? '';
 
             $company    = trim((string)($p->companyName ?? ''));
-            $has_company_position_field = client_has_company_position_field();
-            $company_position = ($has_company_position_field && isset($p->company_position))
-              ? trim((string)$p->company_position)
-              : '';
+            $has_company_position_field = function_exists('client_has_company_position_field') ? client_has_company_position_field() : false;
+            $company_position = ($has_company_position_field && isset($p->company_position)) ? trim((string)$p->company_position) : '';
             $employer   = trim((string)($p->employer ?? ''));
             $biz_name   = trim((string)($p->business_name ?? ''));
             $biz_loc    = trim((string)($p->business_location ?? ''));
-            $org_label  = client_org_label($p);
-            $is_individual_employer = client_is_individual_employer($p);
+
+            $org_label  = function_exists('client_org_label') ? client_org_label($p) : '';
+            $is_individual_employer = function_exists('client_is_individual_employer') ? client_is_individual_employer($p) : false;
+
             $has_business_details = ($company !== '' || ($has_company_position_field && $company_position !== '') || $employer !== '' || $biz_name !== '' || $biz_loc !== '');
 
-            $id_image   = $p->id_image ?? '';
-            $permit     = $p->business_permit ?? '';
+            $id_image = $p->id_image ?? '';
+            $permit   = $p->business_permit ?? '';
 
             if (!function_exists('viewer_url_from_abs')) {
               function viewer_url_from_abs($absUrl)
@@ -623,16 +639,30 @@
                 return site_url('media/preview') . '?f=' . rawurlencode($fParam);
               }
             }
+            if (!function_exists('is_image_path')) {
+              function is_image_path($path)
+              {
+                $ext = strtolower(pathinfo(is_string($path) ? $path : '', PATHINFO_EXTENSION));
+                return in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'], true);
+              }
+            }
+            if (!function_exists('is_pdf_path')) {
+              function is_pdf_path($path)
+              {
+                $ext = strtolower(pathinfo(is_string($path) ? $path : '', PATHINFO_EXTENSION));
+                return $ext === 'pdf';
+              }
+            }
 
-            $idAbs           = !empty($id_image) ? base_url($id_image) : null;
-            $permitAbs       = !empty($permit)   ? base_url($permit)   : null;
+            $idAbs           = !empty($id_image) ? base_url(ltrim(str_replace('\\', '/', $id_image), '/')) : null;
+            $permitAbs       = !empty($permit)   ? base_url(ltrim(str_replace('\\', '/', $permit), '/'))   : null;
             $idViewerUrl     = $idAbs     ? (viewer_url_from_abs($idAbs)     ?: $idAbs)     : null;
             $permitViewerUrl = $permitAbs ? (viewer_url_from_abs($permitAbs) ?: $permitAbs) : null;
 
-            $jobs_posted     = (int)($stats['jobs_posted'] ?? 0);
-            $jobs_active     = (int)($stats['jobs_active'] ?? 0);
-            $hires_total     = (int)($stats['hires_total'] ?? 0);
-            $spend_total     = (float)($stats['spend_total'] ?? 0);
+            $jobs_posted = (int)($stats['jobs_posted'] ?? 0);
+            $jobs_active = (int)($stats['jobs_active'] ?? 0);
+            $hires_total = (int)($stats['hires_total'] ?? 0);
+            $spend_total = (float)($stats['spend_total'] ?? 0);
 
             $certs = [];
             if (!empty($p->certificates)) {
@@ -643,19 +673,9 @@
               if (is_array($tmp)) $certs = array_values(array_filter($tmp));
             }
 
-            $isVerified  = ($first_name && $last_name && !empty($id_image));
-
-            function is_image_path($path)
-            {
-              $ext = strtolower(pathinfo(is_string($path) ? $path : '', PATHINFO_EXTENSION));
-              return in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif']);
-            }
-            function is_pdf_path($path)
-            {
-              $ext = strtolower(pathinfo(is_string($path) ? $path : '', PATHINFO_EXTENSION));
-              return $ext === 'pdf';
-            }
+            $isVerified = ($first_name && $last_name && !empty($id_image));
             ?>
+
 
             <div class="profile-card">
               <div class="profile-brandbar"></div>
