@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,48 +17,199 @@
   <link rel="shortcut icon" href="<?= base_url('assets/images/logo.png') ?>" />
 
   <style>
-    :root{
-      --blue:#2563eb; --blue-2:#2563eb; --blue-3:#1e3a8a;
-      --gold:#f59e0b; --silver:#c0c4cc; --ink:#0f172a; --muted:#6b7280;
-      --bg:#f6f7fb; --card:#fff; --shadow:0 10px 30px rgba(2,6,23,.10), 0 2px 8px rgba(2,6,23,.06);
+    :root {
+      --blue: #c1272d;
+      --blue-2: #d63031;
+      --blue-3: #1b5e9f;
+      --gold: #2980b9;
+      --silver: #c0c4cc;
+      --ink: #0f172a;
+      --muted: #6b7280;
+      --bg: #f6f7fb;
+      --card: #fff;
+      --shadow: 0 10px 30px rgba(2, 6, 23, .10), 0 2px 8px rgba(2, 6, 23, .06);
     }
-    body{background:var(--bg);color:var(--ink);font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial}
-    .app{max-width:960px;margin:0 auto;padding:0 16px}
 
-    .hero{position:relative;border-radius:16px;color:#fff;padding:16px;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-2) 60%);box-shadow:var(--shadow);display:flex;align-items:center;gap:12px}
-    .hero .ico{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.2)}
-    .hero h4{margin:0;font-weight:700}
-    .hero .sub{opacity:.95;font-size:.9rem}
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial
+    }
 
-    .card{background:var(--card); border-radius:14px; box-shadow:var(--shadow); padding:16px; border:1px solid rgba(192,196,204,.55)}
-    .accent:before{content:""; position:absolute; left:0; right:0; top:-1px; height:4px; background:linear-gradient(90deg,#f59e0b,var(--blue-3)); border-top-left-radius:14px;border-top-right-radius:14px}
-    .drop{border:2px dashed var(--silver); border-radius:12px; padding:14px; background:#fbfcfe}
+    .app {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 16px
+    }
+
+    .hero {
+      position: relative;
+      border-radius: 16px;
+      color: #fff;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-2) 60%);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .hero .ico {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, .14);
+      border: 1px solid rgba(255, 255, 255, .2)
+    }
+
+    .hero h4 {
+      margin: 0;
+      font-weight: 700
+    }
+
+    .hero .sub {
+      opacity: .95;
+      font-size: .9rem
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+      border: 1px solid rgba(192, 196, 204, .55)
+    }
+
+    .accent:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -1px;
+      height: 4px;
+      background: linear-gradient(90deg, #f59e0b, var(--blue-3));
+      border-top-left-radius: 14px;
+      border-top-right-radius: 14px
+    }
+
+    .drop {
+      border: 2px dashed var(--silver);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fbfcfe
+    }
 
     /* COMPACT MODAL */
-    .modal-content{border-radius:14px;border:1px solid rgba(2,6,23,.08);box-shadow:var(--shadow)}
-    .modal-sm-custom{max-width:720px}
-    .modal-header{border:0;padding:12px 14px}
-    .modal-body{padding:10px 14px 6px}
-    .modal-footer{border:0;padding:10px 14px 14px}
+    .modal-content {
+      border-radius: 14px;
+      border: 1px solid rgba(2, 6, 23, .08);
+      box-shadow: var(--shadow)
+    }
 
-    .mcard{background:#fff;border:1px solid rgba(15,23,42,.08);border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,.05);padding:12px}
-    .mcard h6{margin:0 0 8px 0;font-weight:700;font-size:.95rem}
-    .divider{height:1px;background:linear-gradient(90deg,rgba(2,6,23,.08),rgba(2,6,23,0)); margin:8px 0 10px}
+    .modal-sm-custom {
+      max-width: 720px
+    }
 
-    .row-compact{row-gap:10px}
-    label.form-label{font-weight:600;margin-bottom:6px}
-    .form-control{border:1px solid #0b1220;border-radius:10px;padding:.6rem .8rem;font-weight:500}
-    .form-control:disabled{background:#f1f5f9;color:#94a3b8}
-    .form-text{margin-top:4px}
-    .muted{color:var(--muted);font-size:.85rem}
+    .modal-header {
+      border: 0;
+      padding: 12px 14px
+    }
 
-    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem .9rem;border-radius:10px;font-weight:700}
-    .btn-blue{background:var(--blue);border:1px solid var(--blue);color:#fff}
-    .btn-silver{background:#fff;border:1px solid #c0c4cc;color:#111827}
-    .btn-gold{background:#f59e0b;border:1px solid #f59e0b;color:#111827}
-    .btn-sm{padding:.45rem .75rem;border-radius:9px}
+    .modal-body {
+      padding: 10px 14px 6px
+    }
+
+    .modal-footer {
+      border: 0;
+      padding: 10px 14px 14px
+    }
+
+    .mcard {
+      background: #fff;
+      border: 1px solid rgba(15, 23, 42, .08);
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(2, 6, 23, .05);
+      padding: 12px
+    }
+
+    .mcard h6 {
+      margin: 0 0 8px 0;
+      font-weight: 700;
+      font-size: .95rem
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(2, 6, 23, .08), rgba(2, 6, 23, 0));
+      margin: 8px 0 10px
+    }
+
+    .row-compact {
+      row-gap: 10px
+    }
+
+    label.form-label {
+      font-weight: 600;
+      margin-bottom: 6px
+    }
+
+    .form-control {
+      border: 1px solid #0b1220;
+      border-radius: 10px;
+      padding: .6rem .8rem;
+      font-weight: 500
+    }
+
+    .form-control:disabled {
+      background: #f1f5f9;
+      color: #94a3b8
+    }
+
+    .form-text {
+      margin-top: 4px
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: .85rem
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .55rem .9rem;
+      border-radius: 10px;
+      font-weight: 700
+    }
+
+    .btn-blue {
+      background: var(--blue);
+      border: 1px solid var(--blue);
+      color: #fff
+    }
+
+    .btn-silver {
+      background: #fff;
+      border: 1px solid #c0c4cc;
+      color: #111827
+    }
+
+    .btn-gold {
+      background: #f59e0b;
+      border: 1px solid #f59e0b;
+      color: #111827
+    }
+
+    .btn-sm {
+      padding: .45rem .75rem;
+      border-radius: 9px
+    }
   </style>
 </head>
+
 <body>
   <div class="container-scroller">
     <?php $this->load->view('includes/nav'); ?>
@@ -93,15 +245,15 @@
             <!-- BULK UPLOAD CARD -->
             <div class="card accent">
               <?= form_open_multipart('tesda/workers/preview'); ?>
-                <label for="file" class="form-label fw-semibold mb-2">Upload CSV</label>
-                <div class="drop mb-3">
-                  <input id="file" type="file" name="file" class="form-control" required accept=".csv">
-                  <div class="muted mt-2">Last name is sanitized (lowercase, A–Z/0–9). If blank, a random password is used.</div>
-                </div>
-                <div class="d-flex justify-content-end gap-2">
-                  <a class="btn btn-silver" href="<?= site_url('dashboard/tesda') ?>">Cancel</a>
-                  <button class="btn btn-blue">Preview</button>
-                </div>
+              <label for="file" class="form-label fw-semibold mb-2">Upload CSV</label>
+              <div class="drop mb-3">
+                <input id="file" type="file" name="file" class="form-control" required accept=".csv">
+                <div class="muted mt-2">Last name is sanitized (lowercase, A–Z/0–9). If blank, a random password is used.</div>
+              </div>
+              <div class="d-flex justify-content-end gap-2">
+                <a class="btn btn-silver" href="<?= site_url('dashboard/tesda') ?>">Cancel</a>
+                <button class="btn btn-blue">Preview</button>
+              </div>
               <?= form_close(); ?>
             </div>
 
@@ -113,8 +265,8 @@
   </div>
 
   <?php
-    $csrf_name = $this->security->get_csrf_token_name();
-    $csrf_hash = $this->security->get_csrf_hash();
+  $csrf_name = $this->security->get_csrf_token_name();
+  $csrf_hash = $this->security->get_csrf_hash();
   ?>
 
   <!-- COMPACT MODAL -->
@@ -202,101 +354,130 @@
   <script src="<?= base_url('assets/js/misc.js') ?>"></script>
 
   <script>
-  (function(){
-    const $ = (s, ctx=document) => ctx.querySelector(s);
-    const apiBase   = '<?= site_url('address/api') ?>';
-    const csrfInput = $('#csrfToken');
-    const provSel   = $('#addr_province');
-    const citySel   = $('#addr_city');
-    const brgySel   = $('#addr_brgy');
-    const modal     = document.getElementById('addWorkerModal');
+    (function() {
+      const $ = (s, ctx = document) => ctx.querySelector(s);
+      const apiBase = '<?= site_url('address/api') ?>';
+      const csrfInput = $('#csrfToken');
+      const provSel = $('#addr_province');
+      const citySel = $('#addr_city');
+      const brgySel = $('#addr_brgy');
+      const modal = document.getElementById('addWorkerModal');
 
-    function applyCsrf(p){
-      if (p && p.csrf_name && p.csrf_hash && csrfInput) {
-        csrfInput.name  = p.csrf_name;
-        csrfInput.value = p.csrf_hash;
-      }
-    }
-    const opt = (v,t)=>{ const o=document.createElement('option'); o.value=v; o.textContent=t??v; return o; };
-    const reset = (sel, ph) => { sel.innerHTML=''; sel.appendChild(opt('', ph)); sel.disabled = true; };
-
-    // Load provinces when modal opens
-    modal?.addEventListener('shown.bs.modal', async () => {
-      if (provSel.options.length > 1) return;
-      reset(provSel, 'Select province');
-      reset(citySel, 'Select city');
-      reset(brgySel, 'Select barangay');
-
-      const r = await fetch(apiBase + '?scope=province', {headers:{'X-Requested-With':'XMLHttpRequest'}});
-      const d = await r.json(); applyCsrf(d);
-      if (d.ok && Array.isArray(d.items)) {
-        provSel.disabled = false;
-        d.items.forEach(p => provSel.appendChild(opt(p)));
-      }
-    });
-
-    // Province â†’ cities
-    provSel?.addEventListener('change', async () => {
-      reset(citySel, 'Select city');
-      reset(brgySel, 'Select barangay');
-      const p = provSel.value; if (!p) return;
-
-      const r = await fetch(apiBase + '?scope=city&province=' + encodeURIComponent(p), {headers:{'X-Requested-With':'XMLHttpRequest'}});
-      const d = await r.json(); applyCsrf(d);
-      if (d.ok && Array.isArray(d.items)) {
-        citySel.disabled = false;
-        d.items.forEach(c => citySel.appendChild(opt(c)));
-      }
-    });
-
-    // City â†’ barangays
-    citySel?.addEventListener('change', async () => {
-      reset(brgySel, 'Select barangayâ');
-      const p = provSel.value, c = citySel.value; if (!p || !c) return;
-
-      const r = await fetch(apiBase + '?scope=brgy&province=' + encodeURIComponent(p) + '&city=' + encodeURIComponent(c), {headers:{'X-Requested-With':'XMLHttpRequest'}});
-      const d = await r.json(); applyCsrf(d);
-      if (d.ok && Array.isArray(d.items)) {
-        brgySel.disabled = false;
-        d.items.forEach(b => brgySel.appendChild(opt(b)));
-      }
-    });
-
-    // Submit minimal form via AJAX
-    const form = $('#addWorkerForm');
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = form.querySelector('button[type="submit"]');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Saving...';
-
-      try {
-        const fd = new FormData(form);
-        if (csrfInput) fd.set(csrfInput.name, csrfInput.value);
-
-        const res = await fetch(form.action, {
-          method: 'POST',
-          headers: {'X-Requested-With':'XMLHttpRequest'},
-          body: fd
-        });
-        const data = await res.json(); applyCsrf(data);
-
-        if (data.ok) {
-          alert('Worker saved.\nTemporary password: ' + (data.temp_password ?? '(custom set / unchanged)'));
-          location.reload();
-        } else {
-          alert('Error: ' + (data.message || 'Unable to save'));
+      function applyCsrf(p) {
+        if (p && p.csrf_name && p.csrf_hash && csrfInput) {
+          csrfInput.name = p.csrf_name;
+          csrfInput.value = p.csrf_hash;
         }
-      } catch(err){
-        alert('Request failed. Please try again.');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="mdi mdi-content-save-outline"></i> Save Worker';
       }
-    });
-  })();
+      const opt = (v, t) => {
+        const o = document.createElement('option');
+        o.value = v;
+        o.textContent = t ?? v;
+        return o;
+      };
+      const reset = (sel, ph) => {
+        sel.innerHTML = '';
+        sel.appendChild(opt('', ph));
+        sel.disabled = true;
+      };
+
+      // Load provinces when modal opens
+      modal?.addEventListener('shown.bs.modal', async () => {
+        if (provSel.options.length > 1) return;
+        reset(provSel, 'Select province');
+        reset(citySel, 'Select city');
+        reset(brgySel, 'Select barangay');
+
+        const r = await fetch(apiBase + '?scope=province', {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
+        const d = await r.json();
+        applyCsrf(d);
+        if (d.ok && Array.isArray(d.items)) {
+          provSel.disabled = false;
+          d.items.forEach(p => provSel.appendChild(opt(p)));
+        }
+      });
+
+      // Province â†’ cities
+      provSel?.addEventListener('change', async () => {
+        reset(citySel, 'Select city');
+        reset(brgySel, 'Select barangay');
+        const p = provSel.value;
+        if (!p) return;
+
+        const r = await fetch(apiBase + '?scope=city&province=' + encodeURIComponent(p), {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
+        const d = await r.json();
+        applyCsrf(d);
+        if (d.ok && Array.isArray(d.items)) {
+          citySel.disabled = false;
+          d.items.forEach(c => citySel.appendChild(opt(c)));
+        }
+      });
+
+      // City â†’ barangays
+      citySel?.addEventListener('change', async () => {
+        reset(brgySel, 'Select barangayâ');
+        const p = provSel.value,
+          c = citySel.value;
+        if (!p || !c) return;
+
+        const r = await fetch(apiBase + '?scope=brgy&province=' + encodeURIComponent(p) + '&city=' + encodeURIComponent(c), {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
+        const d = await r.json();
+        applyCsrf(d);
+        if (d.ok && Array.isArray(d.items)) {
+          brgySel.disabled = false;
+          d.items.forEach(b => brgySel.appendChild(opt(b)));
+        }
+      });
+
+      // Submit minimal form via AJAX
+      const form = $('#addWorkerForm');
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Saving...';
+
+        try {
+          const fd = new FormData(form);
+          if (csrfInput) fd.set(csrfInput.name, csrfInput.value);
+
+          const res = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: fd
+          });
+          const data = await res.json();
+          applyCsrf(data);
+
+          if (data.ok) {
+            alert('Worker saved.\nTemporary password: ' + (data.temp_password ?? '(custom set / unchanged)'));
+            location.reload();
+          } else {
+            alert('Error: ' + (data.message || 'Unable to save'));
+          }
+        } catch (err) {
+          alert('Request failed. Please try again.');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="mdi mdi-content-save-outline"></i> Save Worker';
+        }
+      });
+    })();
   </script>
 </body>
+
 </html>
-
-

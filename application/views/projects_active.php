@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><?= htmlspecialchars($page_title ?? 'TrabaWHO', ENT_QUOTES, 'UTF-8') ?></title>
+  <title><?= htmlspecialchars($page_title ?? 'JobMatch DavOr', ENT_QUOTES, 'UTF-8') ?></title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,10 +32,10 @@
       --muted: #6b7280;
       --line: #e5e7eb;
       --card: #fff;
-      --indigo-200: #c7d2fe;
-      --indigo-300: #a5b4fc;
-      --indigo-400: #818cf8;
-      --indigo-500: #6366f1;
+      --indigo-200: #ffcccc;
+      --indigo-300: #ffb3b3;
+      --indigo-400: #ff9999;
+      --indigo-500: #c1272d;
       --blue-focus: #c1272d;
       --shadow-1: 0 6px 18px rgba(2, 6, 23, .06), 0 1px 0 rgba(2, 6, 23, .04);
       --shadow-2: 0 16px 36px rgba(2, 6, 23, .12), 0 3px 10px rgba(2, 6, 23, .08)

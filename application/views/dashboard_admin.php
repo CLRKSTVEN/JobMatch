@@ -22,6 +22,15 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
+    :root {
+      --brand-blue: #c1272d;
+      --brand-blue-dark: #d63031;
+      --brand-blue-soft: rgba(193, 39, 45, 0.1);
+      --brand-gold: #2980b9;
+      --brand-gold-dark: #1b5e9f;
+      --brand-gold-soft: rgba(41, 128, 185, 0.1);
+    }
+
     html {
       scrollbar-gutter: stable;
     }
