@@ -162,8 +162,15 @@
     }
 
     .brand img {
-      width: 44px;
-      height: 44px;
+      height: 52px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand {
+      gap: .9rem;
     }
 
     .brand-copy span {
