@@ -126,6 +126,9 @@
     } else {
       $avatarUrl = 'https://api.dicebear.com/9.x/initials/svg?seed=' . urlencode($seed);
     }
+    if ($avatarLocalRel && is_file(FCPATH . $avatarLocalRel)) {
+      $avatarUrl = base_url($avatarLocalRel) . '?v=' . filemtime(FCPATH . $avatarLocalRel);
+    }
   }
 
   if (!function_exists('viewer_url_from_abs')) {
@@ -209,7 +212,6 @@
                 <div class="text-xs text-gray-500">Clear headshot recommended</div>
               </div>
             </div>
-
             <form id="avatarForm" class="w-full md:max-w-lg md:ml-auto" method="post"
               action="<?= site_url('client/update') ?>" enctype="multipart/form-data">
               <?php if ($this->config->item('csrf_protection')): ?>
@@ -217,6 +219,8 @@
               <?php endif; ?>
               <input type="hidden" name="__partial" value="avatar">
               <input type="hidden" name="next" value="edit">
+              <input type="hidden" name="ajax" value="1"> <!-- ✅ ADD THIS -->
+
 
               <label class="block mb-2 font-medium text-gray-800">Upload new photo</label>
               <div class="border-2 border-dashed border-gray-300 rounded-xl p-5 text-center bg-gray-50 hover:bg-gray-100 transition">
@@ -847,8 +851,13 @@
           const res = await fetch(form.action, {
             method: 'POST',
             body: fd,
-            credentials: 'same-origin'
+            credentials: 'same-origin',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Accept': 'application/json'
+            }
           });
+
           const ct = (res.headers.get('Content-Type') || '').toLowerCase();
           const data = ct.includes('application/json') ? await res.json() : null;
           if (!res.ok) throw new Error('Upload failed');

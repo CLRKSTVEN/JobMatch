@@ -566,14 +566,29 @@
             $seed_name    = trim(($first_name ?: '') . ' ' . ($last_name ?: ''));
             $seed         = $seed_name !== '' ? $seed_name : ($this->session->userdata('first_name') ?: 'Client');
 
-            $avatarUrl = function_exists('avatar_url')
-              ? avatar_url($p->avatar ?? '')
-              : (function ($raw) {
-                $raw = trim((string)$raw);
-                if ($raw !== '' && preg_match('#^https?://#i', $raw)) return $raw;
-                if ($raw !== '') return base_url(str_replace('\\', '/', $raw));
-                return base_url('uploads/avatars/avatar.png');
-              })($p->avatar ?? '');
+            $rawAvatar = trim((string)($p->avatar ?? ''));
+
+            // Build absolute URL
+            if ($rawAvatar !== '' && preg_match('#^https?://#i', $rawAvatar)) {
+              $avatarAbs = $rawAvatar;
+            } elseif ($rawAvatar !== '') {
+              $avatarAbs = base_url(str_replace('\\', '/', $rawAvatar));
+            } else {
+              $avatarAbs = base_url('uploads/avatars/avatar.png');
+            }
+
+            // If local file path, confirm it exists; else fallback
+            if ($rawAvatar !== '' && !preg_match('#^https?://#i', $rawAvatar)) {
+              $absFile = FCPATH . ltrim(str_replace('\\', '/', $rawAvatar), '/');
+              if (!is_file($absFile)) {
+                $avatarAbs = base_url('uploads/avatars/avatar.png');
+              }
+            }
+
+            // Cache-bust using updated_at (or time)
+            $ver = !empty($p->updated_at) ? strtotime($p->updated_at) : time();
+            $avatarUrl = $avatarAbs . (strpos($avatarAbs, '?') === false ? '?' : '&') . 'v=' . $ver;
+
 
             $phoneNo    = $p->phoneNo ?? '';
             $loc        = trim(($p->brgy ?? '') . (($p->brgy ?? '') && ($p->city ?? '') ? ', ' : '') . ($p->city ?? '') . ((($p->brgy ?? '') || ($p->city ?? '')) && ($p->province ?? '') ? ', ' : '') . ($p->province ?? ''));
@@ -723,7 +738,7 @@
                   <div class="icon" style="background:rgba(99,102,241,.12)"><i class="mdi mdi-cash-multiple" style="font-size:18px;color:#6366f1"></i></div>
                   <div>
                     <div class="label">Total Spend</div>
-                    <div class="value">â‚±<?= number_format($spend_total, 2) ?></div>
+                    <div class="value"><?= number_format($spend_total, 2) ?></div>
                   </div>
                 </div>
                 <div class="text-muted" style="font-size:12px;margin-top:4px">All-time</div>
