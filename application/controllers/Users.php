@@ -7,18 +7,18 @@ class Users extends CI_Controller
     {
         parent::__construct();
         $this->load->database();
-        $this->load->helper(['url','html','security']);
-        $this->load->library(['session','form_validation','email']);
+        $this->load->helper(['url', 'html', 'security']);
+        $this->load->library(['session', 'form_validation', 'email']);
 
 
         $this->load->model('Manage_User', 'users');
         $this->load->model('User_model', 'User');
 
-   $role = strtolower((string)$this->session->userdata('role'));
-$allowed = ['admin','tesda_admin','school_admin','worker','client','peso','other'];
-if (!in_array($role, $allowed, true)) {
-    show_error('Forbidden', 403);
-}
+        $role = strtolower((string)$this->session->userdata('role'));
+        $allowed = ['admin', 'tesda_admin', 'school_admin', 'worker', 'client', 'peso', 'other'];
+        if (!in_array($role, $allowed, true)) {
+            show_error('Forbidden', 403);
+        }
 
 
 
@@ -52,7 +52,7 @@ if (!in_array($role, $allowed, true)) {
         $id     = (int)$this->input->post('id');
         $active = $this->input->post('active', true);
 
-        if ($id <= 0 || !in_array($active, ['0','1'], true)) {
+        if ($id <= 0 || !in_array($active, ['0', '1'], true)) {
             return $this->_out(false, 'Invalid payload', [], 400);
         }
         $me = (int)($this->session->userdata('id') ?: $this->session->userdata('user_id') ?: 0);
@@ -61,8 +61,8 @@ if (!in_array($role, $allowed, true)) {
         }
 
         $ok = $this->users->set_active($id, (int)$active);
-        if ($ok && (int)$active === 1 && $this->db->field_exists('status','users')) {
-            $this->db->update('users', ['status'=>'active', 'updated_at'=>date('Y-m-d H:i:s')], ['id'=>$id]);
+        if ($ok && (int)$active === 1 && $this->db->field_exists('status', 'users')) {
+            $this->db->update('users', ['status' => 'active', 'updated_at' => date('Y-m-d H:i:s')], ['id' => $id]);
         }
         return $this->_out((bool)$ok, $ok ? 'OK' : 'Failed');
     }
@@ -98,7 +98,7 @@ if (!in_array($role, $allowed, true)) {
 
     private function _out($ok, $msg, $items = [], $status = 200)
     {
-        $payload = ['ok'=>(bool)$ok, 'msg'=>(string)$msg, 'items'=>$items];
+        $payload = ['ok' => (bool)$ok, 'msg' => (string)$msg, 'items' => $items];
         if ($this->config->item('csrf_protection')) {
             $payload['csrf_name'] = $this->security->get_csrf_token_name();
             $payload['csrf_hash'] = $this->security->get_csrf_hash();
@@ -145,7 +145,7 @@ if (!in_array($role, $allowed, true)) {
         }
 
         $adminId = (int)($this->session->userdata('user_id')
-                    ?: $this->session->userdata('id') ?: 0);
+            ?: $this->session->userdata('id') ?: 0);
 
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|min_length[2]');
         $this->form_validation->set_rules('last_name',  'Last Name',  'trim|required|min_length[2]');
@@ -161,10 +161,10 @@ if (!in_array($role, $allowed, true)) {
         if (!$this->form_validation->run()) {
             return $this->output->set_content_type('application/json')
                 ->set_output(json_encode([
-                    'ok'=>false,
-                    'msg'=>strip_tags(validation_errors()),
-                    'csrf_name'=>$this->security->get_csrf_token_name(),
-                    'csrf_hash'=>$this->security->get_csrf_hash(),
+                    'ok' => false,
+                    'msg' => strip_tags(validation_errors()),
+                    'csrf_name' => $this->security->get_csrf_token_name(),
+                    'csrf_hash' => $this->security->get_csrf_hash(),
                 ]));
         }
 
@@ -174,7 +174,7 @@ if (!in_array($role, $allowed, true)) {
         $role  = (string)$this->input->post('role',       true);
         $pass  = (string)$this->input->post('password',   true);
 
-        $allowed = ['admin','tesda_admin','school_admin','peso','other'];
+        $allowed = ['admin', 'tesda_admin', 'school_admin', 'peso', 'other'];
         if (!in_array($role, $allowed, true)) {
             $role = 'admin';
         }
@@ -182,10 +182,10 @@ if (!in_array($role, $allowed, true)) {
         if ($this->User->get_by_email($email)) {
             return $this->output->set_content_type('application/json')
                 ->set_output(json_encode([
-                    'ok'=>false,
-                    'msg'=>'Email already exists.',
-                    'csrf_name'=>$this->security->get_csrf_token_name(),
-                    'csrf_hash'=>$this->security->get_csrf_hash(),
+                    'ok' => false,
+                    'msg' => 'Email already exists.',
+                    'csrf_name' => $this->security->get_csrf_token_name(),
+                    'csrf_hash' => $this->security->get_csrf_hash(),
                 ]));
         }
 
@@ -210,10 +210,10 @@ if (!in_array($role, $allowed, true)) {
 
 
         $resp = [
-            'ok'=> (bool)$newId,
-            'msg'=> $newId ? 'Admin account created.' : 'Failed to create admin.',
-            'csrf_name'=>$this->security->get_csrf_token_name(),
-            'csrf_hash'=>$this->security->get_csrf_hash(),
+            'ok' => (bool)$newId,
+            'msg' => $newId ? 'Admin account created.' : 'Failed to create admin.',
+            'csrf_name' => $this->security->get_csrf_token_name(),
+            'csrf_hash' => $this->security->get_csrf_hash(),
         ];
 
         if (!$newId) {
@@ -222,7 +222,7 @@ if (!in_array($role, $allowed, true)) {
         }
 
 
-        $full = trim($first.' '.$last) ?: $email;
+        $full = trim($first . ' ' . $last) ?: $email;
         $sent = $this->_send_new_admin_email($email, $full, $email, $pass);
 
         if (!$sent) {
@@ -233,41 +233,41 @@ if (!in_array($role, $allowed, true)) {
         return $this->output->set_content_type('application/json')
             ->set_output(json_encode($resp));
     }
-private function _send_new_admin_email(string $toEmail, string $fullname, string $username, string $plainPassword): bool
-{
-    if (!filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
-        log_message('info', 'Users::_send_new_admin_email skipped (no valid email provided): '.$toEmail);
-        return true;
+    private function _send_new_admin_email(string $toEmail, string $fullname, string $username, string $plainPassword): bool
+    {
+        if (!filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
+            log_message('info', 'Users::_send_new_admin_email skipped (no valid email provided): ' . $toEmail);
+            return true;
+        }
+
+        $loginUrl = base_url('login');
+
+        $message = $this->load->view('emails/new_admin_credentials', [
+            'fullname'      => $fullname,
+            'username'      => $username,
+            'plainPassword' => $plainPassword,
+            'loginUrl'      => $loginUrl
+        ], true);
+
+
+        $from = $this->config->item('smtp_user') ?: 'trabawho@mati.gov.ph';
+
+
+        $this->email->clear(true);
+        $this->email->from($from, 'JobMatch DavOr Support');
+        $this->email->to($toEmail);
+        $this->email->subject('Your Admin Account Credentials');
+        $this->email->set_mailtype('html');
+        $this->email->set_newline("\r\n");
+        $this->email->set_crlf("\r\n");
+        $this->email->message($message);
+
+        $ok = $this->email->send();
+        if (!$ok) {
+            log_message('error', 'Users::_send_new_admin_email failed: ' . $this->email->print_debugger(['headers']));
+        }
+        return (bool)$ok;
     }
-
-    $loginUrl = base_url('login');
-
-    $message = $this->load->view('emails/new_admin_credentials', [
-        'fullname'      => $fullname,
-        'username'      => $username,
-        'plainPassword' => $plainPassword,
-        'loginUrl'      => $loginUrl
-    ], true);
-
-
-    $from = $this->config->item('smtp_user') ?: 'trabawho@mati.gov.ph';
-
-
-    $this->email->clear(true);
-    $this->email->from($from, 'TrabaWHO');
-    $this->email->to($toEmail);
-    $this->email->subject('Your Admin Account Credentials');
-    $this->email->set_mailtype('html');
-    $this->email->set_newline("\r\n");
-    $this->email->set_crlf("\r\n");
-    $this->email->message($message);
-
-    $ok = $this->email->send();
-    if (!$ok) {
-        log_message('error', 'Users::_send_new_admin_email failed: '.$this->email->print_debugger(['headers']));
-    }
-    return (bool)$ok;
-}
 
 
     public function delete()
@@ -297,7 +297,7 @@ private function _send_new_admin_email(string $toEmail, string $fullname, string
                 if (!empty($result['db_error'])) {
                     log_message(
                         'error',
-                        'Users::delete DB error: '.$result['db_error']['message'].' ('.$result['db_error']['code'].')'
+                        'Users::delete DB error: ' . $result['db_error']['message'] . ' (' . $result['db_error']['code'] . ')'
                     );
                 }
                 $this->db->db_debug = $oldDebug;
@@ -310,7 +310,7 @@ private function _send_new_admin_email(string $toEmail, string $fullname, string
             return $this->_json(true, 'User and related records deleted permanently.');
         } catch (Throwable $e) {
             $this->db->db_debug = $oldDebug;
-            log_message('error', 'Users::delete exception: '.$e->getMessage());
+            log_message('error', 'Users::delete exception: ' . $e->getMessage());
             return $this->_json(false, 'Server error during delete.', 500, [
                 'exception' => ENVIRONMENT !== 'production' ? $e->getMessage() : null
             ]);
@@ -330,5 +330,4 @@ private function _send_new_admin_email(string $toEmail, string $fullname, string
         $this->output->set_status_header($httpCode);
         $this->output->set_content_type('application/json')->set_output(json_encode($resp));
     }
-    
 }

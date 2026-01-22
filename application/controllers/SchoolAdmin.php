@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * SchoolAdmin Controller (CI3)
@@ -14,8 +14,8 @@ class SchoolAdmin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper(['url','form','security']);
-        $this->load->library(['session','form_validation','upload']);
+        $this->load->helper(['url', 'form', 'security']);
+        $this->load->library(['session', 'form_validation', 'upload']);
         $this->load->model('SchoolAdminModel');
 
 
@@ -68,13 +68,13 @@ class SchoolAdmin extends CI_Controller
     /** Handle create + email */
     public function store()
     {
-        $this->form_validation->set_rules('first_name','First Name','required|trim');
-        $this->form_validation->set_rules('last_name','Last Name','required|trim');
-        $this->form_validation->set_rules('email','Email','required|valid_email|trim');
+        $this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim');
 
 
-        $this->form_validation->set_rules('password','Password','required|min_length[8]');
-        $this->form_validation->set_rules('password_confirm','Confirm Password','required|matches[password]');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
+        $this->form_validation->set_rules('password_confirm', 'Confirm Password', 'required|matches[password]');
 
         if (!$this->form_validation->run()) {
             $this->session->set_flashdata('danger', validation_errors());
@@ -105,7 +105,7 @@ class SchoolAdmin extends CI_Controller
 
         $sent = $this->_send_welcome(
             $payload['email'],
-            trim($payload['first_name'].' '.$payload['last_name']),
+            trim($payload['first_name'] . ' ' . $payload['last_name']),
             $passwordToSend,
             'worker'
         );
@@ -123,7 +123,7 @@ class SchoolAdmin extends CI_Controller
         $id = (int)$id;
         $user = $this->SchoolAdminModel->get_user_by_id($id);
         if (!$user) {
-            $this->session->set_flashdata('danger','User not found.');
+            $this->session->set_flashdata('danger', 'User not found.');
             return redirect('school-admin/workers');
         }
 
@@ -140,19 +140,19 @@ class SchoolAdmin extends CI_Controller
     {
         $id = (int)$id;
 
-        $this->form_validation->set_rules('first_name','First Name','required|trim');
-        $this->form_validation->set_rules('last_name','Last Name','required|trim');
-        $this->form_validation->set_rules('email','Email','required|valid_email|trim');
+        $this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim');
 
         $pw = trim((string)$this->input->post('password', TRUE));
         if ($pw !== '') {
-            $this->form_validation->set_rules('password','Password','min_length[8]');
-            $this->form_validation->set_rules('password_confirm','Confirm Password','matches[password]');
+            $this->form_validation->set_rules('password', 'Password', 'min_length[8]');
+            $this->form_validation->set_rules('password_confirm', 'Confirm Password', 'matches[password]');
         }
 
         if (!$this->form_validation->run()) {
             $this->session->set_flashdata('danger', validation_errors());
-            return redirect('school-admin/edit/'.$id);
+            return redirect('school-admin/edit/' . $id);
         }
 
         $payload = [
@@ -170,7 +170,7 @@ class SchoolAdmin extends CI_Controller
         $res = $this->SchoolAdminModel->update_user($id, $payload);
         if (!$res['ok']) {
             $this->session->set_flashdata('danger', $res['message'] ?? 'Failed to update user.');
-            return redirect('school-admin/edit/'.$id);
+            return redirect('school-admin/edit/' . $id);
         }
 
         $this->session->set_flashdata('success', 'Worker updated.');
@@ -184,10 +184,10 @@ class SchoolAdmin extends CI_Controller
         $res = $this->SchoolAdminModel->delete_user($id);
 
         if ($res['ok']) {
-            $this->session->set_flashdata('success','Worker deleted.');
+            $this->session->set_flashdata('success', 'Worker deleted.');
         } else {
-            log_message('error', 'Delete user failed (id='.$id.'): '.$res['message']);
-            $this->session->set_flashdata('danger','Unable to delete worker. '.$res['message']);
+            log_message('error', 'Delete user failed (id=' . $id . '): ' . $res['message']);
+            $this->session->set_flashdata('danger', 'Unable to delete worker. ' . $res['message']);
         }
         return redirect('school-admin/workers');
     }
@@ -198,25 +198,27 @@ class SchoolAdmin extends CI_Controller
         $id = (int)$id;
         $user = $this->SchoolAdminModel->get_user_by_id($id);
         if (!$user) {
-            $this->session->set_flashdata('danger','User not found.');
+            $this->session->set_flashdata('danger', 'User not found.');
             return redirect('school-admin/workers');
         }
 
         $set = $this->SchoolAdminModel->set_temp_password($id);
         if (!$set['ok']) {
-            $this->session->set_flashdata('danger','Could not regenerate password. '.$set['message']);
+            $this->session->set_flashdata('danger', 'Could not regenerate password. ' . $set['message']);
             return redirect('school-admin/workers');
         }
 
         $sent = $this->_send_welcome(
             $user->email,
-            trim(($user->first_name ?? '').' '.($user->last_name ?? '')),
+            trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? '')),
             $set['temp_password'],
             'worker'
         );
 
-        $this->session->set_flashdata($sent ? 'success' : 'danger',
-            $sent ? 'Welcome email re-sent.' : 'Re-send failed. See logs shown above.');
+        $this->session->set_flashdata(
+            $sent ? 'success' : 'danger',
+            $sent ? 'Welcome email re-sent.' : 'Re-send failed. See logs shown above.'
+        );
         return redirect('school-admin/workers');
     }
 
@@ -227,10 +229,10 @@ class SchoolAdmin extends CI_Controller
         $this->load->library('email');
 
 
-        $this->email->from('trabawho@mati.gov.ph', 'TRABAWHO');
-        $this->email->reply_to('no-reply@mati.gov.ph', 'TrabaWHO');
+        $this->email->from('trabawho@mati.gov.ph', 'JobMatch DavOr Support');
+        $this->email->reply_to('no-reply@mati.gov.ph', 'JobMatch DavOr');
         $this->email->to($to);
-        $this->email->subject('Your TrabaWHO account');
+        $this->email->subject('Your JobMatch DavOr account');
         $this->email->set_mailtype('html');
         $this->email->set_newline("\r\n");
         $this->email->set_crlf("\r\n");
@@ -253,8 +255,8 @@ class SchoolAdmin extends CI_Controller
             $logoCid = $this->email->attachment_cid($logoPath);
         }
 
-        $bannerSrc = $bannerCid ? "cid:{$bannerCid}" : rtrim($publicBase,'/').'/'.ltrim($bannerRel,'/');
-        $logoSrc   = $logoCid   ? "cid:{$logoCid}"   : rtrim($publicBase,'/').'/'.ltrim($logoRel,'/');
+        $bannerSrc = $bannerCid ? "cid:{$bannerCid}" : rtrim($publicBase, '/') . '/' . ltrim($bannerRel, '/');
+        $logoSrc   = $logoCid   ? "cid:{$logoCid}"   : rtrim($publicBase, '/') . '/' . ltrim($logoRel, '/');
 
 
         if ($this->load->view('email_worker_account_created', [], TRUE) !== '') {
@@ -270,12 +272,12 @@ class SchoolAdmin extends CI_Controller
 
             $message = "
                 <!doctype html><html><body style='font-family:Arial,sans-serif'>
-                    <h2>Welcome to TrabaWHO</h2>
-                    <p>Hi ".htmlspecialchars($fullName ?: 'User').",</p>
+                    <h2>Welcome to JobMatch DavOr</h2>
+                    <p>Hi " . htmlspecialchars($fullName ?: 'User') . ",</p>
                     <p>Your account has been created.</p>
-                    <p><strong>Login Email:</strong> ".htmlspecialchars($to)."<br>
-                       <strong>Password:</strong> ".htmlspecialchars($plainPassword)."<br>
-                       <strong>Role:</strong> ".htmlspecialchars($role)."</p>
+                    <p><strong>Login Email:</strong> " . htmlspecialchars($to) . "<br>
+                       <strong>Password:</strong> " . htmlspecialchars($plainPassword) . "<br>
+                       <strong>Role:</strong> " . htmlspecialchars($role) . "</p>
                     <p>Please change your password after first login.</p>
                 </body></html>
             ";
@@ -287,10 +289,11 @@ class SchoolAdmin extends CI_Controller
         if (!$ok) {
 
             $debug = $this->email->print_debugger(['headers']);
-            log_message('error', 'Welcome email failed for '.$to.': '.$debug);
-            $this->session->set_flashdata('danger',
-                'Email failed to send. <br><pre style="white-space:pre-wrap">'.
-                htmlspecialchars($debug, ENT_QUOTES, 'UTF-8').'</pre>'
+            log_message('error', 'Welcome email failed for ' . $to . ': ' . $debug);
+            $this->session->set_flashdata(
+                'danger',
+                'Email failed to send. <br><pre style="white-space:pre-wrap">' .
+                    htmlspecialchars($debug, ENT_QUOTES, 'UTF-8') . '</pre>'
             );
         }
 

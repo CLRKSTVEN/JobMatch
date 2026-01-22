@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><?= htmlspecialchars($page_title ?? 'Forgot Password • TrabaWHO', ENT_QUOTES, 'UTF-8') ?></title>
+  <title><?= htmlspecialchars($page_title ?? 'Forgot Password • JobMatch DavOr', ENT_QUOTES, 'UTF-8') ?></title>
 
   <!-- Brand assets / fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

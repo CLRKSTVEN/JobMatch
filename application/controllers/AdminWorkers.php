@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class AdminWorkers extends CI_Controller
 {
@@ -14,12 +14,12 @@ class AdminWorkers extends CI_Controller
         $isAdmin = (int)$this->session->userdata('isAdmin');
 
         // Allow classic admins AND these staff roles:
-        $staffRoles = ['admin','tesda_admin','school_admin','peso','other'];
+        $staffRoles = ['admin', 'tesda_admin', 'school_admin', 'peso', 'other'];
         if (!(in_array($role, $staffRoles, true) || $level === 'admin' || $isAdmin === 1)) {
             show_error('Forbidden', 403);
         }
 
-        $this->load->helper(['url','form','string']);
+        $this->load->helper(['url', 'form', 'string']);
         $this->load->library(['upload']);
         $this->load->model('WorkerImport_model');
     }
@@ -41,20 +41,32 @@ class AdminWorkers extends CI_Controller
     public function template()
     {
         $headers = [
-            'email','first_name','last_name','phone',
-            'province','city','brgy','bio','headline',
-            'birthday', 
-            'years_experience','skills','tesda_cert_no','tesda_expiry'
+            'email',
+            'first_name',
+            'last_name',
+            'phone',
+            'province',
+            'city',
+            'brgy',
+            'bio',
+            'headline',
+            'birthday',
+            'years_experience',
+            'skills',
+            'tesda_cert_no',
+            'tesda_expiry'
         ];
         header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename=trabawho_workers_template.csv');
-        $out = fopen('php://output','w'); fputcsv($out, $headers); fclose($out);
+        header('Content-Disposition: attachment; filename=JobMatch.csv');
+        $out = fopen('php://output', 'w');
+        fputcsv($out, $headers);
+        fclose($out);
     }
 
     public function preview()
     {
         $config = [
-            'upload_path'   => FCPATH.'uploads/',
+            'upload_path'   => FCPATH . 'uploads/',
             'allowed_types' => 'csv|xls|xlsx',
             'max_size'      => 8192,
             'encrypt_name'  => TRUE,
@@ -116,7 +128,7 @@ class AdminWorkers extends CI_Controller
         $filename = $this->input->post('filename');
         if (!$filename) show_error('Missing file', 400);
 
-        $full = FCPATH.'uploads/'.$filename;
+        $full = FCPATH . 'uploads/' . $filename;
         if (!file_exists($full)) show_error('File not found', 404);
 
         $ext  = strtolower(pathinfo($full, PATHINFO_EXTENSION));
@@ -147,7 +159,9 @@ class AdminWorkers extends CI_Controller
         if (($h = fopen($path, 'r')) === FALSE) throw new Exception('Unable to read CSV file.');
         $headers = fgetcsv($h);
         if (!$headers) throw new Exception('CSV has no header row.');
-        $headers = array_map(function($x){ return strtolower(trim($x)); }, $headers);
+        $headers = array_map(function ($x) {
+            return strtolower(trim($x));
+        }, $headers);
 
         while (($row = fgetcsv($h)) !== FALSE) {
             if (count(array_filter($row)) === 0) continue;
@@ -175,7 +189,9 @@ class AdminWorkers extends CI_Controller
         $out = [];
         for ($i = 2; $i <= count($rows); $i++) {
             $vals = array_values($rows[$i]);
-            if (count(array_filter($vals, function($v){ return $v !== null && $v !== ''; })) === 0) continue;
+            if (count(array_filter($vals, function ($v) {
+                return $v !== null && $v !== '';
+            })) === 0) continue;
             $vals = array_slice(array_pad($vals, count($headers), ''), 0, count($headers));
             $out[] = array_combine($headers, $vals);
         }
@@ -184,11 +200,13 @@ class AdminWorkers extends CI_Controller
 
     public function store()
     {
-        if (!$this->input->is_ajax_request()) { show_error('Invalid request', 400); }
+        if (!$this->input->is_ajax_request()) {
+            show_error('Invalid request', 400);
+        }
 
         $this->load->model('User_model');
         $this->load->database();
-        $this->load->helper(['security','string']);
+        $this->load->helper(['security', 'string']);
 
         $first  = trim((string)$this->input->post('first_name', true));
         $middle = trim((string)$this->input->post('middle_name', true));
@@ -253,12 +271,12 @@ class AdminWorkers extends CI_Controller
         } else {
             $user_id = (int)$user->id;
 
-            $upd = ['updated_at'=>$now];
+            $upd = ['updated_at' => $now];
             if ($first !== '') $upd['first_name'] = $first;
             if ($last  !== '') $upd['last_name']  = $last;
             if ($phone !== '') $upd['phone']      = $phone;
             if (count($upd) > 1) {
-                $this->db->update('users', $upd, ['id'=>$user_id]);
+                $this->db->update('users', $upd, ['id' => $user_id]);
             }
 
             if ((int)($user->is_active ?? 0) !== 1 || strtolower((string)($user->status ?? '')) !== 'active') {
@@ -267,7 +285,7 @@ class AdminWorkers extends CI_Controller
             }
         }
 
-        $exists = $this->db->get_where('worker_profile',['workerID'=>$user_id])->row();
+        $exists = $this->db->get_where('worker_profile', ['workerID' => $user_id])->row();
         $wp = [
             'province'   => $province ?: null,
             'city'       => $city ?: null,
@@ -276,7 +294,7 @@ class AdminWorkers extends CI_Controller
             'updated_at' => $now
         ];
         if ($exists) {
-            $this->db->update('worker_profile', $wp, ['workerID'=>$user_id]);
+            $this->db->update('worker_profile', $wp, ['workerID' => $user_id]);
         } else {
             $wp['workerID']   = $user_id;
             $wp['created_at'] = date('Y-m-d');

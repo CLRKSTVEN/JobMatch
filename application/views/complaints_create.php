@@ -6,7 +6,7 @@ $page_title = 'Report a Scam'; ?>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><?= htmlspecialchars($page_title ?? 'TrabaWHO', ENT_QUOTES, 'UTF-8') ?></title>
+  <title><?= htmlspecialchars($page_title ?? 'JobMatch DavOr', ENT_QUOTES, 'UTF-8') ?></title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -184,7 +184,7 @@ $page_title = 'Report a Scam'; ?>
               <div class="icon"><i class="mdi mdi-shield-alert-outline"></i></div>
               <div>
                 <h1 class="title"><?= htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8') ?></h1>
-                <div class="page-sub">Help us keep TrabaWHO safe. Provide clear details and attach evidence.</div>
+                <div class="page-sub">Help us keep JobMatch safe. Provide clear details and attach evidence.</div>
               </div>
             </div>
 

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><?= htmlspecialchars($page_title ?? 'TrabaWHO — Client Dashboard', ENT_QUOTES, 'UTF-8') ?></title>
+  <title><?= htmlspecialchars($page_title ?? 'JobMatch — Client Dashboard', ENT_QUOTES, 'UTF-8') ?></title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

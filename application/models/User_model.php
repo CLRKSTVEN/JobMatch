@@ -5,11 +5,13 @@ class User_model extends CI_Model
 {
     private $table = 'users';
 
-    public function get_by_email($email) {
-        return $this->db->get_where('users', ['email'=>$email])->row();
+    public function get_by_email($email)
+    {
+        return $this->db->get_where('users', ['email' => $email])->row();
     }
 
-    public function create($data) {
+    public function create($data)
+    {
         $this->db->insert('users', $data);
         return $this->db->affected_rows() > 0 ? $this->db->insert_id() : false;
     }
@@ -21,7 +23,7 @@ class User_model extends CI_Model
 
         $this->db->from($this->table);
         $this->db->group_start()
-                 ->where('LOWER(email)=', $id);
+            ->where('LOWER(email)=', $id);
         if ($this->db->field_exists('username', $this->table)) {
             $this->db->or_where('LOWER(username)=', $id);
         }
@@ -46,11 +48,11 @@ class User_model extends CI_Model
         // --- Admin-like roles (admin, tesda_admin, school_admin, peso, other) ---
         if ($this->is_staff_role($role)) {
             $needsVerify = $this->db->field_exists('email_verified', $this->table)
-                            && (int)($user->email_verified ?? 0) !== 1;
+                && (int)($user->email_verified ?? 0) !== 1;
 
             $needsActivate = ((int)($user->is_active ?? 0) !== 1)
-                             || ( $this->db->field_exists('status', $this->table)
-                                  && strtolower((string)($user->status ?? '')) !== 'active');
+                || ($this->db->field_exists('status', $this->table)
+                    && strtolower((string)($user->status ?? '')) !== 'active');
 
             if ($needsVerify || $needsActivate) {
                 $this->approve_user((int)$user->id, null);
@@ -71,7 +73,7 @@ class User_model extends CI_Model
         $isActive   = (int)($user->is_active ?? 0);
         $approvedAt = (string)($user->approved_at ?? '');
 
-        $requiresApproval  = in_array($role, ['client','employer'], true);
+        $requiresApproval  = in_array($role, ['client', 'employer'], true);
         $hasApprovedAtCol  = $this->db->field_exists('approved_at', $this->table);
 
         if ($status !== 'active' || $isActive !== 1 || ($requiresApproval && $hasApprovedAtCol && $approvedAt === '')) {
@@ -100,9 +102,9 @@ class User_model extends CI_Model
         $this->db->from($this->table);
         $this->db->where('activation_token', $token);
         $this->db->group_start()
-                 ->where('email_token_expires >=', $now)
-                 ->or_where('email_token_expires IS NULL', null, false)
-                 ->group_end();
+            ->where('email_token_expires >=', $now)
+            ->or_where('email_token_expires IS NULL', null, false)
+            ->group_end();
 
         return $this->db->get()->row();
     }
@@ -208,13 +210,13 @@ class User_model extends CI_Model
     public function resend_activation(int $user_id): array
     {
         $user = $this->get_by_id($user_id);
-        if (!$user) return ['ok'=>false, 'msg'=>'User not found'];
+        if (!$user) return ['ok' => false, 'msg' => 'User not found'];
 
         if ((int)$user->is_active === 1) {
-            return ['ok'=>false, 'msg'=>'User already active'];
+            return ['ok' => false, 'msg' => 'User already active'];
         }
         $token   = bin2hex(random_bytes(24));
-        $expires = date('Y-m-d H:i:s', time() + 48*3600);
+        $expires = date('Y-m-d H:i:s', time() + 48 * 3600);
 
         $this->set_activation_token($user->id, $token, $expires);
 
@@ -225,13 +227,13 @@ class User_model extends CI_Model
         $link = site_url('auth/activate/' . rawurlencode($token));
         $sent = $this->send_activation_email(
             $user->email,
-            trim(($user->first_name ?? '').' '.($user->last_name ?? '')),
+            trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? '')),
             $link
         );
         return [
             'ok'  => (bool)$sent,
             'msg' => $sent ? 'Activation email sent' : 'Email sending failed',
-            'link'=> $link
+            'link' => $link
         ];
     }
 
@@ -241,7 +243,7 @@ class User_model extends CI_Model
         $from = $this->config->item('smtp_user') ?: 'no-reply@trabawho.local';
 
         $this->email->clear(true);
-        $this->email->from($from, 'Trabawho');
+        $this->email->from($from, ' JobMatch DavOr Support');
         $this->email->to($to);
         $this->email->subject('Activate your account');
 
@@ -249,7 +251,7 @@ class User_model extends CI_Model
         $body = "Hi {$name},\n\nPlease activate your account by clicking the link below:\n{$link}\n\nIf you didn't request this, please ignore this email.";
         $this->email->message($body);
 
-        return @ $this->email->send();
+        return @$this->email->send();
     }
 
     public function activate_from_token(string $token, ?string $email = null): array
@@ -306,7 +308,7 @@ class User_model extends CI_Model
     private function is_staff_role($role): bool
     {
         $role = strtolower((string)$role);
-        return in_array($role, ['admin','tesda_admin','school_admin','peso','other'], true);
+        return in_array($role, ['admin', 'tesda_admin', 'school_admin', 'peso', 'other'], true);
     }
 
     public function hard_delete(int $userId): array
@@ -318,7 +320,7 @@ class User_model extends CI_Model
         $this->db->trans_begin();
 
         // Helper: safe delete (guard table existence)
-        $del = function(string $table, array $where) {
+        $del = function (string $table, array $where) {
             if ($this->db->table_exists($table)) {
                 $this->db->where($where)->delete($table);
             }
@@ -339,28 +341,28 @@ class User_model extends CI_Model
         // Personnel / Hires (either role)
         if ($this->db->table_exists('personnel_hired')) {
             $this->db->group_start()
-                     ->where('worker_id', $userId)
-                     ->or_where('client_id', $userId)
-                     ->group_end()
-                     ->delete('personnel_hired');
+                ->where('worker_id', $userId)
+                ->or_where('client_id', $userId)
+                ->group_end()
+                ->delete('personnel_hired');
         }
 
         // Transactions (either side)
         if ($this->db->table_exists('transactions')) {
             $this->db->group_start()
-                     ->where('workerID', $userId)
-                     ->or_where('clientID', $userId)
-                     ->group_end()
-                     ->delete('transactions');
+                ->where('workerID', $userId)
+                ->or_where('clientID', $userId)
+                ->group_end()
+                ->delete('transactions');
         }
 
         // Threads (user could be either a_id or b_id)
         if ($this->db->table_exists('tw_threads')) {
             $this->db->group_start()
-                     ->where('a_id', $userId)
-                     ->or_where('b_id', $userId)
-                     ->group_end()
-                     ->delete('tw_threads');
+                ->where('a_id', $userId)
+                ->or_where('b_id', $userId)
+                ->group_end()
+                ->delete('tw_threads');
         }
 
         // Finally: users
@@ -368,7 +370,7 @@ class User_model extends CI_Model
             $this->db->where('id', $userId)->delete('users');
         } else {
             $this->db->trans_rollback();
-            return ['ok'=>false, 'msg'=>'Table "users" not found.', 'db_error'=>null];
+            return ['ok' => false, 'msg' => 'Table "users" not found.', 'db_error' => null];
         }
 
         if ($this->db->trans_status() === false) {
@@ -383,10 +385,10 @@ class User_model extends CI_Model
 
         if ($this->db->affected_rows() < 1) {
             $this->db->trans_rollback();
-            return ['ok'=>false, 'msg'=>'User not found or already deleted.', 'db_error'=>null];
+            return ['ok' => false, 'msg' => 'User not found or already deleted.', 'db_error' => null];
         }
 
         $this->db->trans_commit();
-        return ['ok'=>true, 'msg'=>'Deleted', 'db_error'=>null];
+        return ['ok' => true, 'msg' => 'Deleted', 'db_error' => null];
     }
 }

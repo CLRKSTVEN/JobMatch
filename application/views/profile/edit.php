@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title><?= html_escape($page_title ?? 'Edit Worker Profile') ?> - Trabawho</title>
+    <title><?= html_escape($page_title ?? 'Edit Worker Profile') ?> - JobMatch</title>
     <meta name="theme-color" content="#c1272d" />
     <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('assets/images/logo.png') ?>">
 
