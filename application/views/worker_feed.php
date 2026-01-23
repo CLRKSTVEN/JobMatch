@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><?= htmlspecialchars($page_title ?? 'Timeline Â· Worker', ENT_QUOTES, 'UTF-8') ?></title>
+  <title><?= htmlspecialchars($page_title ?? 'Timeline Worker', ENT_QUOTES, 'UTF-8') ?></title>
 
   <!-- Brand assets -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1332,7 +1332,8 @@
               }
             })
             .catch(function() {
-              /* ignore */ })
+              /* ignore */
+            })
             .finally(function() {
               setTimeout(loop, POLL_MS);
             });

@@ -450,7 +450,7 @@
   <body
     class="bg-gray-50"
     data-api-address="<?= site_url('address/api') ?>"
-    data-limit-province="<?= strtolower((string)$this->session->userdata('role')) === 'worker' ? 'Davao Oriental' : '' ?>"
+    data-limit-province=""
     data-i18n-base="<?= base_url('assets/i18n') ?>">
 
     <?php
@@ -1979,8 +1979,8 @@
           if (!provinceSel || !citySel || !brgySel) return;
 
           const apiBase = document.body.dataset.apiAddress || '<?= site_url('address/api') ?>';
-          const LIMIT_PROVINCE = <?= strtolower((string)$this->session->userdata('role')) === 'worker' ? json_encode('Davao Oriental') : '""' ?>;
-          const lockProvince = !!LIMIT_PROVINCE;
+          const LIMIT_PROVINCE = (document.body.dataset.limitProvince || '').trim();
+          const lockProvince = LIMIT_PROVINCE.length > 0;
 
           let preProvince = (provinceSel.dataset.pre ?? '').trim() || <?= json_encode((string)($p->province ?? '')) ?>;
           let preCity = (citySel.dataset.pre ?? '').trim() || <?= json_encode((string)($p->city ?? '')) ?>;
@@ -1991,11 +1991,14 @@
             const isjQ = typeof window.jQuery !== 'undefined';
             const $sel = isjQ ? window.jQuery(selectEl) : null;
             const ph = placeholder || 'Select';
+
             if ($sel && $sel.data('select2')) {
               $sel.empty();
               $sel.append(new Option(ph, '', true, false));
               items.forEach(v => $sel.append(new Option(v, v, false, false)));
-              $sel.trigger('change.select2');
+
+              // ✅ trigger REAL change so your cascade reacts
+              $sel.trigger('change');
             } else {
               selectEl.innerHTML = '';
               const opt0 = document.createElement('option');
@@ -2008,8 +2011,14 @@
                 opt.textContent = v;
                 selectEl.appendChild(opt);
               });
+
+              // ✅ optional but safe
+              selectEl.dispatchEvent(new Event('change', {
+                bubbles: true
+              }));
             }
           }
+
 
           async function api(params) {
             const url = apiBase + '?' + new URLSearchParams(params).toString();
@@ -2031,12 +2040,33 @@
           async function loadProvinces() {
             citySel.disabled = true;
             brgySel.disabled = true;
+
+            // If DAVAO ORIENTAL is forced, lock province UI and auto-load cities
+            if (lockProvince) {
+              fillOptions(provinceSel, [LIMIT_PROVINCE], '- Select Province -');
+
+              // set value + disable so user can't change it
+              provinceSel.value = LIMIT_PROVINCE;
+              provinceSel.disabled = true;
+
+              // If select2 is active, set it properly and disable select2 too
+              const $prov = window.jQuery && window.jQuery('#province');
+              if ($prov && $prov.length && $prov.data('select2')) {
+                $prov.val(LIMIT_PROVINCE).trigger('change'); // not change.select2
+                $prov.prop('disabled', true);
+              }
+
+              // now load cities for DAVAO ORIENTAL (and apply preCity/preBrgy if any)
+              await onProvinceChange(true);
+              return;
+            }
+
+            // Normal behavior (all provinces)
             fillOptions(provinceSel, [], 'Loading provinces…');
             try {
               let items = await api({
                 scope: 'province'
               });
-              if (lockProvince) items = [LIMIT_PROVINCE];
               fillOptions(provinceSel, items, '- Select Province -');
             } catch (e) {
               console.error(e);
@@ -2044,16 +2074,18 @@
               toast('Address service error: ' + e.message, false);
               return;
             }
+
             if (preProvince && Array.from(provinceSel.options).some(o => o.value === preProvince)) {
               const $prov = window.jQuery && window.jQuery('#province');
               if ($prov && $prov.length && $prov.data('select2')) {
-                $prov.val(preProvince).trigger('change.select2');
+                $prov.val(preProvince).trigger('change');
               } else {
                 provinceSel.value = preProvince;
               }
               await onProvinceChange(true);
             }
           }
+
 
           async function onProvinceChange(isInit = false) {
             const province = lockProvince ? LIMIT_PROVINCE : provinceSel.value;
@@ -2108,8 +2140,14 @@
             }
           }
 
-          provinceSel.addEventListener('change', () => onProvinceChange(false));
-          citySel.addEventListener('change', () => onCityChange(false));
+          if (window.jQuery) {
+            window.jQuery(provinceSel).on('change', () => onProvinceChange(false));
+            window.jQuery(citySel).on('change', () => onCityChange(false));
+          } else {
+            provinceSel.addEventListener('change', () => onProvinceChange(false));
+            citySel.addEventListener('change', () => onCityChange(false));
+          }
+
           await loadProvinces();
         })();
       })();

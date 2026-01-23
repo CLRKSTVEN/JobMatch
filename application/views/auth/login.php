@@ -13,32 +13,30 @@
   <link rel="stylesheet" href="<?= base_url('assets/css/vertical-light/style.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/universal.css') ?>">
   <link rel="shortcut icon" href="<?= base_url('assets/images/logo.png') ?>" />
+
   <style>
     html {
       scrollbar-gutter: stable;
     }
 
     :root {
-      /* ===== PESO / PH GOV VIBE (RED PRIMARY, BLUE ACCENT) ===== */
-      --red-900: #c1272d;
-      --red-700: #d63031;
-      --red-600: #e74c3c;
+      /* ===== Match the landing makeover vibe (Blue + Cyan, clean surfaces) ===== */
+      --brand-blue: #1340a3;
+      --brand-blue-dark: #0a2d73;
+      --brand-cyan: #1d9dd8;
+      --accent-gold: #f7b500;
 
-      --blue-700: #1b5e9f;
-      --blue-600: #2980b9;
-
-      --silver-600: #a7afba;
-      --silver-500: #c0c6d0;
-      --silver-300: #d9dee7;
-      --silver-200: #e7ebf2;
-      --silver-100: #f6f8fc;
+      --surface: #ffffff;
+      --surface-muted: #f3f6fc;
+      --surface-alt: #eef2fb;
 
       --ink: #0f172a;
       --muted: #64748b;
+      --border: #d6def3;
 
-      --ring: rgba(41, 128, 185, .22);
-      --shadow: 0 18px 45px rgba(2, 8, 23, .18);
-      --r: 18px;
+      --ring: rgba(29, 157, 216, .22);
+      --shadow: 0 24px 60px rgba(15, 23, 42, .16), 0 10px 30px rgba(15, 23, 42, .10);
+      --r: 20px;
     }
 
     html,
@@ -50,8 +48,8 @@
     body {
       font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       overflow-y: auto !important;
-      background: linear-gradient(180deg, var(--silver-100), #eef2f7 60%, #e9edf3 100%);
       color: var(--ink);
+      background: linear-gradient(180deg, #fafdff 0%, #eef2fb 70%, #e9eefc 100%);
     }
 
     .container-scroller,
@@ -62,7 +60,7 @@
       padding: 0 !important;
     }
 
-    /* ===== Background container with IMAGE + RED/BLUE EFFECT + GLOW ===== */
+    /* ===== Center wrapper with subtle image + modern glow ===== */
     .auth-center {
       position: relative;
       width: 100%;
@@ -70,73 +68,59 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: clamp(16px, 3vw, 28px);
+      padding: clamp(16px, 3vw, 30px);
       overflow: hidden;
     }
 
-    /* 1) Background image layer */
+    /* Background image layer */
     .auth-center::before {
       content: "";
       position: absolute;
       inset: 0;
       background: url("<?= base_url('assets/images/bg.jpg'); ?>") center/cover no-repeat;
-      opacity: .18;
+      opacity: .10;
       z-index: 0;
     }
 
-    /* 2) Theme overlay (RED primary + BLUE accent) */
-    .auth-center .bg-blue-overlay {
+    /* Color glow overlay */
+    .auth-center .bg-glow {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(900px 520px at 20% 20%, rgba(193, 39, 45, .28), transparent 60%),
-        radial-gradient(900px 520px at 80% 10%, rgba(41, 128, 185, .18), transparent 62%),
-        linear-gradient(135deg, rgba(193, 39, 45, .12), rgba(41, 128, 185, .10));
-      opacity: .70;
+        radial-gradient(900px 560px at 18% 18%, rgba(29, 157, 216, .20), transparent 60%),
+        radial-gradient(980px 620px at 86% 14%, rgba(19, 64, 163, .18), transparent 62%),
+        radial-gradient(860px 520px at 60% 90%, rgba(247, 181, 0, .12), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, .72), rgba(255, 255, 255, .72));
       z-index: 1;
-      pointer-events: none;
-    }
-
-    /* 3) Soft white veil for readability */
-    .auth-center::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(900px 550px at 15% 10%, rgba(193, 39, 45, .12), transparent 60%),
-        radial-gradient(900px 550px at 85% 25%, rgba(41, 128, 185, .10), transparent 60%),
-        linear-gradient(135deg, rgba(255, 255, 255, .82), rgba(255, 255, 255, .82));
-      z-index: 2;
       pointer-events: none;
     }
 
     /* ===== Card ===== */
     .login-card {
       position: relative;
-      z-index: 3;
-      width: min(520px, 100%);
-      background: rgba(255, 255, 255, .97);
-      border: 1px solid rgba(15, 23, 42, .10);
-      border-radius: calc(var(--r) + 6px);
+      z-index: 2;
+      width: min(540px, 100%);
+      background: rgba(255, 255, 255, .98);
+      border: 1px solid rgba(19, 64, 163, .12);
+      border-radius: calc(var(--r) + 8px);
       box-shadow: var(--shadow);
       overflow: hidden;
-
-      /* IMPORTANT: remove blur = crisp logo + crisp text */
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
     }
 
-    /* ===== Header (SOLID, NO GRADIENT) ===== */
+    /* ===== Top header (clean, modern) ===== */
     .card-topbar {
       padding: 18px 18px 14px;
-      background: var(--red-900);
-      /* solid red */
+      background:
+        radial-gradient(circle at 15% 10%, rgba(29, 157, 216, .18), transparent 55%),
+        linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-blue-dark) 100%);
       color: #fff;
       text-align: center;
       position: relative;
     }
 
-    /* blue accent strip */
+    /* Accent strip */
     .card-topbar::after {
       content: "";
       position: absolute;
@@ -144,43 +128,62 @@
       right: 0;
       bottom: 0;
       height: 4px;
-      background: var(--blue-600);
-      /* solid blue */
+      background: linear-gradient(90deg, var(--accent-gold), var(--brand-cyan), rgba(255, 255, 255, .35));
+      opacity: .95;
     }
 
-    /* ===== Logo highlight so it never gets “covered” ===== */
     .app-logo {
       display: flex;
       justify-content: center;
       margin-bottom: 10px;
     }
 
-    /* This capsule protects the logo from the header color */
     .app-logo img {
-      width: min(260px, 85%);
+      width: min(270px, 88%);
       height: auto;
       object-fit: contain;
       display: block;
 
-      /* IMPORTANT: crisp */
+      /* crisp */
       image-rendering: -webkit-optimize-contrast;
       backface-visibility: hidden;
       transform: translateZ(0);
-
-      /* REMOVE heavy filter that makes it look soft */
       filter: none !important;
 
-      /* highlight “capsule” effect */
+      /* logo capsule */
       background: rgba(255, 255, 255, .92);
       padding: 10px 14px;
-      border-radius: 14px;
+      border-radius: 16px;
       box-shadow:
-        0 10px 22px rgba(2, 6, 23, .18),
+        0 14px 28px rgba(2, 6, 23, .22),
         0 0 0 1px rgba(255, 255, 255, .35) inset;
     }
 
+    .headline {
+      margin-top: 6px;
+    }
+
+    .headline h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    .headline p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      opacity: .90;
+    }
+
     .card-body {
-      padding: 18px;
+      padding: 20px 20px 22px;
+    }
+
+    /* Alerts: keep consistent spacing */
+    .alert {
+      border-radius: 14px;
+      border: 1px solid rgba(15, 23, 42, .10);
     }
 
     /* Labels */
@@ -206,22 +209,23 @@
     }
 
     .form-field .form-control {
-      border-radius: 14px !important;
-      border: 1px solid rgba(15, 23, 42, .12) !important;
+      border-radius: 16px !important;
+      border: 1px solid rgba(19, 64, 163, .16) !important;
       padding: 12px 14px 12px 44px !important;
       background: #fff !important;
       color: var(--ink) !important;
       box-shadow: none !important;
       transition: .18s ease;
+      font-weight: 500;
     }
 
     .form-field .form-control:focus {
-      border-color: rgba(41, 128, 185, .65) !important;
+      border-color: rgba(29, 157, 216, .85) !important;
       box-shadow: 0 0 0 4px var(--ring) !important;
     }
 
     .form-control::placeholder {
-      color: rgba(100, 116, 139, .9);
+      color: rgba(100, 116, 139, .92);
       opacity: 1;
     }
 
@@ -230,8 +234,8 @@
       right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -239,11 +243,11 @@
       background: transparent;
       cursor: pointer;
       color: rgba(15, 23, 42, .55);
-      border-radius: 10px;
+      border-radius: 12px;
     }
 
     .toggle-eye:hover {
-      color: rgba(15, 23, 42, .9);
+      color: rgba(15, 23, 42, .92);
       background: rgba(15, 23, 42, .06);
     }
 
@@ -252,21 +256,34 @@
       box-shadow: 0 0 0 4px var(--ring);
     }
 
-    /* ===== Button (SOLID, NO GRADIENT) ===== */
+    /* Links */
+    .link {
+      color: var(--brand-blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .link:hover {
+      color: var(--brand-blue-dark);
+      text-decoration: underline;
+    }
+
+    /* ===== Primary button (matches landing) ===== */
     .btn-login {
       border: 0 !important;
-      border-radius: 14px !important;
+      border-radius: 16px !important;
       padding: 12px 14px !important;
       font-weight: 800 !important;
       letter-spacing: .2px;
-
-      background: var(--red-900) !important;
-      /* solid red */
-      box-shadow: 0 12px 24px rgba(193, 39, 45, .18);
+      background: var(--brand-blue) !important;
+      box-shadow: 0 14px 28px rgba(19, 64, 163, .22);
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
     }
 
     .btn-login:hover {
-      background: var(--red-700) !important;
+      background: var(--brand-blue-dark) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 18px 34px rgba(19, 64, 163, .26);
     }
 
     .btn-login i {
@@ -274,77 +291,40 @@
       font-size: 18px;
     }
 
-    .link {
-      color: var(--blue-700);
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .link:hover {
-      color: var(--red-900);
-      text-decoration: underline;
-    }
-
+    /* Divider helper row */
     .helper {
       margin-top: 14px;
       padding-top: 14px;
-      border-top: 1px dashed rgba(15, 23, 42, .12);
+      border-top: 1px solid rgba(214, 222, 243, .8);
       font-size: 13px;
       text-align: center;
       color: var(--muted);
       font-weight: 600;
     }
 
-    /* Bottom logos (keep crisp) */
-    .bottom-logos {
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px dashed rgba(15, 23, 42, .12);
+    /* Small “forgot” row */
+    .forgot-row {
       display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin-top: 8px;
     }
 
-    .bottom-logos .rect {
-      height: 36px;
-      width: 140px;
-      object-fit: contain;
-      display: block;
-      filter: none !important;
-    }
-
-    .bottom-logos .circle {
-      height: 46px;
-      width: 46px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-      filter: none !important;
-    }
-
+    /* Fine-tune on mobile */
     @media (max-width: 420px) {
       .card-body {
-        padding: 16px;
-      }
-
-      .bottom-logos .rect {
-        width: 120px;
-        height: 34px;
-      }
-
-      .bottom-logos .circle {
-        width: 42px;
-        height: 42px;
+        padding: 16px 16px 18px;
       }
 
       .app-logo img {
         padding: 8px 12px;
-        border-radius: 12px;
+        border-radius: 14px;
+      }
+
+      .headline h2 {
+        font-size: 16px;
       }
     }
   </style>
-
 </head>
 
 <body>
@@ -352,20 +332,19 @@
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-center auth">
         <div class="auth-center">
-          <!-- BLUE EFFECT LAYER -->
-          <div class="bg-blue-overlay" aria-hidden="true"></div>
+          <!-- GLOW LAYER -->
+          <div class="bg-glow" aria-hidden="true"></div>
 
           <div class="login-card">
 
             <div class="card-topbar">
-              <!-- APP LOGO (1 rectangular) - NO SHAPE -->
               <div class="app-logo">
-                <img src="<?= base_url('assets/images/logo-white2.png'); ?>" alt="TrabaWHO? Logo">
+                <img src="<?= base_url('assets/images/logo-white2.png'); ?>" alt="JobMatch Logo">
               </div>
 
               <div class="headline">
-                <!-- <h2>Login</h2>
-                <p>Sign in to continue</p> -->
+                <h2>Sign in to JobMatch</h2>
+                <p>Continue to your dashboard and manage opportunities.</p>
               </div>
             </div>
 
@@ -428,7 +407,7 @@
                   </button>
                 </div>
 
-                <div class="d-flex justify-content-end mt-2">
+                <div class="forgot-row">
                   <a href="<?= site_url('auth/forgot'); ?>" class="link">Forgot password?</a>
                 </div>
 
@@ -448,14 +427,7 @@
                 <a href="<?= site_url('auth/signup'); ?>" class="link">Create</a>
               </div>
 
-              <!-- OTHER 3 LOGOS AT THE BOTTOM (NO SHAPE) -->
-              <div class="bottom-logos">
-                <img class="rect" src="<?= base_url('assets/images/partner1.png'); ?>" alt="Partner Logo 1">
-                <img class="circle" src="<?= base_url('assets/images/partner3.png'); ?>" alt="Partner Logo Circle">
-                <img class="rect" src="<?= base_url('assets/images/partner2.png'); ?>" alt="Partner Logo 2">
-
-              </div>
-
+              <!-- ✅ REMOVED: bottom partner logos -->
               <?= form_close(); ?>
 
             </div>
@@ -480,9 +452,11 @@
       var btn = document.querySelector('.toggle-eye[data-target="#password"]');
       var input = document.querySelector('#password');
       if (!btn || !input) return;
+
       btn.addEventListener('click', function() {
         var isPwd = input.type === 'password';
         input.type = isPwd ? 'text' : 'password';
+
         var icon = btn.querySelector('.mdi');
         if (icon) {
           icon.classList.remove(isPwd ? 'mdi-eye-outline' : 'mdi-eye-off-outline');
