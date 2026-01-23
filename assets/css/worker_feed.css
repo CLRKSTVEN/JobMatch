@@ -1,0 +1,455 @@
+    :root {
+      --blue-900: #1e3a8a;
+      --blue-700: #1d4ed8;
+      --blue-600: #2563eb;
+      --blue-500: #2563eb;
+      --gold-700: #c89113;
+      --gold-600: #f0b429;
+      --silver-600: #a7afba;
+      --silver-500: #c0c6d0;
+      --silver-300: #d9dee7;
+      --silver-200: #e7ebf2;
+      --silver-100: #f6f8fc;
+      --radius: 12px;
+      --shadow-1: 0 6px 16px rgba(2, 6, 23, .08);
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--silver-100), #eef2f7 60%, #e9edf3 100%);
+      color: #0f172a;
+      font-size: 13px;
+    }
+
+    .content-wrapper {
+      padding-top: .6rem
+    }
+
+    .app {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 12px
+    }
+
+    .panel {
+      background: #fff;
+      border: 1px solid var(--silver-300);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-1)
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--silver-200)
+    }
+
+    .panel-head h6 {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--blue-900)
+    }
+
+    .panel-body {
+      padding: 12px
+    }
+
+    /* Composer */
+    .composer {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .composer .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover
+    }
+
+    .composer-input {
+      flex: 1;
+      border-radius: 9999px;
+      border: 1px solid var(--silver-300);
+      background: #f5f7fb;
+      padding: .65rem 1rem;
+      cursor: pointer
+    }
+
+    .composer-actions {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: .35rem .6rem;
+      border-radius: 9999px;
+      border: 1px solid var(--silver-300);
+      background: #fff;
+      font-weight: 700;
+      font-size: 12px
+    }
+
+    .chip .mdi {
+      color: var(--blue-600)
+    }
+
+    .chip {
+      cursor: pointer;
+    }
+
+    /* Post card */
+    .post {
+      border: 1px solid var(--silver-300);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-1);
+      background: #fff;
+      margin-top: 12px
+    }
+
+    .post .head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px;
+      border-bottom: 1px solid var(--silver-200)
+    }
+
+    .post .who {
+      display: flex;
+      gap: 10px
+    }
+
+    .post .who .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover
+    }
+
+    .post .name {
+      font-weight: 800;
+      color: var(--blue-900);
+      line-height: 1
+    }
+
+    .post .meta {
+      font-size: 12px;
+      color: #64748b
+    }
+
+    .post .body {
+      padding: 12px
+    }
+
+    .post .img {
+      border-radius: 10px;
+      overflow: hidden
+    }
+
+    .post .img img {
+      width: 100%;
+      height: auto;
+      display: block
+    }
+
+    .post .foot {
+      padding: 8px 12px;
+      border-top: 1px solid var(--silver-200);
+      display: flex;
+      gap: 6px
+    }
+
+    .btn-pill {
+      border-radius: 9999px
+    }
+
+    .btn-brand {
+      border: 1px solid var(--blue-600);
+      background: #f5f8ff;
+      color: #1e3a8a
+    }
+
+    .btn-brand:hover {
+      background: var(--gold-600);
+      border-color: var(--gold-700);
+      color: #111
+    }
+
+    .toast-container {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 1060
+    }
+
+    /* Blue inputs */
+    .brand-input,
+    .form-control.brand-input {
+      border-color: var(--blue-600) !important;
+    }
+
+    .brand-input:focus {
+      box-shadow: 0 0 0 .2rem rgba(37, 99, 235, .15);
+      border-color: var(--blue-600);
+    }
+
+    /* gallery for multiple images */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    @media (max-width:576px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== Hire Modal copy from results.php, with slightly higher specificity ===== */
+    .tw-modal .modal-dialog {
+      max-width: 920px
+    }
+
+    .tw-modal .modal-content {
+      border-radius: 18px;
+      border: 1px solid #c7d2fe;
+      /* indigo-200 */
+      box-shadow: 0 18px 44px rgba(2, 6, 23, .12), 0 6px 18px rgba(2, 6, 23, .08);
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .tw-modal .modal-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid #c7d2fe;
+      background: linear-gradient(180deg, #f8faff, #ffffff);
+    }
+
+    .tw-modal .modal-title {
+      font-weight: 800
+    }
+
+    .tw-modal .modal-body {
+      padding: 0
+    }
+
+    .tw-modal .tw-wrap {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 16px;
+      padding: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .tw-modal .tw-wrap {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .tw-modal .tw-card {
+      background: #fff;
+      border: 1px solid #c7d2fe;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(2, 6, 23, .06), 0 1px 0 rgba(2, 6, 23, .04);
+      padding: 16px 16px;
+    }
+
+    .tw-modal .tw-card+.tw-card {
+      margin-top: 12px
+    }
+
+    .tw-modal .tw-card h6 {
+      font-weight: 800;
+      font-size: 1rem;
+      margin: 0 0 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .tw-modal .tw-muted {
+      color: #6b7280
+    }
+
+    .tw-modal .tw-help {
+      font-size: .85rem;
+      color: #6b7280
+    }
+
+    .tw-modal .tw-seg {
+      display: flex;
+      background: #f4f6ff;
+      border: 1px solid #c7d2fe;
+      border-radius: 12px;
+      overflow: hidden
+    }
+
+    .tw-modal .tw-seg label {
+      flex: 1;
+      padding: 10px 12px;
+      margin: 0;
+      border-right: 1px solid #c7d2fe;
+      cursor: pointer;
+      font-weight: 600;
+      text-align: center
+    }
+
+    .tw-modal .tw-seg label:last-child {
+      border-right: 0
+    }
+
+    .tw-modal .tw-seg .btn-check:checked+label {
+      background: #1d4ed8;
+      color: #fff;
+      border-color: #1d4ed8
+    }
+
+    .tw-modal .tw-input {
+      border-radius: 12px !important;
+      border: 1px solid #c7d2fe !important;
+    }
+
+    /* Project file preview */
+    .tw-modal .tw-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px
+    }
+
+    .tw-modal .proj-thumb {
+      width: 76px;
+      height: 76px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      object-fit: cover
+    }
+
+    .tw-modal .proj-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: .28rem .6rem;
+      border-radius: 9999px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      font-size: .82rem;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(2, 6, 23, .06)
+    }
+
+    .tw-modal .proj-chip i {
+      font-size: 1rem
+    }
+
+    /* Switches (invitation + disclaimer) */
+    .form-switch.tw-switch {
+      padding-left: 0;
+      display: flex;
+      align-items: center;
+      gap: .5rem
+    }
+
+    .form-switch.tw-switch .form-check-input {
+      margin-left: 0;
+      margin-right: .6rem;
+      width: 3.1rem;
+      height: 1.6rem;
+      background-color: #e5e7eb;
+      border: 1px solid #cbd5e1;
+      background-image: none;
+      border-radius: 9999px
+    }
+
+    .form-switch.tw-switch .form-check-input:checked {
+      background-color: #6366f1;
+      border-color: #6366f1
+    }
+
+    .form-switch.tw-switch .form-check-label {
+      margin: 0;
+      line-height: 1.4
+    }
+
+    /* Disclaimer box */
+    .tw-modal .tw-disclaimer {
+      border: 1px dashed #a5b4fc;
+      background: #fbfbff;
+      border-radius: 14px;
+      padding: 14px
+    }
+
+    .tw-modal .tw-disc-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800
+    }
+
+    .tw-modal .tw-disc-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #a5b4fc, #6366f1);
+      color: #fff
+    }
+
+    /* Send button disabled look */
+    #hireSendBtn.disabled,
+    #hireSendBtn:disabled {
+      pointer-events: none;
+      opacity: .6
+    }
+
+    /* Make "chips" open modal feel clickable (composer) */
+    .chip {
+      cursor: pointer
+    }
+
+    /* Scope pills */
+    .btn-scope {
+      border-radius: 9999px;
+      padding: .35rem .9rem;
+      font-weight: 700;
+      border: 2px solid #c7d2fe;
+      /* indigo-200 outline */
+      background: #fff;
+      color: #1f2937;
+      /* slate-800 */
+      transition: background .15s, color .15s, border-color .15s, box-shadow .15s;
+    }
+
+    .btn-scope:hover {
+      background: #f5f7ff;
+      border-color: #a5b4fc;
+      /* indigo-300 */
+    }
+
+    .btn-scope.active {
+      background: #1d4ed8;
+      /* indigo-600 */
+      border-color: #1d4ed8;
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(21, 40, 107, .25);
+    }.page-body-wrapper .main-panel .content-wrapper .app{
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
