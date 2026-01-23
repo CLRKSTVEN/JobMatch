@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="<?= base_url('assets/css/signup.css') ?>">
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   <title>JobMatch DavOr - Signup</title>
@@ -17,109 +18,6 @@
   <link rel="stylesheet" href="<?= base_url('dist/css/app.css') ?>">
 </head>
 
-<style>
-  body {
-    overflow-y: auto !important;
-    font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  }
-
-  .field-select {
-    height: 3rem;
-    width: 100%;
-    background: #fff !important;
-    color: #0f172a !important;
-    border: 1px solid #e5e7eb !important;
-    border-radius: .5rem;
-    padding: .75rem 1rem;
-  }
-
-  .field-select:focus {
-    outline: 0 !important;
-    border-color: #1e3a8a !important;
-    box-shadow: 0 0 0 3px rgba(43, 77, 165, .15) !important;
-  }
-
-  .field-select option {
-    color: #0f172a;
-    background: #fff;
-  }
-
-  .alert {
-    position: relative;
-    padding: .75rem 2.25rem .75rem .75rem;
-    border: 1px solid transparent;
-    border-radius: .25rem;
-    margin-bottom: 1rem;
-    font-size: .875rem;
-  }
-
-  .alert-success {
-    color: #0f5132;
-    background: #d1e7dd;
-    border-color: #badbcc;
-  }
-
-  .alert-danger {
-    color: #842029;
-    background: #f8d7da;
-    border-color: #f5c2c7;
-  }
-
-  .alert-info {
-    color: #055160;
-    background: #cff4fc;
-    border-color: #b6effb;
-  }
-
-  .alert-dismissible {
-    padding-right: 2.25rem;
-  }
-
-  .btn-close {
-    position: absolute;
-    top: .5rem;
-    right: .5rem;
-    width: 1rem;
-    height: 1rem;
-    border: 0;
-    background: transparent;
-    opacity: .7;
-    cursor: pointer;
-    line-height: 1;
-  }
-
-  .btn-close:hover {
-    opacity: 1;
-  }
-
-  .btn-close::before {
-    content: "Ã—";
-    font-size: 1rem;
-  }
-
-  .fade {
-    transition: opacity .15s linear;
-    opacity: 0;
-  }
-
-  .fade.show {
-    opacity: 1;
-  }
-
-  .small {
-    font-size: .875rem;
-  }
-
-  .mb-3 {
-    margin-bottom: 1rem;
-  }
-
-  button[disabled] {
-    pointer-events: none !important;
-    user-select: none !important;
-    outline: 0 !important;
-  }
-</style>
 
 <body class="overflow-y-auto">
 
@@ -433,10 +331,16 @@
       cursor: pointer
     }
 
+    /* align modal primary to PESO red */
     .pm-btn-primary {
-      background: #2563eb;
-      border-color: #2563eb;
+      background: var(--peso-red);
+      border-color: var(--peso-red);
       color: #fff
+    }
+
+    .pm-btn-primary:hover {
+      background: var(--peso-red-dark);
+      border-color: var(--peso-red-dark);
     }
 
     .pm-btn:hover {
@@ -451,7 +355,7 @@
     .pm-btn:focus,
     .pm-close:focus {
       outline: 0;
-      box-shadow: 0 0 0 3px rgba(43, 77, 165, .35)
+      box-shadow: 0 0 0 3px var(--peso-ring-strong)
     }
 
     .alert-inline {
@@ -468,9 +372,61 @@
       box-shadow: 0 0 0 3px rgba(239, 68, 68, .12) !important;
     }
 
+    /* valid state aligned to palette (soft green kept) */
     .input-valid {
       border-color: #22c55e !important;
       box-shadow: 0 0 0 3px rgba(34, 197, 94, .12) !important;
+    }
+
+    /* Make the “accent blob” not clash: use light red tint if your theme has bg-accent */
+    .bg-accent {
+      background-color: var(--peso-rose-100) !important;
+    }
+
+    /* ===== Fix: text becomes readable on the red (bg-primary) area ===== */
+    .bg-primary h2,
+    .bg-primary h3,
+    .bg-primary h4,
+    .bg-primary label,
+    .bg-primary p,
+    .bg-primary span,
+    .bg-primary small,
+    .bg-primary .opacity-70,
+    .bg-primary .text-gray-700,
+    .bg-primary .text-slate-900,
+    .bg-primary .text-slate-800,
+    .bg-primary .text-slate-700,
+    .bg-primary .text-foreground {
+      color: rgba(255, 255, 255, .92) !important;
+    }
+
+    /* Make helper/secondary text a bit softer (optional but nice) */
+    .bg-primary .opacity-70 {
+      color: rgba(255, 255, 255, .78) !important;
+    }
+
+    /* Links on red background */
+    .bg-primary a,
+    .bg-primary a.text-primary {
+      color: #ffe4e6 !important;
+    }
+
+    .bg-primary a:hover,
+    .bg-primary a.text-primary:hover {
+      color: #ffffff !important;
+      text-decoration: underline;
+    }
+
+    /* Checkbox label readability */
+    .bg-primary input[type="checkbox"]+label,
+    .bg-primary label[for="tos"] {
+      color: rgba(255, 255, 255, .86) !important;
+    }
+
+    /* “Register as”, “Human verification” labels that were gray */
+    .bg-primary .text-sm,
+    .bg-primary .text-xs {
+      color: rgba(255, 255, 255, .86) !important;
     }
   </style>
 
