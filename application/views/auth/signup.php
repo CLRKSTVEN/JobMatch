@@ -15,9 +15,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   <title>JobMatch DavOr - Signup</title>
 
+  <!-- ✅ keep (your functions/js rely on dist assets & lucide) -->
   <link rel="stylesheet" href="<?= base_url('dist/css/app.css') ?>">
 </head>
-
 
 <body class="overflow-y-auto">
 
@@ -25,225 +25,503 @@
     <div class="loader-spinner !w-14"></div>
   </div>
 
-  <div class="relative min-h-screen lg:overflow-visible bg-primary bg-noise xl:bg-background xl:bg-none before:hidden before:xl:block before:content-[''] before:w-[57%] before:-mt-[28%] before:-mb-[16%] before:-ml-[12%] before:absolute before:inset-y-0 before:left-0 before:transform before:rotate-[6deg] before:bg-primary/[.95] before:bg-noise before:rounded-[35%] after:hidden after:xl:block after:content-[''] after:w-[57%] after:-mt-[28%] after:-mb-[16%] after:-ml-[12%] after:absolute after:inset-y-0 after:left-0 after:transform after:rotate-[6deg] after:border after:bg-accent after:bg-cover after:blur-xl after:rounded-[35%] after:border-[20px] after:border-primary">
-    <div class="p-3 sm:px-8 relative h-full before:hidden before:xl:block before:w-[57%] before:-mt-[20%] before:-mb-[13%] before:-ml-[12%] before:absolute before:inset-y-0 before:left-0 before:transform before:rotate-[-6deg] before:bg-primary/40 before:bg-noise before:border before:border-primary/50 before:opacity-60 before:rounded-[20%]">
-      <div class="container relative z-10 mx-auto sm:px-20">
-        <div class="block grid-cols-2 gap-4 xl:grid">
-          <div class="hidden min-h-screen flex-col xl:flex">
-            <a class="flex items-center pt-10" href="">
-              <img class="ml-3" src="<?= base_url('assets/images/logo-white.png') ?>" alt="Midone - Tailwind Admin Dashboard Template" style="width:280px; height:auto;">
+  <!-- =========================================================
+       ✅ NEW LAYOUT (NOT Midone)
+       - Clean split layout
+       - Uses your existing IDs/classes so JS + CSS still works
+       ========================================================= -->
+  <div class="jm-wrap">
+    <div class="jm-left">
+      <a class="jm-brand" href="<?= site_url('/') ?>">
+        <img src="<?= base_url('assets/images/logo.png') ?>" alt="JobMatch DavOr" class="jm-logo">
+      </a>
 
-            </a>
+      <div class="jm-left-body">
+        <div class="jm-illus">
+          <img src="<?= base_url('dist/images/illustration.svg') ?>" alt="Illustration">
+        </div>
 
-            <div class="my-auto">
-              <img class="-mt-16 w-1/2" src="<?= base_url('dist/images/illustration.svg') ?>" alt="Midone - Tailwind Admin Dashboard Template">
-              <div class="mt-10 text-4xl font-medium leading-tight text-white">
-                A few more clicks to <br>
-                sign up to your account.
+        <h1 class="jm-title">
+          A few more clicks to<br>
+          sign up to your account.
+        </h1>
+
+        <p class="jm-sub">
+          All your jobs and skilled workers—together in<br>
+          one place with JobMatch DavOr
+        </p>
+
+        <div class="jm-badges">
+          <span class="jm-pill">Skilled Workers</span>
+          <span class="jm-pill">Employers</span>
+          <span class="jm-pill">Secure</span>
+        </div>
+      </div>
+
+      <div class="jm-left-foot">
+        <small>© <?= date('Y') ?> JobMatch DavOr</small>
+      </div>
+    </div>
+
+    <div class="jm-right">
+      <div class="jm-card">
+        <div class="jm-card-head">
+          <h2 class="jm-card-title">Sign Up</h2>
+          <div class="jm-card-note">Create your JobMatch DavOr account in seconds.</div>
+        </div>
+
+        <?= form_open('auth/signup') ?>
+
+        <div class="mt-4">
+          <?php foreach (['success' => 'success', 'error' => 'danger', 'info' => 'info', 'msg' => 'success'] as $key => $class): ?>
+            <?php if ($this->session->flashdata($key)): ?>
+              <div class="alert alert-<?= $class ?> alert-dismissible fade show small mb-3" role="alert">
+                <?= htmlspecialchars($this->session->flashdata($key), ENT_QUOTES, 'UTF-8') ?>
+                <button type="button" class="btn-close" aria-label="Close"></button>
               </div>
-              <div class="mt-5 text-lg text-white opacity-70">
-                All your jobs and skilled workers—together in <br> one place with JobMatch DavOr
-              </div>
+            <?php endif; ?>
+          <?php endforeach; ?>
+        </div>
+
+        <div class="jm-grid2">
+          <div>
+            <label class="jm-label" for="first_name">First Name</label>
+            <input
+              id="first_name"
+              class="jm-input"
+              type="text"
+              name="first_name"
+              placeholder="First Name"
+              value="<?= set_value('first_name') ?>"
+              autocomplete="given-name"
+              required
+              aria-required="true" />
+            <?php if (form_error('first_name')): ?>
+              <div class="text-red-600 text-sm mt-2"><?= form_error('first_name'); ?></div>
+            <?php endif; ?>
+          </div>
+
+          <div>
+            <label class="jm-label" for="last_name">Last Name</label>
+            <input
+              id="last_name"
+              class="jm-input"
+              type="text"
+              name="last_name"
+              placeholder="Last Name"
+              value="<?= set_value('last_name') ?>"
+              autocomplete="family-name"
+              required
+              aria-required="true" />
+            <?php if (form_error('last_name')): ?>
+              <div class="text-red-600 text-sm mt-2"><?= form_error('last_name'); ?></div>
+            <?php endif; ?>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <label class="jm-label" for="signupEmail">Email</label>
+          <input
+            id="signupEmail"
+            class="jm-input"
+            type="email"
+            name="email"
+            placeholder="Email"
+            value="<?= set_value('email') ?>">
+          <div id="emailHint" class="alert alert-info alert-inline" role="alert" hidden></div>
+
+          <?php if (form_error('email')): ?>
+            <div class="alert alert-danger alert-inline" role="alert"><?= form_error('email'); ?></div>
+          <?php endif; ?>
+        </div>
+
+        <div class="mt-3">
+          <label class="jm-label" for="signupPassword">Password</label>
+          <div class="jm-pass">
+            <input
+              id="signupPassword"
+              class="jm-input jm-input-pass"
+              type="password"
+              name="password"
+              placeholder="Password"
+              autocomplete="new-password"
+              required
+              aria-required="true" />
+
+            <button
+              type="button"
+              class="jm-eye"
+              aria-label="Show password"
+              data-toggle="password"
+              data-target="#signupPassword">
+              <i data-lucide="eye" style="width:20px; height:20px"></i>
+            </button>
+          </div>
+
+          <!-- keep this strength bar block as-is for your current look -->
+          <div class="box ml-px mt-4 grid h-2 w-full grid-flow-col gap-3 [--color:var(--color-foreground)]">
+            <div class="active bg-(--color)/20 border-(--color)/30 -ml-px h-full rounded border [&.active]:[--color:var(--color-success)]"></div>
+            <div class="active bg-(--color)/20 border-(--color)/30 -ml-px h-full rounded border [&.active]:[--color:var(--color-success)]"></div>
+            <div class="active bg-(--color)/20 border-(--color)/30 -ml-px h-full rounded border [&.active]:[--color:var(--color-success)]"></div>
+            <div class="bg-(--color)/20 border-(--color)/30 -ml-px h-full rounded border [&.active]:[--color:var(--color-success)]"></div>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <label for="role" class="jm-label">Register as</label>
+          <select id="role" name="role" class="field-select" required>
+            <option value="" <?= set_select('role', '', true) ?>>-- Select Role --</option>
+            <option value="worker" <?= set_select('role', 'worker') ?>>Skilled Worker</option>
+            <option value="client" <?= set_select('role', 'client') ?>>Individual / Employer</option>
+          </select>
+        </div>
+
+        <div class="mt-4 jm-tos">
+          <div class="bg-background border-foreground/70 relative size-4 rounded-sm border">
+            <input
+              class="peer relative z-10 size-full cursor-pointer opacity-0"
+              type="checkbox"
+              id="tos"
+              name="accept_privacy"
+              value="1"
+              <?= set_checkbox('accept_privacy', '1'); ?>
+              required>
+            <div class="z-4 bg-foreground invisible absolute inset-0 flex items-center justify-center text-white peer-checked:visible">
+              <i data-lucide="check" class="stroke-[1.5] [--color:currentColor] stroke-(--color) fill-(--color)/25 size-4"></i>
             </div>
           </div>
 
+          <label class="jm-tos-label" for="tos">
+            I agree to the JobMatch DavOr
+            <a class="text-primary ml-1" href="#" id="openPrivacy">Privacy Policy</a>.
+          </label>
+        </div>
 
-          <div class="my-10 flex py-5 xl:my-0 xl:py-0">
-            <div class="box relative p-5 before:absolute before:inset-0 before:mx-3 before:-mb-3 before:border before:border-foreground/10 before:bg-background/30 before:shadow-[0px_3px_5px_#0000000b] before:z-[-1] before:rounded-xl after:absolute after:inset-0 after:border after:border-foreground/10 after:bg-background after:shadow-[0px_3px_5px_#0000000b] after:rounded-xl after:z-[-1] after:backdrop-blur-md mx-auto my-auto w-full px-5 py-8 sm:w-3/4 sm:px-8 lg:w-2/4 xl:ml-24 xl:w-auto xl:p-0 xl:before:hidden xl:after:hidden">
-              <h2 class="text-center text-2xl font-semibold xl:text-left xl:text-3xl">
-                Sign Up
-              </h2>
-              <div class="mt-2 text-center opacity-70 xl:hidden">
-                All your jobs and skilled workers—together in one place with JobMatch DavOr
-              </div>
+        <?php if (form_error('accept_privacy')): ?>
+          <div class="text-red-600 text-sm mt-2"><?= form_error('accept_privacy'); ?></div>
+        <?php endif; ?>
 
-              <?= form_open('auth/signup') ?>
+        <div class="mt-4">
+          <label class="jm-label">Human verification</label>
+          <div
+            class="g-recaptcha"
+            data-sitekey="<?= html_escape($this->config->item('recaptcha_site_key')) ?>"
+            data-callback="recaptchaOk"
+            data-expired-callback="recaptchaExpired"
+            data-error-callback="recaptchaError"></div>
+          <?php if (form_error('g-recaptcha-response')): ?>
+            <div class="text-red-600 text-sm mt-2"><?= form_error('g-recaptcha-response'); ?></div>
+          <?php endif; ?>
+        </div>
 
+        <div class="hp" aria-hidden="true">
+          <label for="hp-website">Website</label>
+          <input id="hp-website" type="text" name="website" autocomplete="off" tabindex="-1">
+        </div>
 
-              <div class="mt-8 flex flex-col gap-5">
-                <?php foreach (['success' => 'success', 'error' => 'danger', 'info' => 'info', 'msg' => 'success'] as $key => $class): ?>
-                  <?php if ($this->session->flashdata($key)): ?>
-                    <div class="alert alert-<?= $class ?> alert-dismissible fade show small mb-3" role="alert">
-                      <?= htmlspecialchars($this->session->flashdata($key), ENT_QUOTES, 'UTF-8') ?>
-                      <button type="button" class="btn-close" aria-label="Close"></button>
-                    </div>
-                  <?php endif; ?>
-                <?php endforeach; ?>
+        <style>
+          .hp {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+          }
+        </style>
 
+        <div class="mt-5">
+          <button
+            id="btnRegister"
+            type="submit"
+            disabled
+            class="cursor-pointer inline-flex border items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-(--color)/20 border-(--color)/60 text-(--color) hover:bg-(--color)/5 [--color:var(--color-primary)] h-10 box w-full px-4 py-5"
+            aria-disabled="true"
+            tabindex="-1">
+            Register
+          </button>
 
-                <input
-                  id="first_name"
-                  class="h-10 w-full rounded-md border bg-background ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-foreground placeholder:text-foreground/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/5 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 box block min-w-full px-5 py-6 xl:min-w-[28rem]"
-                  type="text"
-                  name="first_name"
-                  placeholder="First Name"
-                  value="<?= set_value('first_name') ?>"
-                  autocomplete="given-name"
-                  required
-                  aria-required="true" />
-                <?php if (form_error('first_name')): ?>
-                  <div class="text-red-600 text-sm mt-2"><?= form_error('first_name'); ?></div>
-                <?php endif; ?>
+          <?= form_close() ?>
 
-
-                <input
-                  id="last_name"
-                  class="h-10 w-full rounded-md border bg-background ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-foreground placeholder:text-foreground/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/5 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 box block min-w-full px-5 py-6 xl:min-w-[28rem]"
-                  type="text"
-                  name="last_name"
-                  placeholder="Last Name"
-                  value="<?= set_value('last_name') ?>"
-                  autocomplete="family-name"
-                  required
-                  aria-required="true" />
-                <?php if (form_error('last_name')): ?>
-                  <div class="text-red-600 text-sm mt-2"><?= form_error('last_name'); ?></div>
-                <?php endif; ?>
-
-                <input
-                  id="signupEmail"
-                  class="h-10 w-full rounded-md border bg-background ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-foreground placeholder:text-foreground/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/5 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 box block min-w-full px-5 py-6 xl:min-w-[28rem]"
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value="<?= set_value('email') ?>">
-                <div id="emailHint" class="alert alert-info alert-inline" role="alert" hidden></div>
-
-                <?php if (form_error('email')): ?>
-                  <div class="alert alert-danger alert-inline" role="alert"><?= form_error('email'); ?></div>
-                <?php endif; ?>
-                <div class="relative" style="position:relative">
-                  <input
-                    id="signupPassword"
-                    class="w-full rounded-md border bg-background ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-foreground placeholder:text-foreground/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/5 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 box block min-w-full xl:min-w-[28rem]"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    autocomplete="new-password"
-                    required
-                    aria-required="true"
-                    style="height:48px; padding:0 3rem 0 1rem;" />
-
-                  <button
-                    type="button"
-                    aria-label="Show password"
-                    data-toggle="password"
-                    data-target="#signupPassword"
-                    style="
-      position:absolute;
-      top:50%;
-      right:12px;
-      transform:translateY(-50%);
-      width:36px; height:36px;
-      display:inline-flex; align-items:center; justify-content:center;
-      background:transparent; border:0; padding:0; cursor:pointer;
-      color:rgba(15,23,42,.7);
-    "
-                    onmouseover="this.style.color='rgba(15,23,42,1)';"
-                    onmouseout="this.style.color='rgba(15,23,42,.7)';">
-                    <i data-lucide="eye" style="width:20px; height:20px"></i>
-                  </button>
-                </div>
-                <div class="box ml-px mt-4 grid h-2 w-full grid-flow-col gap-3 [--color:var(--color-foreground)]">
-                  <div class="active bg-(--color)/20 border-(--color)/30 -ml-px h-full rounded border [&.active]:[--color:var(--color-success)]"></div>
-                  <div class="active bg-(--color)/20 border-(--color)/30 -ml-px h-full rounded border [&.active]:[--color:var(--color-success)]"></div>
-                  <div class="active bg-(--color)/20 border-(--color)/30 -ml-px h-full rounded border [&.active]:[--color:var(--color-success)]"></div>
-                  <div class="bg-(--color)/20 border-(--color)/30 -ml-px h-full rounded border [&.active]:[--color:var(--color-success)]"></div>
-                </div>
-
-
-
-                <label for="role" class="block text-sm font-medium text-gray-700 mb-2">
-                  Register as
-                </label>
-                <select id="role" name="role" class="field-select" required>
-                  <option value="" <?= set_select('role', '', true) ?>>-- Select Role --</option>
-                  <option value="worker" <?= set_select('role', 'worker') ?>>Skilled Worker</option>
-                  <option value="client" <?= set_select('role', 'client') ?>>Individual / Employer</option>
-                </select>
-
-
-                <div class="flex text-xs sm:text-sm">
-                  <div class="flex gap-2.5 mr-auto flex-row items-center">
-                    <div class="bg-background border-foreground/70 relative size-4 rounded-sm border">
-                      <input
-                        class="peer relative z-10 size-full cursor-pointer opacity-0"
-                        type="checkbox"
-                        id="tos"
-                        name="accept_privacy"
-                        value="1"
-                        <?= set_checkbox('accept_privacy', '1'); ?>
-                        required>
-                      <div class="z-4 bg-foreground invisible absolute inset-0 flex items-center justify-center text-white peer-checked:visible">
-                        <i data-lucide="check" class="stroke-[1.5] [--color:currentColor] stroke-(--color) fill-(--color)/25 size-4"></i>
-                      </div>
-                    </div>
-
-                    <label class="font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 opacity-70" for="tos">
-                      I agree to the JobMatch DavOr
-                      <a class="text-primary ml-1" href="#" id="openPrivacy">Privacy Policy</a>.
-                    </label>
-                  </div>
-                </div>
-
-                <?php if (form_error('accept_privacy')): ?>
-                  <div class="text-red-600 text-sm mt-2"><?= form_error('accept_privacy'); ?></div>
-                <?php endif; ?>
-
-              </div>
-              <div class="mt-4">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Human verification</label>
-                <div
-                  class="g-recaptcha"
-                  data-sitekey="<?= html_escape($this->config->item('recaptcha_site_key')) ?>"
-                  data-callback="recaptchaOk"
-                  data-expired-callback="recaptchaExpired"
-                  data-error-callback="recaptchaError"></div>
-                <?php if (form_error('g-recaptcha-response')): ?>
-                  <div class="text-red-600 text-sm mt-2"><?= form_error('g-recaptcha-response'); ?></div>
-                <?php endif; ?>
-              </div>
-              <div class="hp" aria-hidden="true">
-                <label for="hp-website">Website</label>
-                <input id="hp-website" type="text" name="website" autocomplete="off" tabindex="-1">
-              </div>
-
-              <style>
-                .hp {
-                  position: absolute;
-                  left: -9999px;
-                  width: 1px;
-                  height: 1px;
-                  overflow: hidden;
-                }
-              </style>
-
-              <div class="mt-5 text-center xl:mt-10 xl:text-left">
-                <button
-                  id="btnRegister"
-                  type="submit"
-                  disabled
-                  class="cursor-pointer inline-flex border items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-(--color)/20 border-(--color)/60 text-(--color) hover:bg-(--color)/5 [--color:var(--color-primary)] h-10 box w-full px-4 py-5"
-                  aria-disabled="true"
-                  tabindex="-1">
-                  Register
-                </button>
-
-
-                <?= form_close() ?>
-
-                <a href="<?= site_url('auth/login') ?>"
-                  class="[--color:var(--color-foreground)] cursor-pointer inline-flex border items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-(--color) hover:bg-(--color)/5 bg-background border-(--color)/20 h-10 box mt-4 w-full px-4 py-5">
-                  Login
-                </a>
-              </div>
-            </div>
-          </div>
+          <a href="<?= site_url('auth/login') ?>"
+            class="[--color:var(--color-foreground)] cursor-pointer inline-flex border items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-(--color) hover:bg-(--color)/5 bg-background border-(--color)/20 h-10 box mt-4 w-full px-4 py-5">
+            Login
+          </a>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- =========================================================
+       NEW LAYOUT CSS (safe, doesn't break your existing signup.css)
+       ========================================================= -->
+  <style>
+    .jm-wrap {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      background: #fff;
+    }
+
+    .jm-left {
+      position: relative;
+      background: var(--peso-red);
+      color: #fff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 28px 28px;
+    }
+
+    /* soft blobs */
+    .jm-left::before,
+    .jm-left::after {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      filter: blur(10px);
+      opacity: .22;
+      background: #fff;
+    }
+
+    .jm-left::before {
+      top: -220px;
+      left: -200px;
+    }
+
+    .jm-left::after {
+      bottom: -260px;
+      right: -240px;
+      opacity: .16;
+    }
+
+    .jm-brand {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .jm-logo {
+      height: 70px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .jm-left-body {
+      position: relative;
+      z-index: 1;
+      margin: auto 0;
+      max-width: 560px;
+      padding: 18px 0 12px;
+    }
+
+    .jm-illus img {
+      width: 58%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+      margin: 0 0 16px;
+    }
+
+    .jm-title {
+      margin: 0;
+      font-size: 44px;
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .jm-sub {
+      margin: 14px 0 0;
+      font-size: 16px;
+      line-height: 1.6;
+      opacity: .88;
+    }
+
+    .jm-badges {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .jm-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .14);
+      border: 1px solid rgba(255, 255, 255, .22);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .02em;
+    }
+
+    .jm-left-foot {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      opacity: .85;
+    }
+
+    .jm-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 16px;
+      background: linear-gradient(180deg, var(--peso-rose-50), #fff 45%);
+    }
+
+    .jm-card {
+      width: 100%;
+      max-width: 520px;
+      background: #fff;
+      border: 1px solid rgba(15, 23, 42, .10);
+      border-radius: 18px;
+      box-shadow: 0 18px 55px rgba(2, 6, 23, .10);
+      padding: 22px 22px 20px;
+    }
+
+    .jm-card-head {
+      margin-bottom: 6px;
+    }
+
+    .jm-card-title {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -.01em;
+      color: #0f172a;
+    }
+
+    .jm-card-note {
+      margin-top: 6px;
+      color: rgba(15, 23, 42, .70);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .jm-grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .jm-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+      color: rgba(15, 23, 42, .86);
+      margin: 0 0 6px;
+    }
+
+    .jm-input {
+      width: 100%;
+      height: 48px;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 23, 42, .14);
+      padding: 0 14px;
+      background: #fff;
+      color: #0f172a;
+      transition: box-shadow .15s ease, border-color .15s ease;
+    }
+
+    .jm-input::placeholder {
+      color: rgba(15, 23, 42, .55);
+    }
+
+    .jm-input:focus {
+      outline: 0;
+      border-color: rgba(201, 53, 61, .70);
+      box-shadow: 0 0 0 3px var(--peso-ring);
+    }
+
+    .jm-pass {
+      position: relative;
+    }
+
+    .jm-input-pass {
+      padding-right: 48px;
+    }
+
+    .jm-eye {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      color: rgba(15, 23, 42, .70);
+    }
+
+    .jm-eye:hover {
+      color: rgba(15, 23, 42, 1);
+    }
+
+    .jm-tos {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .jm-tos-label {
+      margin: 0;
+      font-size: 13px;
+      color: rgba(15, 23, 42, .70);
+      font-weight: 700;
+    }
+
+    @media (max-width: 1024px) {
+      .jm-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .jm-left {
+        display: none;
+      }
+
+      .jm-right {
+        padding: 22px 14px;
+      }
+
+      .jm-card {
+        max-width: 560px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .jm-grid2 {
+        grid-template-columns: 1fr;
+      }
+
+      .jm-card {
+        padding: 18px 16px;
+        border-radius: 16px;
+      }
+
+      .jm-card-title {
+        font-size: 24px;
+      }
+    }
+  </style>
+
+  <!-- =========================================================
+       YOUR EXISTING MODAL + FIXED CLOSE ICON
+       (kept identical except “×”)
+       ========================================================= -->
   <style>
     #pmModal {
       position: fixed;
@@ -331,7 +609,6 @@
       cursor: pointer
     }
 
-    /* align modal primary to PESO red */
     .pm-btn-primary {
       background: var(--peso-red);
       border-color: var(--peso-red);
@@ -340,7 +617,7 @@
 
     .pm-btn-primary:hover {
       background: var(--peso-red-dark);
-      border-color: var(--peso-red-dark);
+      border-color: var(--peso-red-dark)
     }
 
     .pm-btn:hover {
@@ -364,69 +641,17 @@
       gap: .5rem;
       padding: .5rem .75rem;
       margin-top: .5rem;
-      border-radius: .5rem;
+      border-radius: .5rem
     }
 
     .input-invalid {
       border-color: #ef4444 !important;
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, .12) !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, .12) !important
     }
 
-    /* valid state aligned to palette (soft green kept) */
     .input-valid {
       border-color: #22c55e !important;
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, .12) !important;
-    }
-
-    /* Make the “accent blob” not clash: use light red tint if your theme has bg-accent */
-    .bg-accent {
-      background-color: var(--peso-rose-100) !important;
-    }
-
-    /* ===== Fix: text becomes readable on the red (bg-primary) area ===== */
-    .bg-primary h2,
-    .bg-primary h3,
-    .bg-primary h4,
-    .bg-primary label,
-    .bg-primary p,
-    .bg-primary span,
-    .bg-primary small,
-    .bg-primary .opacity-70,
-    .bg-primary .text-gray-700,
-    .bg-primary .text-slate-900,
-    .bg-primary .text-slate-800,
-    .bg-primary .text-slate-700,
-    .bg-primary .text-foreground {
-      color: rgba(255, 255, 255, .92) !important;
-    }
-
-    /* Make helper/secondary text a bit softer (optional but nice) */
-    .bg-primary .opacity-70 {
-      color: rgba(255, 255, 255, .78) !important;
-    }
-
-    /* Links on red background */
-    .bg-primary a,
-    .bg-primary a.text-primary {
-      color: #ffe4e6 !important;
-    }
-
-    .bg-primary a:hover,
-    .bg-primary a.text-primary:hover {
-      color: #ffffff !important;
-      text-decoration: underline;
-    }
-
-    /* Checkbox label readability */
-    .bg-primary input[type="checkbox"]+label,
-    .bg-primary label[for="tos"] {
-      color: rgba(255, 255, 255, .86) !important;
-    }
-
-    /* “Register as”, “Human verification” labels that were gray */
-    .bg-primary .text-sm,
-    .bg-primary .text-xs {
-      color: rgba(255, 255, 255, .86) !important;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, .12) !important
     }
   </style>
 
@@ -435,7 +660,7 @@
     <div id="pmPanel">
       <div id="pmHead">
         <h3 id="pmTitle">Privacy Policy</h3>
-        <button type="button" class="pm-btn pm-close" data-close="1" aria-label="Close">âœ•</button>
+        <button type="button" class="pm-btn pm-close" data-close="1" aria-label="Close">&times;</button>
       </div>
       <div id="pmBody">
         <p><strong>Effective date:</strong> <?= date('F j, Y') ?></p>
@@ -487,8 +712,6 @@
 
         <h4>10) Changes</h4>
         <p>We may update this Policy. If changes are material, we’ll notify you in the app or by email.</p>
-
-
       </div>
       <div id="pmFoot">
         <button type="button" class="pm-btn" data-close="1">Close</button>
@@ -497,6 +720,7 @@
     </div>
   </div>
 
+  <!-- keep your scripts (functions unchanged) -->
   <script src="<?= base_url('dist/js/vendors/dom.js') ?>"></script>
   <script src="<?= base_url('dist/js/vendors/lucide.js') ?>"></script>
   <script src="<?= base_url('dist/js/vendors/modal.js') ?>"></script>
@@ -504,6 +728,7 @@
   <script src="<?= base_url('dist/js/components/base/lucide.js') ?>"></script>
   <script src="<?= base_url('dist/js/components/theme-switcher.js') ?>"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
   <script>
     (function() {
       document.querySelectorAll('[data-toggle="password"]').forEach(function(btn) {
@@ -702,6 +927,7 @@
       }, 4000);
     })();
   </script>
+
   <script>
     (function() {
       const form = document.querySelector('form[action*="auth/signup"]');
