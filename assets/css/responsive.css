@@ -32,6 +32,25 @@ html {
     align-items: stretch;
   }
 }
+
+@media (max-width: var(--bp-md)) {
+  .container-fluid.page-body-wrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .content-wrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .app {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
 .hide-sm {
   display: initial;
 }

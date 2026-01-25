@@ -10,10 +10,16 @@ html {
 
 .navbar.fixed-top {
   min-height: var(--jm-topbar-h);
+  height: var(--jm-topbar-h);
+  top: 0;
+  z-index: 1030;
 }
 
 .navbar.fixed-top .navbar-menu-wrapper {
   min-height: var(--jm-topbar-h);
+  height: var(--jm-topbar-h);
+  width: 100%;
+  overflow: visible;
 }
 
 .sidebar {

@@ -16,235 +16,11 @@
   <link rel="stylesheet" href="<?= base_url('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/vertical-light/style.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/custom.css?v=5.1.1') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/dashboard-admin.css?v=1.0.0') ?>">
   <link rel="shortcut icon" href="<?= base_url('assets/images/logo.png') ?>" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    :root {
-      --brand-blue: #c1272d;
-      --brand-blue-dark: #d63031;
-      --brand-blue-soft: rgba(193, 39, 45, 0.1);
-      --brand-gold: #2980b9;
-      --brand-gold-dark: #1b5e9f;
-      --brand-gold-soft: rgba(41, 128, 185, 0.1);
-    }
-
-    html {
-      scrollbar-gutter: stable;
-    }
-
-    #sidebar .collapse {
-      visibility: visible !important;
-    }
-
-    #sidebar .collapse:not(.show) {
-      display: none;
-    }
-
-    #sidebar .collapsing {
-      height: 0;
-      overflow: hidden;
-      transition: height .35s ease;
-    }
-
-    body {
-      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial
-    }
-
-    .bg-theme {
-      background: var(--brand-blue)
-    }
-
-    .badge-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: .4rem;
-      padding: .25rem .55rem;
-      border-radius: 9999px;
-      font-weight: 700;
-      border: 1px solid var(--brand-silver-light);
-      background: #fff
-    }
-
-    .badge-chip.gold {
-      background: var(--brand-gold-soft);
-      border-color: var(--brand-gold);
-      color: var(--brand-gold-dark)
-    }
-
-    .badge-chip.silver {
-      background: var(--brand-silver-light);
-      border-color: var(--brand-silver);
-      color: #4b5563
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid var(--brand-silver-light);
-      border-radius: 14px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, .05), 0 8px 20px rgba(0, 0, 0, .08);
-      transition: transform .15s ease, box-shadow .15s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
-    }
-
-    .kpi {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px
-    }
-
-    .kpi .ico {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      font-size: 1.4rem;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, .05);
-    }
-
-    .btn-blue {
-      background: var(--brand-blue);
-      border: 1px solid var(--brand-blue);
-      color: #fff;
-      border-radius: 10px;
-      padding: .6rem 1rem;
-      font-weight: 700;
-      transition: background .2s ease, border-color .2s ease
-    }
-
-    .btn-blue:hover {
-      background: var(--brand-blue-dark);
-      border-color: var(--brand-blue-dark)
-    }
-
-    .btn-silver {
-      background: #fff;
-      border: 1px solid var(--brand-silver);
-      color: var(--brand-ink);
-      border-radius: 10px;
-      padding: .6rem 1rem;
-      font-weight: 700
-    }
-
-    .stat-label {
-      font-size: .75rem;
-      color: var(--brand-muted)
-    }
-
-    .divider {
-      height: 1px;
-      background: var(--brand-line)
-    }
-
-    @media (max-width: 768px) {
-      .admin-header {
-        position: sticky;
-        top: 0;
-        z-index: 40;
-        background: #fff;
-        padding-top: .35rem;
-        padding-bottom: .5rem;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .admin-actions {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: .5rem;
-        width: 100%;
-        max-width: min(520px, 100%);
-      }
-
-      .admin-actions .btn-blue,
-      .admin-actions .btn-silver {
-        width: 100%;
-        justify-content: center;
-        padding: .65rem .9rem;
-      }
-
-      .card {
-        border-radius: 16px;
-      }
-
-      .kpi {
-        padding: 12px;
-      }
-
-      .kpi .ico {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        font-size: 1.25rem;
-      }
-
-      .card.p-5 {
-        padding: 14px !important;
-      }
-
-      .h-64 {
-        height: 220px !important;
-      }
-
-      .space-y-3> :where(*) {
-        margin-top: .5rem !important;
-        margin-bottom: 0 !important;
-      }
-
-      .text-sm {
-        font-size: .9rem;
-      }
-
-      body {
-        padding-bottom: max(12px, env(safe-area-inset-bottom));
-      }
-    }
-
-    @media (max-width: 768px) {
-      .admin-header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: .5rem;
-        text-align: center;
-      }
-
-      .admin-header h1 {
-        margin-bottom: 0.25rem;
-      }
-
-      .admin-actions {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: .5rem;
-        width: 100%;
-      }
-
-      .admin-actions .btn-blue,
-      .admin-actions .btn-silver {
-        width: 100%;
-        justify-content: center;
-        font-size: 14px;
-        border-radius: 10px;
-        padding: .65rem .9rem;
-      }
-    }
-
-    @media (min-width: 769px) and (max-width: 992px) {
-      .admin-actions {
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: .5rem;
-      }
-    }
-  </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800">
@@ -369,7 +145,12 @@
                   <h3 class="text-lg font-semibold">Hires (last 30 days)</h3>
                   <div class="text-xs text-gray-500">Auto-updated</div>
                 </div>
-                <div class="h-64"><canvas id="hiresChart"></canvas></div>
+                <div class="h-64">
+                  <canvas
+                    id="hiresChart"
+                    data-labels="<?= htmlspecialchars(json_encode($chart_labels ?? ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30']), ENT_QUOTES, 'UTF-8') ?>"
+                    data-values="<?= htmlspecialchars(json_encode($chart_values ?? [4, 8, 6, 12, 9, 14, 17]), ENT_QUOTES, 'UTF-8') ?>"></canvas>
+                </div>
               </div>
 
               <!-- Recent Activity -->
@@ -411,64 +192,7 @@
   <script src="<?= base_url('assets/js/off-canvas.js') ?>"></script>
   <script src="<?= base_url('assets/js/hoverable-collapse.js') ?>"></script>
   <script src="<?= base_url('assets/js/misc.js') ?>"></script>
-
-  <script>
-    const labels = <?= json_encode($chart_labels ?? ['Day 1', 'Day 5', 'Day 10', 'Day 15', 'Day 20', 'Day 25', 'Day 30']) ?>;
-    const values = <?= json_encode($chart_values ?? [4, 8, 6, 12, 9, 14, 17]) ?>;
-
-    const brandBlueRGB = '37,99,235';
-    const ctx = document.getElementById('hiresChart');
-    if (ctx) {
-      new Chart(ctx.getContext('2d'), {
-        type: 'line',
-        data: {
-          labels,
-          datasets: [{
-            label: 'Hires',
-            data: values,
-            fill: true,
-            tension: .35,
-            borderWidth: 2,
-            borderColor: `rgba(${brandBlueRGB},1)`,
-            backgroundColor: function(c) {
-              const g = c.chart.ctx.createLinearGradient(0, 0, 0, 240);
-              g.addColorStop(0, `rgba(${brandBlueRGB},0.20)`);
-              g.addColorStop(1, `rgba(${brandBlueRGB},0.05)`);
-              return g;
-            }
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-            x: {
-              grid: {
-                display: false
-              },
-              ticks: {
-                color: '#6B7280'
-              }
-            },
-            y: {
-              grid: {
-                color: '#F3F4F6'
-              },
-              ticks: {
-                color: '#6B7280',
-                precision: 0
-              }
-            }
-          }
-        }
-      });
-    }
-  </script>
+  <script src="<?= base_url('assets/js/dashboard-admin.js?v=1.0.0') ?>"></script>
 
 </body>
 
