@@ -93,155 +93,8 @@ list($ariaProjects, $showProjects, $collapsedProjects)   = $submenu_state(['proj
 list($ariaProjW, $showProjW, $collapsedProjW)            = $submenu_state(['projects/active', 'projects/history']);
 list($ariaSchAcc, $showSchAcc, $collapsedSchAcc) = $submenu_state(['school-admin']);
 ?>
+<link rel="stylesheet" href="<?= base_url('assets/css/nav-shell.css') ?>">
 <nav class="sidebar sidebar-offcanvas <?= ($isAdmin || $isTesda) ? 'sidebar-textonly' : '' ?>" id="sidebar">
-  <style>
-    /* Kill unexpected underline and hide collapse arrows in the sidebar */
-    #sidebar .nav .nav-link,
-    #sidebar .nav .nav-link:hover,
-    #sidebar .nav .nav-link:focus {
-      text-decoration: none !important;
-    }
-
-    #sidebar .nav .nav-link .menu-arrow {
-      display: none !important;
-    }
-
-    /* Darken sidebar and tighten spacing */
-    #sidebar {
-      background: #0f172a;
-    }
-
-    #sidebar .nav {
-      padding-top: 10px;
-    }
-
-    #sidebar .nav>.nav-item {
-      padding: 0 12px 4px;
-    }
-
-    #sidebar .nav>.nav-item .nav-link {
-      padding: 12px 16px;
-      border-radius: 12px;
-      color: #e5e7eb;
-      transition: background 0.2s ease, color 0.2s ease;
-    }
-
-    #sidebar .nav>.nav-item .nav-link .menu-title {
-      color: inherit;
-    }
-
-    #sidebar .nav>.nav-item .nav-link .menu-icon {
-      color: #cbd5e1;
-      margin-right: 12px;
-      font-size: 1.1rem;
-    }
-
-    #sidebar .nav>.nav-item .nav-link:hover {
-      background: rgba(255, 255, 255, 0.12);
-      color: #fff;
-    }
-
-    #sidebar .nav>.nav-item .nav-link:hover .menu-icon {
-      color: #fff;
-    }
-
-    #sidebar .nav>.nav-item.active>.nav-link {
-      background: rgba(255, 255, 255, 0.18);
-      color: #fff;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    #sidebar .nav-profile .nav-link {
-      background: rgba(255, 255, 255, 0.05);
-      margin: 12px 12px 6px;
-      padding: 16px 14px;
-      border-radius: 14px;
-    }
-
-    #sidebar .nav-profile .nav-link .nav-profile-text span {
-      color: #f8fafc !important;
-    }
-
-    #sidebar .nav-profile .nav-link .nav-profile-text .text-dark {
-      color: #cbd5e1 !important;
-    }
-
-    #sidebar .nav-profile .login-status.online {
-      background: #22c55e;
-    }
-
-    #sidebar .nav .sub-menu .nav-link {
-      color: #e5e7eb !important;
-      padding: 10px 16px;
-      text-decoration: none !important;
-    }
-
-    #sidebar .nav .sub-menu .nav-link:hover,
-    #sidebar .nav .sub-menu .nav-link:focus {
-      color: #fff !important;
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    #sidebar .nav .sub-menu .nav-link.active {
-      color: #fff !important;
-      font-weight: 600;
-      background: rgba(255, 255, 255, 0.16);
-      border-radius: 10px;
-    }
-
-    #sidebar.sidebar-textonly .nav>.nav-item .nav-link:hover,
-    #sidebar.sidebar-textonly .nav>.nav-item .nav-link:focus {
-      background: rgba(255, 255, 255, 0.12) !important;
-      color: #fff !important;
-    }
-
-    #sidebar.sidebar-textonly .nav>.nav-item .nav-link:hover .menu-title,
-    #sidebar.sidebar-textonly .nav>.nav-item .nav-link:hover .menu-icon,
-    #sidebar.sidebar-textonly .nav>.nav-item .nav-link:hover .menu-arrow {
-      color: #fff !important;
-    }
-
-    #sidebar.sidebar-textonly .nav>.nav-item.active>.nav-link,
-    #sidebar.sidebar-textonly .nav>.nav-item>.nav-link.active {
-      background: rgba(255, 255, 255, 0.18) !important;
-      color: #fff !important;
-    }
-
-    #sidebar.sidebar-textonly .nav>.nav-item.active>.nav-link .menu-title,
-    #sidebar.sidebar-textonly .nav>.nav-item.active>.nav-link .menu-icon,
-    #sidebar.sidebar-textonly .nav>.nav-item>.nav-link.active .menu-title,
-    #sidebar.sidebar-textonly .nav>.nav-item>.nav-link.active .menu-icon {
-      color: #fff !important;
-    }
-
-    #sidebar.sidebar-textonly .nav .sub-menu .nav-link:hover,
-    #sidebar.sidebar-textonly .nav .sub-menu .nav-link:focus {
-      background: rgba(255, 255, 255, 0.12) !important;
-      color: #fff !important;
-    }
-
-    #sidebar.sidebar-textonly .nav .sub-menu .nav-link:hover::before,
-    #sidebar.sidebar-textonly .nav .sub-menu .nav-link:focus::before {
-      background: #fff !important;
-      border-color: #fff !important;
-    }
-
-    #sidebar .nav .nav-link.text-danger {
-      color: #f87171;
-    }
-
-    #sidebar .nav .nav-link.text-danger:hover {
-      color: #fecdd3;
-      background: rgba(248, 113, 113, 0.12);
-    }
-  </style>
-  <script>
-    (function() {
-      // Keep sidebar fully expanded and consistent across pages
-      var body = document.body;
-      body && body.classList.remove('sidebar-icon-only', 'sidebar-hidden');
-    })();
-  </script>
   <ul class="nav">
     <li class="nav-item nav-profile">
       <div class="nav-link d-flex align-items-center">
@@ -252,13 +105,13 @@ list($ariaSchAcc, $showSchAcc, $collapsedSchAcc) = $submenu_state(['school-admin
         <div class="nav-profile-text d-flex flex-column pe-3">
           <?php if ($lastUpper !== '' || $first !== ''): ?>
             <?php if ($lastUpper !== ''): ?>
-              <span class="fw-medium mb-0 text-truncate" style="max-width:160px;"><?= htmlspecialchars($lastUpper, ENT_QUOTES, 'UTF-8') ?><?= $first !== '' ? ',' : '' ?></span>
+              <span class="fw-medium mb-0 text-truncate nav-profile-truncate"><?= htmlspecialchars($lastUpper, ENT_QUOTES, 'UTF-8') ?><?= $first !== '' ? ',' : '' ?></span>
             <?php endif; ?>
             <?php if ($first !== ''): ?>
-              <span class="fw-normal text-truncate text-dark" style="max-width:160px;"><?= htmlspecialchars($first, ENT_QUOTES, 'UTF-8') ?></span>
+              <span class="fw-normal text-truncate text-dark nav-profile-truncate"><?= htmlspecialchars($first, ENT_QUOTES, 'UTF-8') ?></span>
             <?php endif; ?>
           <?php else: ?>
-            <span class="fw-medium mb-0 text-truncate" style="max-width:160px;"><?= htmlspecialchars($display_name, ENT_QUOTES, 'UTF-8') ?></span>
+            <span class="fw-medium mb-0 text-truncate nav-profile-truncate"><?= htmlspecialchars($display_name, ENT_QUOTES, 'UTF-8') ?></span>
           <?php endif; ?>
         </div>
       </div>
@@ -443,3 +296,4 @@ list($ariaSchAcc, $showSchAcc, $collapsedSchAcc) = $submenu_state(['school-admin
     </li>
   </ul>
 </nav>
+<script src="<?= base_url('assets/js/nav.js') ?>"></script>

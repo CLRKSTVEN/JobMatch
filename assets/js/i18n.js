@@ -1,7 +1,9 @@
 /* Lightweight i18n (keys + phrase mode) */
 (function (w, d) {
+  const baseEl = d.querySelector("[data-i18n-base]");
   const I18N_BASE =
     w.I18N_BASE ||
+    (baseEl && baseEl.dataset && baseEl.dataset.i18nBase) ||
     (d.body && d.body.dataset && d.body.dataset.i18nBase) ||
     "/assets/i18n";
   const LS_KEY = "lang_pref";
