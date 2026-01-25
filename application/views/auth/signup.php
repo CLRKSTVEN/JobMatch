@@ -243,6 +243,7 @@
           <?= form_close() ?>
 
           <a href="<?= site_url('auth/login') ?>"
+            data-auth-transition="1"
             class="[--color:var(--color-foreground)] cursor-pointer inline-flex border items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-(--color) hover:bg-(--color)/5 bg-background border-(--color)/20 h-10 box mt-4 w-full px-4 py-5">
             Login
           </a>
@@ -260,6 +261,27 @@
       display: grid;
       grid-template-columns: 1.05fr 1fr;
       background: #fff;
+      opacity: 0;
+      transform: translateY(6px);
+      animation: jmFadeIn .35s ease forwards;
+    }
+
+    body.jm-leave .jm-wrap {
+      animation: jmFadeOut .25s ease forwards;
+    }
+
+    @keyframes jmFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes jmFadeOut {
+      to {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
     }
 
     .jm-left {
@@ -514,6 +536,18 @@
 
       .jm-card-title {
         font-size: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .jm-wrap {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+
+      body.jm-leave .jm-wrap {
+        animation: none;
       }
     }
   </style>
@@ -925,6 +959,30 @@
           });
         });
       }, 4000);
+    })();
+  </script>
+
+  <script>
+    (function() {
+      function shouldIgnore(e, link) {
+        return e.defaultPrevented ||
+          e.button !== 0 ||
+          e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
+          !link || link.target || link.hasAttribute('download') ||
+          link.getAttribute('href') === '#';
+      }
+
+      document.querySelectorAll('[data-auth-transition="1"]').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          if (shouldIgnore(e, link)) return;
+          e.preventDefault();
+          document.body.classList.add('jm-leave');
+          var href = link.getAttribute('href');
+          setTimeout(function() {
+            window.location.href = href;
+          }, 220);
+        });
+      });
     })();
   </script>
 
