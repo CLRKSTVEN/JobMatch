@@ -203,10 +203,27 @@ class Messages extends CI_Controller
         elseif ($cp && !empty($cp->avatar))  $avatar = function_exists('avatar_url') ? avatar_url($cp->avatar) : $norm($cp->avatar);
 
         if (!$avatar) {
-          $urow = $this->db->select('avatar, photo, image, profile_pic')
-                           ->from('users')->where('id',$other_id)->limit(1)->get()->row();
-          foreach (['avatar','photo','image','profile_pic'] as $col) {
-            if (!empty($urow->$col)) { $avatar = function_exists('avatar_url') ? avatar_url($urow->$col) : $norm($urow->$col); break; }
+          $cols = [];
+          foreach (['avatar', 'photo', 'image', 'profile_pic'] as $col) {
+            if ($this->db->field_exists($col, 'users')) {
+              $cols[] = $col;
+            }
+          }
+          if (!empty($cols)) {
+            $urow = $this->db->select(implode(',', $cols), false)
+                             ->from('users')
+                             ->where('id', $other_id)
+                             ->limit(1)
+                             ->get()
+                             ->row();
+            if ($urow) {
+              foreach ($cols as $col) {
+                if (!empty($urow->$col)) {
+                  $avatar = function_exists('avatar_url') ? avatar_url($urow->$col) : $norm($urow->$col);
+                  break;
+                }
+              }
+            }
           }
         }
         if (!$avatar) $avatar = base_url($DEFAULT_AVATAR_REL);

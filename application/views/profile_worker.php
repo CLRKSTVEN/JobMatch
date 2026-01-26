@@ -71,7 +71,7 @@
 
     .profile-cover {
       height: 180px;
-      background: url('<?= base_url("assets/images/trabawhotext1.jpg") ?>') center/cover no-repeat
+      background: url('<?= base_url("assets/images/banner.png") ?>') center/cover no-repeat
     }
 
     .profile-main {

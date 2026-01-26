@@ -229,8 +229,13 @@ class SchoolAdmin extends CI_Controller
         $this->load->library('email');
 
 
-        $this->email->from('trabawho@mati.gov.ph', 'JobMatch DavOr Support');
-        $this->email->reply_to('no-reply@mati.gov.ph', 'JobMatch DavOr');
+        $fromEmail = $this->config->item('from_email') ?: ($this->config->item('smtp_user') ?: 'no-reply@jobmatch.local');
+        $fromName  = $this->config->item('support_name') ?: 'JobMatch DavOr Support';
+        $replyEmail = $this->config->item('reply_to_email') ?: $fromEmail;
+        $replyName  = $this->config->item('reply_to_name') ?: ($this->config->item('from_name') ?: 'JobMatch DavOr');
+
+        $this->email->from($fromEmail, $fromName);
+        $this->email->reply_to($replyEmail, $replyName);
         $this->email->to($to);
         $this->email->subject('Your JobMatch DavOr account');
         $this->email->set_mailtype('html');
@@ -238,9 +243,9 @@ class SchoolAdmin extends CI_Controller
         $this->email->set_crlf("\r\n");
 
 
-        $bannerRel  = 'assets/images/trabawhotext.png';
+        $bannerRel  = 'assets/images/logo-white.png';
         $logoRel    = 'assets/images/logo.png';
-        $publicBase = 'https://trabawho.mati.gov.ph';
+        $publicBase = rtrim(base_url(), '/');
 
         $bannerPath = FCPATH . $bannerRel;
         $logoPath   = FCPATH . $logoRel;

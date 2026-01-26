@@ -1,10 +1,10 @@
     :root {
-      --blue-900: #1e3a8a;
-      --blue-700: #1d4ed8;
-      --blue-600: #2563eb;
-      --blue-500: #2563eb;
-      --gold-700: #c89113;
-      --gold-600: #f0b429;
+      --blue-900: #c1272d;
+      --blue-700: #d63031;
+      --blue-600: #e74c3c;
+      --blue-500: #e74c3c;
+      --gold-700: #1b5e9f;
+      --gold-600: #2980b9;
       --silver-600: #a7afba;
       --silver-500: #c0c6d0;
       --silver-300: #d9dee7;
@@ -179,8 +179,8 @@
 
     .btn-brand {
       border: 1px solid var(--blue-600);
-      background: #f5f8ff;
-      color: #1e3a8a
+      background: #fff5f5;
+      color: var(--blue-900)
     }
 
     .btn-brand:hover {
@@ -203,7 +203,7 @@
     }
 
     .brand-input:focus {
-      box-shadow: 0 0 0 .2rem rgba(37, 99, 235, .15);
+      box-shadow: 0 0 0 .2rem rgba(193, 39, 45, .15);
       border-color: var(--blue-600);
     }
 
@@ -303,7 +303,7 @@
       flex: 1;
       padding: 10px 12px;
       margin: 0;
-      border-right: 1px solid #c7d2fe;
+      border-right: 1px solid var(--silver-200);
       cursor: pointer;
       font-weight: 600;
       text-align: center
@@ -314,14 +314,14 @@
     }
 
     .tw-modal .tw-seg .btn-check:checked+label {
-      background: #1d4ed8;
+      background: var(--blue-600);
       color: #fff;
-      border-color: #1d4ed8
+      border-color: var(--blue-600)
     }
 
     .tw-modal .tw-input {
       border-radius: 12px !important;
-      border: 1px solid #c7d2fe !important;
+      border: 1px solid var(--silver-200) !important;
     }
 
     /* Project file preview */
@@ -427,7 +427,7 @@
       border-radius: 9999px;
       padding: .35rem .9rem;
       font-weight: 700;
-      border: 2px solid #c7d2fe;
+      border: 2px solid var(--silver-200);
       /* indigo-200 outline */
       background: #fff;
       color: #1f2937;
@@ -436,17 +436,15 @@
     }
 
     .btn-scope:hover {
-      background: #f5f7ff;
-      border-color: #a5b4fc;
-      /* indigo-300 */
+      background: #fff5f5;
+      border-color: rgba(193, 39, 45, 0.25);
     }
 
     .btn-scope.active {
-      background: #1d4ed8;
-      /* indigo-600 */
-      border-color: #1d4ed8;
+      background: var(--blue-600);
+      border-color: var(--blue-600);
       color: #fff;
-      box-shadow: 0 6px 16px rgba(21, 40, 107, .25);
+      box-shadow: 0 6px 16px rgba(193, 39, 45, .25);
     }.page-body-wrapper .main-panel .content-wrapper .app{
   max-width: 100% !important;
   width: 100% !important;

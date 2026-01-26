@@ -11,9 +11,9 @@
 ---------------------------------*/
 :root{
   /* Brand palette (adjust as needed) */
-  --tw-brand: #1f6feb;
-  --tw-brand-600:#1a5dcc;
-  --tw-brand-700:#164ea8;
+  --tw-brand: #c1272d;
+  --tw-brand-600:#d63031;
+  --tw-brand-700:#a61f2b;
   --tw-text:#111827;       /* gray-900 */
   --tw-text-2:#374151;     /* gray-700 */
   --tw-muted:#6b7280;      /* gray-500 */

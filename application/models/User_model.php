@@ -43,7 +43,7 @@ class User_model extends CI_Model
             return [false, "Invalid password."];
         }
 
-        $role = strtolower((string)($user->role ?? 'user'));
+        $role = $this->normalize_role($user->role ?? 'user');
 
         // --- Admin-like roles (admin, tesda_admin, school_admin, peso, other) ---
         if ($this->is_staff_role($role)) {
@@ -69,12 +69,26 @@ class User_model extends CI_Model
             return [false, "Please verify your email first. We’ve sent you an activation link."];
         }
 
-        $status     = strtolower((string)($user->status ?? ''));
-        $isActive   = (int)($user->is_active ?? 0);
+        $hasStatusCol   = $this->db->field_exists('status', $this->table);
+        $hasIsActiveCol = $this->db->field_exists('is_active', $this->table);
+        $status     = $hasStatusCol ? strtolower((string)($user->status ?? '')) : 'active';
+        $isActive   = $hasIsActiveCol ? (int)($user->is_active ?? 0) : 1;
         $approvedAt = (string)($user->approved_at ?? '');
 
         $requiresApproval  = in_array($role, ['client', 'employer'], true);
         $hasApprovedAtCol  = $this->db->field_exists('approved_at', $this->table);
+
+        if (
+            $requiresApproval
+            && $hasApprovedAtCol
+            && $approvedAt === ''
+            && $status === 'active'
+            && $isActive === 1
+        ) {
+            $this->approve_user((int)$user->id, null);
+            $user = $this->get_by_id((int)$user->id);
+            return [true, $user];
+        }
 
         if ($status !== 'active' || $isActive !== 1 || ($requiresApproval && $hasApprovedAtCol && $approvedAt === '')) {
             return [false, $requiresApproval ? "Your account is pending admin approval." : "Your account isn’t active yet."];
@@ -240,10 +254,11 @@ class User_model extends CI_Model
     private function send_activation_email(string $to, string $name, string $link): bool
     {
         $this->load->library('email');
-        $from = $this->config->item('smtp_user') ?: 'no-reply@trabawho.local';
+        $from = $this->config->item('from_email') ?: ($this->config->item('smtp_user') ?: 'no-reply@jobmatch.local');
+        $fromName = $this->config->item('support_name') ?: 'JobMatch DavOr Support';
 
         $this->email->clear(true);
-        $this->email->from($from, ' JobMatch DavOr Support');
+        $this->email->from($from, $fromName);
         $this->email->to($to);
         $this->email->subject('Activate your account');
 
@@ -307,8 +322,47 @@ class User_model extends CI_Model
 
     private function is_staff_role($role): bool
     {
-        $role = strtolower((string)$role);
+        $role = $this->normalize_role($role);
         return in_array($role, ['admin', 'tesda_admin', 'school_admin', 'peso', 'other'], true);
+    }
+
+    private function normalize_role($role): string
+    {
+        $raw = strtolower(trim((string)$role));
+        $raw = str_replace(['_', '-'], ' ', $raw);
+        $raw = preg_replace('/\s+/', ' ', $raw);
+
+        $map = [
+            'admin' => 'admin',
+            'administrator' => 'admin',
+            'admins' => 'admin',
+            'super admin' => 'admin',
+            'superadmin' => 'admin',
+
+            'tesda admin' => 'tesda_admin',
+            'tesda' => 'tesda_admin',
+
+            'school admin' => 'school_admin',
+            'schooladmin' => 'school_admin',
+
+            'peso admin' => 'peso',
+            'peso officer' => 'peso',
+            'peso' => 'peso',
+
+            'worker' => 'worker',
+            'workers' => 'worker',
+
+            'client' => 'client',
+            'clients' => 'client',
+            'employer' => 'employer',
+            'employers' => 'employer',
+            'customer' => 'client',
+            'customers' => 'client',
+
+            'other' => 'other',
+        ];
+
+        return $map[$raw] ?? $raw;
     }
 
     public function hard_delete(int $userId): array

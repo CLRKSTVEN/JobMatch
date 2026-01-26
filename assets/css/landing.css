@@ -15,10 +15,10 @@
     }
 
     :root {
-      --brand-blue: #1340a3;
-      --brand-blue-dark: #0a2d73;
-      --brand-cyan: #1d9dd8;
-      --accent-gold: #f7b500;
+      --brand-blue: #c1272d;
+      --brand-blue-dark: #d63031;
+      --brand-cyan: #e74c3c;
+      --accent-gold: #2980b9;
 
       --surface: #ffffff;
       --surface-muted: #f3f6fc;
@@ -36,7 +36,7 @@
       --radius-md: 18px;
       --radius-sm: 14px;
 
-      --ring: 0 0 0 4px rgba(29, 157, 216, .25);
+      --ring: 0 0 0 4px rgba(193, 39, 45, .25);
     }
 
     * {
@@ -48,8 +48,8 @@
       margin: 0;
       color: var(--ink);
       background:
-        radial-gradient(1200px 600px at 18% 8%, rgba(29, 157, 216, .16), transparent 60%),
-        radial-gradient(1200px 600px at 85% 12%, rgba(19, 64, 163, .14), transparent 65%),
+        radial-gradient(1200px 600px at 18% 8%, rgba(231, 76, 60, .16), transparent 60%),
+        radial-gradient(1200px 600px at 85% 12%, rgba(193, 39, 45, .14), transparent 65%),
         linear-gradient(180deg, #fbfdff 0%, #eef2fb 100%);
       line-height: 1.45;
     }

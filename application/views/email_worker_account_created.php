@@ -48,7 +48,7 @@
     <?php endif; ?>
     <div class="pad">
       <p style="margin:0 0 6px;font-weight:bold;font-size:18px">
-        <span style="color:#0b61ff">Traba</span><span style="color:#ffd200">Who?</span>
+        <span style="color:#0b61ff">JobMatch</span><span style="color:#111827"> DavOr</span>
       </p>
       <div class="bar"></div>
 

@@ -1,11 +1,11 @@
 ﻿:root {
-  --primary-50: #eff6ff;
-  --primary-100: #dbeafe;
-  --primary-300: #93c5fd;
-  --primary-400: #60a5fa;
-  --primary-500: #1e3a8a;
-  --primary-600: #2563eb;
-  --primary-700: #2563eb;
+  --primary-50: #fff5f5;
+  --primary-100: #fee2e2;
+  --primary-300: #fca5a5;
+  --primary-400: #f87171;
+  --primary-500: #c1272d;
+  --primary-600: #d63031;
+  --primary-700: #a61f2b;
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
@@ -346,5 +346,4 @@ body {
 .tab-panel {
   animation: slideIn 0.3s ease-out;
 }
-
 

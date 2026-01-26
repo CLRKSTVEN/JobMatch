@@ -115,7 +115,7 @@ label {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: linear-gradient(180deg, #2563eb, #2563eb);
+  background: linear-gradient(180deg, #c1272d, #c1272d);
   color: #fff;
   font-weight: 700;
   border: none;
@@ -131,7 +131,7 @@ label {
 .back {
   display: inline-block;
   margin-top: 12px;
-  color: #2563eb;
+  color: #c1272d;
   font-weight: 600;
   text-decoration: none;
 }

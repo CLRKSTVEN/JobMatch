@@ -81,7 +81,7 @@
 
     .profile-cover {
       height: 120px;
-      background: #fff url('<?= base_url("assets/images/trabawhotext1.jpg") ?>') center top/contain no-repeat
+      background: #fff url('<?= base_url("assets/images/banner.png") ?>') center top/contain no-repeat
     }
 
     .profile-brandbar {

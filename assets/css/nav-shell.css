@@ -53,8 +53,8 @@ html {
 }
 
 .tw-searchbar:focus-within {
-  border-color: #2563eb !important;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
+  border-color: #c1272d !important;
+  box-shadow: 0 0 0 3px rgba(193, 39, 45, 0.2) !important;
 }
 
 .tw-searchbar .form-control {

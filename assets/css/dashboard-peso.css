@@ -889,8 +889,8 @@ html {
       padding: .55rem .8rem;
       border-radius: 12px;
       border: 1px dashed var(--primary);
-      background: #eff6ff;
-      color: #1d4ed8;
+      background: #fff5f5;
+      color: var(--primary);
       font-size: .86rem;
     }
 

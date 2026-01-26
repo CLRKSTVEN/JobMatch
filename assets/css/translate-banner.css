@@ -63,9 +63,9 @@
 }
 
 .tr-row button.active {
-  border-color: #2563eb;
-  background: #f5f8ff;
-  color: #1d4ed8;
+  border-color: #c1272d;
+  background: #fff5f5;
+  color: #c1272d;
 }
 
 .tr-actions {
@@ -76,8 +76,8 @@
 }
 
 .tr-apply {
-  border: 1px solid #2563eb;
-  background: #2563eb;
+  border: 1px solid #c1272d;
+  background: #c1272d;
   color: #fff;
   border-radius: 10px;
   padding: 0.45rem 0.8rem;

@@ -7,6 +7,12 @@ $config['smtp_pass']    = 'moth34board';
 $config['smtp_port']    = 465;
 $config['smtp_crypto']  = 'ssl';
 
+$config['from_email']   = 'no-reply@jobmatch.local';
+$config['from_name']    = 'JobMatch DavOr';
+$config['support_name'] = 'JobMatch DavOr Support';
+$config['reply_to_email'] = 'no-reply@jobmatch.local';
+$config['reply_to_name']  = 'JobMatch DavOr';
+
 $config['charset']      = 'utf-8';
 $config['mailtype']     = 'html';
 $config['newline']      = "\r\n";

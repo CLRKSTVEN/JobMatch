@@ -1,8 +1,8 @@
 :root {
-  --blue-900: #1e3a8a;
-  --blue-700: #1d4ed8;
-  --blue-600: #2563eb;
-  --blue-500: #2563eb;
+  --blue-900: #c1272d;
+  --blue-700: #d63031;
+  --blue-600: #e74c3c;
+  --blue-500: #e74c3c;
   --silver-300: #d9dee7;
   --silver-100: #f6f8fc;
   --radius: 16px;
@@ -126,7 +126,7 @@ label {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: linear-gradient(180deg, #2563eb, #2563eb);
+  background: linear-gradient(180deg, #c1272d, #c1272d);
   color: #fff;
   font-weight: 700;
   border: none;
@@ -142,7 +142,7 @@ label {
 .back {
   display: inline-block;
   margin-top: 12px;
-  color: #2563eb;
+  color: #c1272d;
   font-weight: 600;
   text-decoration: none;
 }

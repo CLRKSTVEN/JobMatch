@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="<?= base_url('assets/css/auth.css') ?>">
   <title>JobMatch DavOr - Login</title>
 
-  <!-- ✅ keep (your functions/js rely on dist assets & lucide) -->
   <link rel="stylesheet" href="<?= base_url('dist/css/app.css') ?>">
 </head>
 
@@ -22,9 +21,6 @@
     <div class="loader-spinner !w-14"></div>
   </div>
 
-  <!-- =========================================================
-       ✅ LOGIN LAYOUT (matches signup)
-       ========================================================= -->
   <div class="jm-wrap jm-wrap--reverse">
     <div class="jm-left">
       <a class="jm-brand" href="<?= site_url('/') ?>">
@@ -67,9 +63,8 @@
 
         <?php foreach (['success' => 'success', 'error' => 'danger', 'info' => 'info', 'msg' => 'success'] as $key => $class): ?>
           <?php if ($this->session->flashdata($key)): ?>
-            <div class="alert alert-<?= $class ?> alert-dismissible fade show small mb-3" role="alert">
+            <div class="alert alert-<?= $class ?> small mb-3" role="alert">
               <?= htmlspecialchars($this->session->flashdata($key), ENT_QUOTES, 'UTF-8') ?>
-              <button type="button" class="btn-close" aria-label="Close"></button>
             </div>
           <?php endif; ?>
         <?php endforeach; ?>
@@ -88,15 +83,17 @@
         <?php endif; ?>
 
         <div class="mt-3">
-          <label class="jm-label" for="loginEmail">Email</label>
+          <label class="jm-label" for="loginEmail">Email or Username</label>
           <input
             id="loginEmail"
             class="jm-input"
-            type="email"
+            type="text"
             name="email"
-            placeholder="you@example.com"
+            placeholder="you@example.com or username"
             value="<?= set_value('email'); ?>"
             autocomplete="username"
+            autocapitalize="none"
+            spellcheck="false"
             required />
           <?= form_error('email', '<div class="text-red-600 text-sm mt-2">', '</div>'); ?>
         </div>

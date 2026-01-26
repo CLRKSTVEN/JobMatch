@@ -7,7 +7,7 @@
      ========================================================= */
 
   :root {
-    --peso-red: #cf2f3a;
+    --peso-red: #c1272d;
     --peso-red-dark: #a61f2b;
     --peso-red-ink: #7f1d1d;
     --peso-rose-50: #fff1f2;
@@ -17,9 +17,9 @@
     --peso-rose-400: #fb7185;
     --peso-rose-600: #e11d48;
 
-    --peso-ring: rgba(207, 47, 58, .18);
-    --peso-ring-strong: rgba(207, 47, 58, .28);
-    --peso-border: rgba(127, 29, 29, .10);
+    --peso-ring: rgba(193, 39, 45, .18);
+    --peso-ring-strong: rgba(193, 39, 45, .28);
+    --peso-border: rgba(193, 39, 45, .12);
     --peso-muted: rgba(15, 23, 42, .70);
   }
 

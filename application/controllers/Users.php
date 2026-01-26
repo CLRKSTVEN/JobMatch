@@ -250,11 +250,12 @@ class Users extends CI_Controller
         ], true);
 
 
-        $from = $this->config->item('smtp_user') ?: 'trabawho@mati.gov.ph';
+        $from = $this->config->item('from_email') ?: ($this->config->item('smtp_user') ?: 'no-reply@jobmatch.local');
+        $fromName = $this->config->item('support_name') ?: 'JobMatch DavOr Support';
 
 
         $this->email->clear(true);
-        $this->email->from($from, 'JobMatch DavOr Support');
+        $this->email->from($from, $fromName);
         $this->email->to($toEmail);
         $this->email->subject('Your Admin Account Credentials');
         $this->email->set_mailtype('html');

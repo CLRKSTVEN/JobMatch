@@ -133,8 +133,13 @@ class Auth extends CI_Controller
     {
         $this->load->library('email');
 
-        $this->email->from('trabawho@mati.gov.ph', 'JobMatch DavOr');
-        $this->email->reply_to('no-reply@mati.gov.ph', '    JobMatch DavOr');
+        $fromEmail = $this->config->item('from_email') ?: ($this->config->item('smtp_user') ?: 'no-reply@jobmatch.local');
+        $fromName  = $this->config->item('from_name') ?: 'JobMatch DavOr';
+        $replyEmail = $this->config->item('reply_to_email') ?: $fromEmail;
+        $replyName  = $this->config->item('reply_to_name') ?: $fromName;
+
+        $this->email->from($fromEmail, $fromName);
+        $this->email->reply_to($replyEmail, $replyName);
         $this->email->to($email);
         $this->email->subject('Confirm your JobMatch account');
         $this->email->set_mailtype('html');
@@ -146,9 +151,9 @@ class Auth extends CI_Controller
         $yellow = '#ffd200';
         $ink    = '#111827';
         $muted  = '#6b7280';
-        $bannerRel = 'assets/images/trabawhotext.png';
+        $bannerRel = 'assets/images/logo-white.png';
         $logoRel   = 'assets/images/logo.png';
-        $publicBase = 'https://trabawho.mati.gov.ph';
+        $publicBase = rtrim(base_url(), '/');
         $bannerPath = FCPATH . $bannerRel;
         $logoPath   = FCPATH . $logoRel;
         $bannerCid = $logoCid = null;
@@ -218,9 +223,9 @@ class Auth extends CI_Controller
           <tr>
             <td style='background:#ffffff; padding:28px 24px; border-radius:0 0 12px 12px; box-shadow:0 6px 18px rgba(16,24,40,.08);'>
 
-              <!-- Subtle brand line only (removed duplicate big heading) -->
+           
               <p style='margin:0 0 10px; font-family:Arial,Helvetica,sans-serif; font-size:18px; font-weight:bold;'>
-                <span style='color:{$blue};'>Traba</span><span style='color:{$yellow};'>Who?</span>
+                <span style='color:{$blue};'>JobMatch</span><span style='color:{$yellow};'>DavOr?</span>
               </p>
               <div style='width:56px; height:3px; background:{$yellow}; border-radius:2px; margin:4px 0 18px;'></div>
 
@@ -257,7 +262,7 @@ class Auth extends CI_Controller
                   </td>
                   <td style='padding-left:8px;'>
                     <p class='muted' style='margin:0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:{$muted};'>
-                      You’re receiving this email because you created a TrabaWHO account with this address.
+                      You’re receiving this email because you created a JobMatch DavOr account with this address.
                     </p>
                   </td>
                 </tr>
@@ -583,8 +588,13 @@ class Auth extends CI_Controller
 
                     $token    = $selector . '.' . $validator;
                     $resetUrl = site_url('auth/reset/' . $token);
-                    $this->email->from('trabawho@mati.gov.ph', 'JobMatch DavOr Support');
-                    $this->email->reply_to('no-reply@mati.gov.ph', 'JobMatch DavOr');
+                    $fromEmail = $this->config->item('from_email') ?: ($this->config->item('smtp_user') ?: 'no-reply@jobmatch.local');
+                    $fromName  = $this->config->item('support_name') ?: 'JobMatch DavOr Support';
+                    $replyEmail = $this->config->item('reply_to_email') ?: $fromEmail;
+                    $replyName  = $this->config->item('reply_to_name') ?: ($this->config->item('from_name') ?: 'JobMatch DavOr');
+
+                    $this->email->from($fromEmail, $fromName);
+                    $this->email->reply_to($replyEmail, $replyName);
                     $this->email->to($email);
                     $this->email->subject('Reset your JobMatch DavOr password');
                     $this->email->set_mailtype('html');
@@ -596,9 +606,9 @@ class Auth extends CI_Controller
                     $ink    = '#111827';
                     $muted  = '#6b7280';
 
-                    $bannerRel  = 'assets/images/trabawhotext.png';
+                    $bannerRel  = 'assets/images/logo-white.png';
                     $logoRel    = 'assets/images/logo.png';
-                    $publicBase = 'https://trabawho.mati.gov.ph';
+                    $publicBase = rtrim(base_url(), '/');
 
                     $bannerPath = FCPATH . $bannerRel;
                     $logoPath   = FCPATH . $logoRel;
@@ -662,7 +672,7 @@ class Auth extends CI_Controller
           <tr>
             <td style='background:#ffffff; padding:28px 24px; border-radius:0 0 12px 12px; box-shadow:0 6px 18px rgba(16,24,40,.08);'>
               <p style='margin:0 0 6px; font-family:Arial,Helvetica,sans-serif; font-size:18px; font-weight:bold;'>
-                <span style='color:{$blue};'>Traba</span><span style='color:{$yellow};'>Who?</span>
+                <span style='color:{$blue};'>JobMatch</span><span style='color:{$yellow};'DavOr?</span>
               </p>
               <div style='width:56px; height:3px; background:{$yellow}; border-radius:2px; margin:4px 0 16px;'></div>
 

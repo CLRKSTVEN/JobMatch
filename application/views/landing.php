@@ -583,7 +583,7 @@
         <div>
           <div class="footer-heading">Support</div>
           <div class="footer-links">
-            <span>Email <a href="mailto:support@trabawho.ph">support@jobmatch.ph</a></span>
+            <span>Email <a href="mailto:support@jobmatch.ph">support@jobmatch.ph</a></span>
             <a href="<?= site_url('visibility'); ?>">Privacy notice</a>
             <a href="<?= site_url('complaints'); ?>">Submit a complaint</a>
           </div>
