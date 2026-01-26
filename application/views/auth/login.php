@@ -8,7 +8,7 @@
   <meta name="author" content="LEFT4CODE">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= base_url('assets/css/signup.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/auth.css') ?>">
   <title>JobMatch DavOr - Login</title>

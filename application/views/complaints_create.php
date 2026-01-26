@@ -10,7 +10,7 @@ $page_title = 'Report a Scam'; ?>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= base_url('assets/vendors/mdi/css/materialdesignicons.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/vendors/css/vendor.bundle.base.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') ?>">
@@ -66,7 +66,7 @@ $page_title = 'Report a Scam'; ?>
 
     .page-head .title {
       margin: 0;
-      font: 700 24px/1.2 Poppins, system-ui;
+      font: 700 24px/1.2 Inter, system-ui;
       color: var(--ink)
     }
 
@@ -93,7 +93,7 @@ $page_title = 'Report a Scam'; ?>
 
     .card-head h6 {
       margin: 0;
-      font: 800 13px/1 Poppins;
+      font: 800 13px/1 Inter;
       color: var(--ink);
       letter-spacing: .3px
     }

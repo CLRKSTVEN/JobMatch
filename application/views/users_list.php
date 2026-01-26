@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?= base_url('assets/vendors/mdi/css/materialdesignicons.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/vendors/css/vendor.bundle.base.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') ?>">
@@ -37,7 +37,7 @@
     }
 
     body {
-      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       color: var(--ink)
     }
 
@@ -275,7 +275,7 @@
       table.users tbody td[data-th]::before {
         content: attr(data-th);
         display: block;
-        font: 700 11px/1 Poppins, system-ui;
+        font: 700 11px/1 Inter, system-ui;
         color: #64748b;
         text-transform: uppercase;
         margin-bottom: 4px
@@ -346,7 +346,7 @@
       align-items: center;
       gap: 10px;
       margin: 0;
-      font: 700 1.1rem/1.2 Poppins, system-ui
+      font: 700 1.1rem/1.2 Inter, system-ui
     }
 
     .cam-badge {
@@ -523,7 +523,7 @@
       width: 100%;
       padding: .5rem .2rem;
       border-radius: 10px;
-      font: 500 .95rem/1.2 Poppins, system-ui;
+      font: 500 .95rem/1.2 Inter, system-ui;
     }
 
     .searchbar input::placeholder {

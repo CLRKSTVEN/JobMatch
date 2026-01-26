@@ -30,7 +30,7 @@
        </defs>
        <g transform="rotate(-30 800 400) skewX(-12)">
          <text x="60" y="520"
-               font-family="Poppins, Arial, sans-serif"
+               font-family="Inter, Arial, sans-serif"
                font-size="140"
                font-weight="900"
                letter-spacing="6"
