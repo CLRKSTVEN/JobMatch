@@ -614,7 +614,7 @@
 
   <script src="<?= base_url('assets/js/landing.js'); ?>"></script>
 
-  <?php $this->load->view('includes/footer', ['hide_footer_bar' => true]); ?>
+  <?php $this->load->view('includes_footer', ['hide_footer_bar' => true]); ?>
 </body>
 
 </html>

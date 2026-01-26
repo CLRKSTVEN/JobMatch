@@ -17,6 +17,6 @@ class Hotlines extends CI_Controller
         $data['page_title'] = 'Hotline Numbers';
         $data['rows'] = $this->Hotlines->by_audience_for_public($aud);
         $data['audience'] = $aud;
-        $this->load->view('hotlines/index', $data);
+        $this->load->view('hotlines_index', $data);
     }
 }

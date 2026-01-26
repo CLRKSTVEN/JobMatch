@@ -41,7 +41,7 @@ class Deactivate extends CI_Controller
             return redirect('auth/login?next='.rawurlencode(current_url()));
         }
         $data = ['page_title' => 'Account Controls'];
-        $this->load->view('account/deactivate', $data);
+        $this->load->view('account_deactivate', $data);
     }
 
     public function do_action()

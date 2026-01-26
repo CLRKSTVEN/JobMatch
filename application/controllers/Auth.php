@@ -104,7 +104,7 @@ class Auth extends CI_Controller
             $data['captcha_q'] = $cap['q'];
         }
 
-        $this->load->view('auth/signup', $data);
+        $this->load->view('auth_signup', $data);
     }
 
 
@@ -406,7 +406,7 @@ class Auth extends CI_Controller
         }
         $data['error'] = $this->session->flashdata('error');
         $data['info']  = $this->session->flashdata('info');
-        $this->load->view('auth/login', $data);
+        $this->load->view('auth_login', $data);
     }
 
 

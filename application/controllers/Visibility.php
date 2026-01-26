@@ -34,7 +34,7 @@ class Visibility extends CI_Controller
             'page_title' => 'Privacy / Visibility',
             'me'         => $u
         ];
-        $this->load->view('privacy/index', $data);
+        $this->load->view('privacy_index', $data);
     }
 
     // POST: visibility=public|private

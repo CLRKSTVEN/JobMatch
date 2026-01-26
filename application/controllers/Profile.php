@@ -138,7 +138,7 @@ if (!$this->session->userdata('logged_in')) {
             ->get()
             ->result_array();
 
-        $this->load->view('profile/edit', $data);
+        $this->load->view('profile_edit', $data);
     }
 
     public function update()
@@ -420,7 +420,7 @@ $p->bio      = $this->input->post('bio', true)      ?? ($p->bio ?? '');
                 $data['skill_rates']  = $this->skills_model->get_worker_skill_rates($workerKey);
 
                 $this->session->set_flashdata('error', validation_errors('', ''));
-                return $this->load->view('profile/edit', $data); // <- re-render, no redirect
+                return $this->load->view('profile_edit', $data); // <- re-render, no redirect
             }
             $skillsRaw = (string) $this->input->post('skills', true);
             $skillsArr = array_filter(array_map(function ($s) {
@@ -479,7 +479,7 @@ $p->bio      = $this->input->post('bio', true)      ?? ($p->bio ?? '');
                 $data['skill_rates'] = $this->skills_model->get_worker_skill_rates($workerKey);
 
                 $this->session->set_flashdata('error', 'End time must be later than start time.');
-                return $this->load->view('profile/edit', $data); // no redirect
+                return $this->load->view('profile_edit', $data); // no redirect
             }
             $newCerts = [];
             if (!empty($_FILES['cert_files']['name'][0])) {

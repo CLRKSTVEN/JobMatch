@@ -542,7 +542,7 @@
     $currentNCsJson = json_encode($currentNCs, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
     ?>
 
-    <?php $this->load->view('partials/translate_banner'); ?>
+    <?php $this->load->view('partials_translate_banner'); ?>
 
     <div id="toaster" aria-live="polite"></div>
 

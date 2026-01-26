@@ -33,7 +33,7 @@ class Client extends CI_Controller
         $uid = (int)$this->session->userdata('user_id');
         $data['page_title'] = 'Edit Client Profile';
         $data['profile']    = $this->cp->get($uid);
-        $this->load->view('client/edit', $data);
+        $this->load->view('client_edit', $data);
     }
 
     public function update()
@@ -577,7 +577,7 @@ class Client extends CI_Controller
             'payments'     => $this->pay->list_for_client($uid, 50, 0),
             'spend_total'  => $this->pay->sum_for_client($uid),
         ];
-        $this->load->view('client/payments', $data);
+        $this->load->view('payments_client', $data);
     }
     public function delete_doc()
     {

@@ -111,7 +111,7 @@ class AdminWorkers extends CI_Controller
 
         $preview = $this->WorkerImport_model->build_preview($rows);
 
-        $this->load->view('workers_bulk_upload_preview', [
+        $this->load->view('admin_workers_bulk_upload_preview', [
             'page_title' => 'Preview Skilled Workers',
             'file'       => $file['file_name'],
             'rows'       => $preview['rows'],
@@ -146,7 +146,7 @@ class AdminWorkers extends CI_Controller
         $role  = strtolower((string)$this->session->userdata('role'));
         $route_base = $isTesdaPath || $role === 'tesda_admin' ? 'tesda' : 'admin';
 
-        $this->load->view('workers_bulk_upload_result', [
+        $this->load->view('admin_workers_bulk_upload_result', [
             'page_title' => 'Import Result',
             'result'     => $result,
             'route_base' => $route_base

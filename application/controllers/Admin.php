@@ -21,7 +21,7 @@ class Admin extends CI_Controller
     public function pending_users()
     {
         $data['users'] = $this->user->get_pending_users();
-        $this->load->view('admin/pending_users', $data);
+        $this->load->view('admin_pending_users', $data);
     }
 
     public function approve($id)
@@ -150,7 +150,7 @@ public function change_password()
     $data = [
         'page_title' => 'Change Password',
     ];
-    $this->load->view('admin/change_password', $data);
+    $this->load->view('admin_change_password', $data);
 }
 
 }

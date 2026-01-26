@@ -154,9 +154,9 @@ $count = is_array($skills) ? count($skills) : 0;
 
 <body>
   <div class="container-scroller">
-    <?php $this->load->view('includes/nav'); ?>
+    <?php $this->load->view('includes_nav'); ?>
     <div class="container-fluid page-body-wrapper">
-      <?php $this->load->view('includes/nav-top'); ?>
+      <?php $this->load->view('includes_nav_top'); ?>
 
       <div class="main-panel">
         <div class="content-wrapper pb-0">
@@ -226,7 +226,7 @@ $count = is_array($skills) ? count($skills) : 0;
           </div>
         </div>
 
-        <?php $this->load->view('includes/footer'); ?>
+        <?php $this->load->view('includes_footer'); ?>
       </div>
     </div>
   </div>

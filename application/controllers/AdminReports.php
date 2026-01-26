@@ -30,12 +30,12 @@ public function index() {
   if ($data['printMode']) {
     // include names for print
     $data['jobApplicants'] = $this->R->applicantsByJobForPrint();
-    $this->load->view('admin/reports_dashboard_print_min', $data);
+    $this->load->view('admin_reports_dashboard_print_min', $data);
     return; // IMPORTANT: prevent the normal view from loading
   }
 
   $data['page_title'] = 'Admin Reports — Jobs & Projects';
-  $this->load->view('admin/reports_dashboard', $data);
+  $this->load->view('admin_reports_dashboard', $data);
 }
 
 
@@ -53,11 +53,11 @@ public function index() {
   $data['printMode'] = (bool)$this->input->get('print');
   if ($data['printMode']) {
     $data['projectApplicants'] = $this->R->applicantsByClientProjectForPrint($clientID);
-    $this->load->view('admin/reports_client_projects_print_min', $data);
+    $this->load->view('admin_reports_client_projects_print_min', $data);
     return; // IMPORTANT
   }
 
-  $this->load->view('admin/reports_client_projects', $data);
+  $this->load->view('admin_reports_client_projects', $data);
 }
 
 }

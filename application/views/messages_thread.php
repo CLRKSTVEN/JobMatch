@@ -389,15 +389,15 @@
 
 <body>
   <div class="container-scroller">
-    <?php $this->load->view('includes/nav'); ?>
+    <?php $this->load->view('includes_nav'); ?>
     <div class="container-fluid page-body-wrapper">
-      <?php $this->load->view('includes/nav-top'); ?>
+      <?php $this->load->view('includes_nav_top'); ?>
       <div class="main-panel">
         <div class="content-wrapper pb-0">
           <div class="app">
 
             <div class="mb-3">
-              <div class="eyebrow"><strong>TrabaTalk</strong> - Start Conversation</div>
+              <div class="eyebrow"><strong>JobMatch-Thread</strong> - Start Conversation</div>
             </div>
 
             <div class="chat-wrap"
@@ -441,7 +441,7 @@
 
           </div>
         </div>
-        <?php $this->load->view('includes/footer'); ?>
+        <?php $this->load->view('includes_footer'); ?>
       </div>
     </div>
   </div>

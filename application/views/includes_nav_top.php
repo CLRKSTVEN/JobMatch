@@ -1,5 +1,5 @@
 ﻿<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<?php $this->load->view('partials/translate_banner'); ?>
+<?php $this->load->view('partials_translate_banner'); ?>
 
 <?php
 $CI = &get_instance();

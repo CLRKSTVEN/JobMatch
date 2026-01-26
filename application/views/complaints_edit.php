@@ -177,12 +177,12 @@ $page_title = 'Edit Report'; ?>
 </head>
 
 <body>
-  <?php $this->load->view('partials/translate_banner'); ?>
+  <?php $this->load->view('partials_translate_banner'); ?>
 
   <div class="container-scroller">
-    <?php $this->load->view('includes/nav'); ?>
+    <?php $this->load->view('includes_nav'); ?>
     <div class="container-fluid page-body-wrapper">
-      <?php $this->load->view('includes/nav-top'); ?>
+      <?php $this->load->view('includes_nav_top'); ?>
       <div class="main-panel">
         <div class="content-wrapper pb-0">
           <div class="app">
@@ -333,7 +333,7 @@ $page_title = 'Edit Report'; ?>
             </section>
 
             <div class="page-spacer"></div>
-            <?php $this->load->view('includes/footer'); ?>
+            <?php $this->load->view('includes_footer'); ?>
           </div>
         </div>
       </div>

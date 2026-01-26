@@ -99,7 +99,7 @@
 </head>
 
 <body class="bg-gray-50" data-api-address="<?= site_url('address/api') ?>">
-  <?php $this->load->view('partials/translate_banner'); ?>
+  <?php $this->load->view('partials_translate_banner'); ?>
 
   <?php
   $p = $profile ?? null;

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><?= htmlspecialchars($page_title ?? 'Privacy / Visibility', ENT_QUOTES, 'UTF-8') ?> - JobMatch</title>
+  <title><?= htmlspecialchars($page_title ?? 'Account Controls', ENT_QUOTES, 'UTF-8') ?> - JobMatch</title>
 
   <!-- match global assets from your design -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -132,30 +132,6 @@
       font-size: 12.5px
     }
 
-    .pill {
-      display: inline-flex;
-      gap: .5rem;
-      align-items: center;
-      padding: .35rem .7rem;
-      border-radius: 9999px;
-      border: 1px solid var(--silver-300);
-      background: #fff;
-      font-weight: 700;
-      font-size: 12px
-    }
-
-    .pill--warn {
-      background: #fffbeb;
-      border-color: #fde68a;
-      color: #b45309
-    }
-
-    .divider {
-      height: 1px;
-      background: var(--silver-200);
-      margin: 10px 0
-    }
-
     .btn-brand {
       display: inline-flex;
       align-items: center;
@@ -165,7 +141,7 @@
       border: 1px solid var(--blue-600);
       background: #f5f8ff;
       font-weight: 700;
-      color: #1e3a8a;
+      color: var(--blue-900);
       text-decoration: none;
       transition: all .25s ease;
     }
@@ -176,95 +152,102 @@
       color: #111;
       transform: translateY(-1px);
     }
+
+    .divider {
+      height: 1px;
+      background: var(--silver-200);
+      margin: 10px 0
+    }
+
+    .confirm-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .confirm-row code {
+      font-weight: 800
+    }
   </style>
 </head>
 
 <body>
-  <?php $this->load->view('partials/translate_banner'); ?>
+  <?php $this->load->view('partials_translate_banner'); ?>
 
   <div class="container-scroller">
-    <?php $this->load->view('includes/nav'); ?>
+    <?php $this->load->view('includes_nav'); ?>
     <div class="container-fluid page-body-wrapper">
-      <?php $this->load->view('includes/nav-top'); ?>
+      <?php $this->load->view('includes_nav_top'); ?>
       <div class="main-panel">
         <div class="content-wrapper pb-0">
           <div class="app">
 
-            <div class="eyebrow"><?= htmlspecialchars($page_title ?? 'Privacy / Visibility', ENT_QUOTES, 'UTF-8') ?></div>
+            <div class="eyebrow"><?= htmlspecialchars($page_title ?? 'Account Controls', ENT_QUOTES, 'UTF-8') ?></div>
 
-            <!-- Header -->
+            <!-- Header panel -->
             <section class="panel" style="margin-bottom:12px">
               <div class="panel-head">
-                <i class="mdi mdi-eye-settings-outline"></i>
-                <h6>Control how others see your profile</h6>
+                <i class="mdi mdi-shield-account-outline"></i>
+                <h6>Manage account visibility & lifecycle</h6>
               </div>
               <div class="muted">
-                Switch to <b>Private</b> to hide your profile from search, listings, and suggestions — without disabling your login.
-                Existing chats and jobs remain usable.
+                Hide your profile from search and disable login. Reactivation can only be done by an administrator.
               </div>
 
-              <?php $vis = strtolower((string)($me->visibility ?? 'public')); ?>
-              <div class="mt-2">
-                <span class="pill">
-                  <i class="mdi <?= $vis === 'private' ? 'mdi-eye-off-outline' : 'mdi-eye-outline' ?>"></i>
-                  Current: <?= $vis === 'private' ? 'Private' : 'Public' ?>
-                </span>
-                <?php if ((int)($me->is_active ?? 1) !== 1): ?>
-                  <span class="pill pill--warn" style="margin-left:.5rem">
-                    <i class="mdi mdi-alert-outline"></i> Inactive
-                  </span>
-                <?php endif; ?>
-              </div>
             </section>
 
             <!-- Actions -->
             <div class="grid-2">
               <section class="panel">
                 <div class="cta">
-                  <h5><i class="mdi mdi-eye-outline"></i> Public</h5>
-                  <p class="muted mb-2">Your profile appears in search results, listings, and suggestions.</p>
-                  <button id="btnPublic" class="btn btn-sm btn-primary">
-                    <i class="mdi mdi-check-circle-outline"></i> Set Public
+                  <h5><i class="mdi mdi-eye-off-outline"></i> Deactivate (Hide & Disable)</h5>
+                  <p class="muted mb-2">
+                    Sets your account to <strong>deactivated</strong>: hidden from search and sign-in is disabled.
+                    You can re-activate later.
+                  </p>
+                  <button id="btnDeactivate" class="btn btn-outline-warning btn-sm">
+                    <i class="mdi mdi-account-off-outline"></i> Deactivate my account
                   </button>
                 </div>
+
                 <div class="divider"></div>
-                <div class="muted" style="font-size:12px">
-                  Tip: staying public increases your chances of being discovered by clients.
-                </div>
+
               </section>
 
               <section class="panel">
                 <div class="cta">
-                  <h5><i class="mdi mdi-eye-off-outline"></i> Private</h5>
-                  <p class="muted mb-2">
-                    Hide your profile from discovery. You can still log in, message existing threads, and work on active jobs.
+                  <h5><i class="mdi mdi-delete-alert-outline"></i> Delete Account</h5>
+                  <p class="muted">
+                    Marks your account as <strong>deleted</strong>, hides it, and anonymizes personal data.
+                    Your messages/transactions remain for integrity. This action signs you out.
                   </p>
-                  <button id="btnPrivate" class="btn btn-sm btn-outline-secondary">
-                    <i class="mdi mdi-eye-off-outline"></i> Set Private
+                  <div class="confirm-row mb-2">
+                    <span>Type <code>DELETE</code> to confirm:</span>
+                    <input id="delConfirm" type="text" class="form-control form-control-sm" style="max-width:240px">
+                  </div>
+                  <button id="btnDelete" class="btn btn-danger btn-sm">
+                    <i class="mdi mdi-trash-can-outline"></i> Delete my account
                   </button>
-                </div>
-                <div class="divider"></div>
-                <div class="muted" style="font-size:12px">
-                  You can switch back to <b>Public</b> anytime.
                 </div>
               </section>
             </div>
 
-            <!-- Help -->
+            <!-- Help / guidance -->
             <section class="panel" style="margin-top:12px">
               <div class="panel-head">
                 <i class="mdi mdi-help-circle-outline"></i>
-                <h6>How visibility works</h6>
+                <h6>What happens next?</h6>
               </div>
               <ul class="muted mb-0" style="padding-left:18px">
-                <li><b>Public</b>: visible in search, browse cards, and suggestions.</li>
-                <li><b>Private</b>: hidden across discovery; only existing counterparties can see you in current threads/jobs.</li>
-                <li>Visibility does not affect your ability to log in (that's controlled by activation).</li>
+                <li>Deactivate will immediately sign you out and hide your profile. Reactivation restores access.</li>
+                <li>Delete performs a soft delete (keeps job records for integrity; anonymizes personal identifiers).</li>
+                <li>If you need a full export before deletion, contact support.</li>
               </ul>
             </section>
 
           </div>
-          <?php $this->load->view('includes/footer'); ?>
+          <?php $this->load->view('includes_footer'); ?>
         </div>
       </div>
     </div>
@@ -276,32 +259,51 @@
         name: '<?= $this->security->get_csrf_token_name(); ?>',
         hash: '<?= $this->security->get_csrf_hash(); ?>'
       };
-      async function setVis(v) {
-        try {
-          const fd = new FormData();
-          fd.append('visibility', v);
-          fd.append(csrf.name, csrf.hash);
-          const res = await fetch('<?= site_url('visibility/set') ?>', {
-            method: 'POST',
-            body: fd,
-            credentials: 'same-origin',
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest'
-            }
-          });
-          const j = await res.json();
-          alert(j.message || (j.ok ? 'Updated' : 'Failed'));
-          if (j.ok) location.reload();
-        } catch (e) {
-          alert('Failed');
-        }
+
+      function post(action, extra) {
+        const fd = new FormData();
+        fd.append('action', action);
+        fd.append(csrf.name, csrf.hash);
+        if (extra) Object.entries(extra).forEach(([k, v]) => fd.append(k, v));
+
+        return fetch('<?= site_url('deactivate/do_action') ?>', {
+          method: 'POST',
+          credentials: 'same-origin',
+          body: fd
+        }).then(r => r.json());
       }
-      document.getElementById('btnPublic')?.addEventListener('click', () => setVis('public'));
-      document.getElementById('btnPrivate')?.addEventListener('click', () => setVis('private'));
+
+      const $dec = document.getElementById('btnDeactivate');
+      const $rea = document.getElementById('btnReactivate');
+      const $del = document.getElementById('btnDelete');
+
+      $dec && $dec.addEventListener('click', function() {
+        if (!confirm('Deactivate your account now? You will be signed out.')) return;
+        post('deactivate').then(res => {
+          alert(res.message || 'Done');
+          if (res.ok) location.href = '<?= site_url('auth/login') ?>';
+        }).catch(() => alert('Failed'));
+      });
+
+
+      $del && $del.addEventListener('click', function() {
+        const v = (document.getElementById('delConfirm').value || '').trim();
+        if (v !== 'DELETE') {
+          alert('Please type DELETE to confirm.');
+          return;
+        }
+        if (!confirm('This will hide and anonymize your account. Continue?')) return;
+        post('delete', {
+          confirm: 'DELETE'
+        }).then(res => {
+          alert(res.message || 'Done');
+          if (res.ok) location.href = '<?= site_url('auth/login') ?>';
+        }).catch(() => alert('Failed'));
+      });
     })();
   </script>
 
-  <!-- keep vendor shell behavior -->
+  <!-- keep your vendor shell behavior -->
   <script src="<?= base_url('assets/vendors/js/vendor.bundle.base.js') ?>"></script>
   <script src="<?= base_url('assets/js/off-canvas.js') ?>"></script>
   <script src="<?= base_url('assets/js/hoverable-collapse.js') ?>"></script>

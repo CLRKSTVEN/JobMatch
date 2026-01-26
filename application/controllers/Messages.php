@@ -424,7 +424,7 @@ class Messages extends CI_Controller
         $data['invite']        = $invite;
         $data['invite_status'] = $invite_status;
 
-        $this->load->view('messages/thread', $data);
+        $this->load->view('messages_thread', $data);
     }
 
     public function api_invite_action()

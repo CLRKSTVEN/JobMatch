@@ -242,7 +242,7 @@ class Users extends CI_Controller
 
         $loginUrl = base_url('login');
 
-        $message = $this->load->view('emails/new_admin_credentials', [
+        $message = $this->load->view('emails_new_admin_credentials', [
             'fullname'      => $fullname,
             'username'      => $username,
             'plainPassword' => $plainPassword,

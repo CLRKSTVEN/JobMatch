@@ -14,7 +14,7 @@ class AdminHotlines extends CI_Controller
     public function index(){
         $data['page_title'] = 'Hotline Numbers';
         $data['rows'] = $this->Hotlines->all(false);
-        $this->load->view('admin/hotlines/index', $data);
+        $this->load->view('admin_hotlines_index', $data);
     }
 
     public function create(){
@@ -33,7 +33,7 @@ class AdminHotlines extends CI_Controller
         }
         $data['page_title'] = 'Add Hotline';
         $data['form'] = $form;
-        $this->load->view('admin/hotlines/form', $data);
+        $this->load->view('admin_hotlines_form', $data);
     }
 
     public function edit($id = null){
@@ -56,7 +56,7 @@ class AdminHotlines extends CI_Controller
         $data['page_title'] = 'Edit Hotline';
         $data['form'] = $form;
         $data['id'] = $id;
-        $this->load->view('admin/hotlines/form', $data);
+        $this->load->view('admin_hotlines_form', $data);
     }
 
     public function delete($id = null){
